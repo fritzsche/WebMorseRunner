@@ -60,7 +60,7 @@ export class Contest {
     _getSrcBlock() {
         let ReIm = this._complex_noise()
         let blk = this._MyStation.GetBlock()
-        const call_amp = 0.01
+        const call_amp = 0.59
         if (blk && blk !== null) {
 
             for (let n = 0; n < blk.length; n++) {
