@@ -51,8 +51,8 @@ export class Contest {
             Im: []
         }
         for (let i = 0; i < buffer_size; i++) {
-            result.Re.push(3 * noise_amp * (Math.random() - 0.5))
-            result.Im.push(3 * noise_amp * (Math.random() - 0.5))
+            result.Re.push(0)
+            result.Im.push(0)
         }
         return result
     }
