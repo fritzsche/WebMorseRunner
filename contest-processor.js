@@ -8,7 +8,8 @@ class ContestWorkletProcessor extends AudioWorkletProcessor {
     this._contest = new Contest(sampleRate)
     this._block = new Float32Array(128)
     this._max = 0
-    this._min = 0    
+    this._min = 0   
+    this.phase = 0 
   }
 
   process(inputs, outputs, parameters) {
@@ -29,6 +30,12 @@ class ContestWorkletProcessor extends AudioWorkletProcessor {
           this._min = this._block[i]
           console.log(this._min)
         }        
+
+
+        //outputChannel[i] = Math.sin(this.phase);
+        //this.phase += 0.1;
+
+
       }
     }
 
