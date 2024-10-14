@@ -32,8 +32,8 @@ class ContestWorkletProcessor extends AudioWorkletProcessor {
         }        
 
 
-        //outputChannel[i] = Math.sin(this.phase);
-        //this.phase += 0.1;
+   //     outputChannel[i] = Math.sin(this.phase);
+   //     this.phase += 0.1;
 
 
       }

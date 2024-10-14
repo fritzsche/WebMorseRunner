@@ -60,11 +60,12 @@ export class Contest {
     _getSrcBlock() {
         let ReIm = this._complex_noise()
         let blk = this._MyStation.GetBlock()
+        const call_amp = 0.01
         if (blk && blk !== null) {
 
             for (let n = 0; n < blk.length; n++) {
-                ReIm.Im[n] = 0.59 * blk[n]
-                ReIm.Re[n] = 0.59 * blk[n]
+                ReIm.Im[n] = call_amp * blk[n]
+                ReIm.Re[n] = call_amp * blk[n]
             }
         }
         this._Filter2.Filter(ReIm)
