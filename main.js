@@ -126,10 +126,10 @@ window.onload = () => {
         Filt.samplesInInput = DEFAULTBUFSIZE
         Filt.gainDb = 10 * Math.log10(500 / BANDWIDTH)
 
-        Filt2.passes = DEFAULTPASSES
+/*        Filt2.passes = DEFAULTPASSES
         Filt2.samplesInInput = DEFAULTBUFSIZE
         Filt2.gainDb = 10 * Math.log10(500 / BANDWIDTH)
-
+*/
 
         let Agc = new Volume()
         Agc.NoiseInDb = 76
@@ -159,7 +159,7 @@ window.onload = () => {
 
         let ReIm = complex_noise()
         let buffer_pos = 0
-        Filt2.Filter(ReIm)
+      //  Filt2.Filter(ReIm)
         ReIm = Filt.Filter(ReIm)
         
         let result = Modul.Modulate(ReIm)
