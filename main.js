@@ -158,9 +158,9 @@ window.onload = () => {
         const source = ctx.createBufferSource();
 
         let ReIm = complex_noise()
-        let buffer_pos = 0
+        let buffer_pos = DEFAULTBUFSIZE
       //  Filt2.Filter(ReIm)
-        ReIm = Filt.Filter(ReIm)
+  //      ReIm = Filt.Filter(ReIm)
         
         let result = Modul.Modulate(ReIm)
  //       result = Agc.Process(result)
@@ -181,7 +181,7 @@ window.onload = () => {
                         }
                     }
                     buffer_pos = 0
-                    Filt2.Filter(ReIm)
+//                    Filt2.Filter(ReIm)
                     ReIm = Filt.Filter(ReIm)
                     result = Modul.Modulate(ReIm)
                     result = Agc.Process(result)
