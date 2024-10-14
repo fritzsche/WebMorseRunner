@@ -7,16 +7,28 @@ class ContestWorkletProcessor extends AudioWorkletProcessor {
     super();
     this._contest = new Contest(sampleRate)
     this._block = new Float32Array(128)
+    this._max = 0
+    this._min = 0    
   }
 
   process(inputs, outputs, parameters) {
     const output = outputs[0]
     this._contest.getBlock(this._block)
 
+    
+
     for (let channel = 0; channel < output.length; ++channel) {
       const outputChannel = output[channel];
       for (let i = 0; i < outputChannel.length; ++i) {
-        outputChannel[i] = this._block[i];
+        outputChannel[i] = this._block[i]
+        if (this._block[i] > this._max) {
+          this._max = this._block[i]
+          console.log(this._max)
+        }
+        if (this._block[i] < this._min) {
+          this._min = this._block[i]
+          console.log(this._min)
+        }        
       }
     }
 
