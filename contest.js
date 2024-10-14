@@ -16,10 +16,10 @@ export class Contest {
         this._Filter1.samplesInInput = DEFAULT.BUFSIZE
         this._Filter1.gainDb = 10 * Math.log10(500 / DEFAULT.BANDWIDTH)
 
-        this._Filter2.passes = DEFAULT.PASSES
+      /*  this._Filter2.passes = DEFAULT.PASSES
         this._Filter2.samplesInInput = DEFAULT.BUFSIZE
         this._Filter2.gainDb = 10 * Math.log10(500 / DEFAULT.BANDWIDTH)
-
+*/
         // setup automatic gain control
         this._Agc = new Volume()
         this._Agc.NoiseInDb = 76
@@ -68,7 +68,7 @@ export class Contest {
                 ReIm.Re[n] = call_amp * blk[n]
             }
         }
-        this._Filter2.Filter(ReIm)
+      //  this._Filter2.Filter(ReIm)
         ReIm = this._Filter1.Filter(ReIm)
         let result = this._Modul.Modulate(ReIm)
         result = this._Agc.Process(result)
