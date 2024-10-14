@@ -101,8 +101,8 @@ const complex_noise = () => {
         Im: []
     }
     for (let i = 0; i < buffer_size; i++) {
-        result.Re.push(3 * noiseamp * (Math.random() - 0.5))
-        result.Im.push(3 * noiseamp * (Math.random() - 0.5))
+        result.Re.push(0)
+        result.Im.push(0)
     }
     return result
 }
@@ -162,7 +162,8 @@ window.onload = () => {
       //  Filt2.Filter(ReIm)
   //      ReIm = Filt.Filter(ReIm)
         
-        let result = Modul.Modulate(ReIm)
+  //      let result = Modul.Modulate(ReIm)
+         let result = new Array()
  //       result = Agc.Process(result)
         for (let channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
             // This gives us the actual ArrayBuffer that contains the data
