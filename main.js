@@ -8,6 +8,7 @@ import { Keyer } from "./keyer.js"
 import { Modulator }  from "./modulator.js"
 import { Volume }  from "./volume.js"
 import { MovAvg }  from "./movavg.js"
+import { Contest } from "./js/contest.js"
 
 let GKeyer = new Keyer()
 
@@ -93,6 +94,9 @@ class Station {
     }
 }
 
+import { DEFAULT } from "./js/defaults.js"
+
+
 const complex_noise = () => {
     const buffer_size = 512
     const noiseamp = 6000
@@ -108,6 +112,7 @@ const complex_noise = () => {
 }
 
 
+
 window.onload = () => {
     const button = document.getElementById("start")
     console.log("main")
@@ -115,6 +120,10 @@ window.onload = () => {
 
     button.onclick = async () => {
         console.log("Start")
+        
+
+
+
 
 
         let Filt = new MovAvg()
@@ -148,13 +157,17 @@ window.onload = () => {
 
         let ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 0 })
 
-        const sampleRate = 11025 // samples per second 
+        const sampleRate = DEFAULT.RATE //ctx.sampleRate // 11025 // samples per second 
         const numberOfSeconds = 15
         const myArrayBuffer = ctx.createBuffer(
             1,
             sampleRate * numberOfSeconds,
             sampleRate
         );
+
+
+        let MyContest = new Contest( sampleRate )
+
         const source = ctx.createBufferSource();
 
         let ReIm = complex_noise()
@@ -168,6 +181,9 @@ window.onload = () => {
         for (let channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
             // This gives us the actual ArrayBuffer that contains the data
             const nowBuffering = myArrayBuffer.getChannelData(channel);
+            if( 1 === 1) {
+               MyContest.getBlock(nowBuffering )
+            } else
             for (let i = 0; i < myArrayBuffer.length; i++) {
 
                 if (buffer_pos === DEFAULTBUFSIZE) {
