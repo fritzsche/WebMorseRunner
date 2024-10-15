@@ -125,7 +125,7 @@ window.onload = () => {
         let Filt = new MovAvg()
         let Filt2 = new MovAvg()
         const audioCtx = new AudioContext();
-        console.log("Samples per second ", audioCtx.sampleRate)
+    //    console.log("Samples per second ", audioCtx.sampleRate)
         Filt.points = Math.round(0.7 * DEFAULTRATE / BANDWIDTH)
         Filt.passes = DEFAULTPASSES
         Filt.samplesInInput = DEFAULTBUFSIZE
@@ -151,8 +151,9 @@ window.onload = () => {
         Modul.samplesPerSec = DEFAULTRATE;
         Modul.carrierFreq = PITCH
 
-        let ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 0 })
-        //DEFAULT.RATE = ctx.sampleRate         
+        let ctx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: DEFAULT.RATE })
+        //DEFAULT.RATE = ctx.sampleRate    
+        console.log("My Sample Rate: ",ctx.sampleRate)     
         const sampleRate =  ctx.sampleRate// DEFAULT.RATE//ctx.sampleRate//  DEFAULT.RATE //ctx.sampleRate // 11025 // samples per second 
         const numberOfSeconds = 15
         const myArrayBuffer = ctx.createBuffer(
