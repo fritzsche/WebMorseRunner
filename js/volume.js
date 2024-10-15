@@ -1,11 +1,13 @@
+import { DEFAULT } from "./defaults.js"
+
 class Volume {
     constructor() {
         this._FMaxOut = 20000
         this._FNoiseIn = 1
         this._FNoiseOut = 2000
         this._CalcBeta()
-        this._FAttackSamples = 28
-        this._FHoldSamples = 28
+        this._FAttackSamples = Math.round(DEFAULT.RATE * 0.005)
+        this._FHoldSamples = this._FAttackSamples
         this._MakeAttackShape()
     }
 
@@ -62,13 +64,13 @@ class Volume {
     }
 
     _Reset() {
-        this._FRealBuf = new Float64Array(this._FLen)
+        this._FRealBuf = new Float32Array(this._FLen)
         // TODO: Check if / how we can/should clear out ComplexBuffer?
         /*
           ClearReIm(FComplexBuf);
           SetLengthReIm(FComplexBuf, FLen);     
         */
-        this._FMagBuf = new Float64Array(this._FLen);
+        this._FMagBuf = new Float32Array(this._FLen);
    //     console.log("init:", this._FMagBuf)
         this._FBufIdx = 0
     }
@@ -111,7 +113,7 @@ class Volume {
     _ApplyDefaultGain(V) {
 
         let result = Math.min(this._FMaxOut, Math.max(-this._FMaxOut, V * this._FDefaultGain))
-        this._FIsOverload = this._FIsOverload || (Math.abs(result) = this._FMaxOut)
+        this._FIsOverload = this._FIsOverload || (Math.abs(result) === this._FMaxOut)
         return result
     }
 

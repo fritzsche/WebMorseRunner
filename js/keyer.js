@@ -1,3 +1,4 @@
+import { DEFAULT } from "./defaults.js"
 
 const MorseMap = new Map([
     ['<ka>', '-.-.-'], // Message begins / Start of work 
@@ -52,13 +53,17 @@ const MorseMap = new Map([
 
 class Keyer {
     constructor() {
-        this.Rate = 11025
+        this.Rate = DEFAULT.RATE//11025
         this.RiseTime = 0.005
         this.FRiseTime = 0.005
         this.Wpm = 20
         this.BufSize = 512
         this.MorseMsg = this.Encode('DJ1TF')
         this._MakeRamp()
+    }
+
+    set rate(rate) {
+        this.Rate = rate
     }
 
     set riseTime(Value) {

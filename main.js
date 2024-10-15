@@ -120,11 +120,7 @@ window.onload = () => {
 
     button.onclick = async () => {
         console.log("Start")
-        
-
-
-
-
+    
 
         let Filt = new MovAvg()
         let Filt2 = new MovAvg()
@@ -156,8 +152,8 @@ window.onload = () => {
         Modul.carrierFreq = PITCH
 
         let ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 0 })
-
-        const sampleRate = ctx.sampleRate//  DEFAULT.RATE //ctx.sampleRate // 11025 // samples per second 
+        //DEFAULT.RATE = ctx.sampleRate         
+        const sampleRate =  ctx.sampleRate// DEFAULT.RATE//ctx.sampleRate//  DEFAULT.RATE //ctx.sampleRate // 11025 // samples per second 
         const numberOfSeconds = 15
         const myArrayBuffer = ctx.createBuffer(
             1,

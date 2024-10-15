@@ -111,7 +111,7 @@ class Volume {
     _ApplyDefaultGain(V) {
 
         let result = Math.min(this._FMaxOut, Math.max(-this._FMaxOut, V * this._FDefaultGain))
-        this._FIsOverload = this._FIsOverload || (Math.abs(result) = this._FMaxOut)
+        this._FIsOverload = this._FIsOverload || (Math.abs(result) === this._FMaxOut)
         return result
     }
 

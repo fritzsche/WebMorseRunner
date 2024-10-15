@@ -10,13 +10,13 @@ export class Station {
     static stCopying = 2
     static stPreparingToSend = 3
     static stSending = 4
-    //    static NEVER = Number.MAX_VALUE
 
     constructor() {
         this._FBfo = 0
         this._dPhi = 0
         this.Wpm = 20
         this.Amplitude = 300000
+        GKeyer.rate = DEFAULT.RATE
     }
 
     _GetBfo() {
