@@ -157,7 +157,7 @@ window.onload = () => {
 
         let ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 0 })
 
-        const sampleRate = DEFAULT.RATE //ctx.sampleRate // 11025 // samples per second 
+        const sampleRate = ctx.sampleRate//  DEFAULT.RATE //ctx.sampleRate // 11025 // samples per second 
         const numberOfSeconds = 15
         const myArrayBuffer = ctx.createBuffer(
             1,
