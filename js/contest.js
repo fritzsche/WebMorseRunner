@@ -29,7 +29,7 @@ export class Contest {
         this._Agc.AgcEnabled = true
         // setup Modulator
         this._Modul = new Modulator()
-        this._Modul.samplesPerSec = DEFAULT.RATE;
+        this._Modul.samplesPerSec = DEFAULT.RATE
         this._Modul.carrierFreq = DEFAULT.PITCH
 
         this._deltaRate = DEFAULT.RATE / this._targetRate

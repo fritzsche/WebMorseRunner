@@ -1,8 +1,9 @@
+import { DEFAULT } from "./defaults.js"
 
 class Modulator {
     constructor() {
-        this.FCarrierFreq = 600
-        this.FSamplesPerSec = 5512
+        this.FCarrierFreq = DEFAULT.PITCH
+        this.FSamplesPerSec = DEFAULT.RATE
         this.FGain = 1
         this._CalcSinCos()
         this.FSampleNo = 0
@@ -25,8 +26,8 @@ class Modulator {
         this.FCarrierFreq = this.FSamplesPerSec / Cnt
         let dFi = (Math.PI * 2) / Cnt
 
-        this._Sn = new Float64Array(Cnt) 
-        this._Cs = new Float64Array(Cnt) 
+        this._Sn = new Float32Array(Cnt) 
+        this._Cs = new Float32Array(Cnt) 
 
         this._Sn[0] = 0; this._Sn[1] = Math.sin(dFi)
         this._Cs[0] = 1; this._Cs[1] = Math.cos(dFi)
