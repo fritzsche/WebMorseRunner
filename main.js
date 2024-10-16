@@ -122,34 +122,7 @@ window.onload = () => {
         console.log("Start")
     
 
-        let Filt = new MovAvg()
-        let Filt2 = new MovAvg()
-        const audioCtx = new AudioContext();
-    //    console.log("Samples per second ", audioCtx.sampleRate)
-        Filt.points = Math.round(0.7 * DEFAULTRATE / BANDWIDTH)
-        Filt.passes = DEFAULTPASSES
-        Filt.samplesInInput = DEFAULTBUFSIZE
-        Filt.gainDb = 10 * Math.log10(500 / BANDWIDTH)
 
-/*        Filt2.passes = DEFAULTPASSES
-        Filt2.samplesInInput = DEFAULTBUFSIZE
-        Filt2.gainDb = 10 * Math.log10(500 / BANDWIDTH)
-*/
-
-        let Agc = new Volume()
-        Agc.NoiseInDb = 76
-        Agc.NoiseOutDb = 76
-        Agc.AttackSamples = 155   // AGC attack 5 ms
-        Agc.HoldSamples = 155
-        Agc.AgcEnabled = true
-
-
-        let MyStation = new Station()
-        MyStation.SendText("DJ1TF")
-
-        let Modul = new Modulator()
-        Modul.samplesPerSec = DEFAULTRATE;
-        Modul.carrierFreq = PITCH
 
         let ctx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: DEFAULT.RATE })
         //DEFAULT.RATE = ctx.sampleRate    
@@ -167,14 +140,6 @@ window.onload = () => {
 
         const source = ctx.createBufferSource();
 
-        let ReIm = complex_noise()
-        let buffer_pos = DEFAULTBUFSIZE
-      //  Filt2.Filter(ReIm)
-  //      ReIm = Filt.Filter(ReIm)
-        
-  //      let result = Modul.Modulate(ReIm)
-         let result = new Array()
- //       result = Agc.Process(result)
         for (let channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
             // This gives us the actual ArrayBuffer that contains the data
             const nowBuffering = myArrayBuffer.getChannelData(channel);

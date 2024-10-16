@@ -16,10 +16,10 @@ export class Contest {
         this._Filter1.samplesInInput = DEFAULT.BUFSIZE
         this._Filter1.gainDb = 10 * Math.log10(500 / DEFAULT.BANDWIDTH)
 
-      /*  this._Filter2.passes = DEFAULT.PASSES
+        this._Filter2.passes = DEFAULT.PASSES
         this._Filter2.samplesInInput = DEFAULT.BUFSIZE
         this._Filter2.gainDb = 10 * Math.log10(500 / DEFAULT.BANDWIDTH)
-*/
+
         // setup automatic gain control
         this._Agc = new Volume()
         this._Agc.NoiseInDb = 76
@@ -51,8 +51,8 @@ export class Contest {
             Im: []
         }
         for (let i = 0; i < buffer_size; i++) {
-            result.Re.push(0)
-            result.Im.push(0)
+            result.Re.push(3 * noise_amp * (Math.random() - 0.5))
+            result.Im.push(3 * noise_amp * (Math.random() - 0.5))
         }
         return result
     }
@@ -68,8 +68,8 @@ export class Contest {
                 ReIm.Re[n] = call_amp * blk[n]
             }
         }
-      //  this._Filter2.Filter(ReIm)
-   //     ReIm = this._Filter1.Filter(ReIm)
+        this._Filter2.Filter(ReIm)
+        ReIm = this._Filter1.Filter(ReIm)
         let result = this._Modul.Modulate(ReIm)
         result = this._Agc.Process(result)
 
@@ -78,13 +78,33 @@ export class Contest {
 
     }
 
-    getBlock(block) {
-        for (let i = 0; i < block.length; i++) {
-            if (this._src_pos === 0) this._getSrcBlock()
-            block[i] = this._src_buffer[Math.floor(this._src_pos)] / 32800
-            this._src_pos += this._deltaRate
-            if (Math.floor(this._src_pos) >= this._src_buffer.length) this._src_pos = 0
-        }
+/*
+            for (let i = 0;i<block.length;i++) {
+                if (this._src_pos === 0) this._getSrcBlock()
+                block[i] = this._src_buffer[this._src_pos] / 32800   
+                this._src_pos++
+                if (this._src_pos >= this._src_buffer.length) this._src_pos = 0
+            }
+*/
 
+
+    getBlock(block) {
+        if (this._targetRate !== DEFAULT.RATE) {
+            debugger
+/*
+            for (let i = 0; i < block.length; i++) {
+                if (this._src_pos === 0) this._getSrcBlock()
+                block[i] = this._src_buffer[Math.floor(this._src_pos)] / 32800
+                this._src_pos += this._deltaRate
+                if (Math.floor(this._src_pos) >= this._src_buffer.length) this._src_pos = 0
+            }*/
+        } else {
+            for (let i = 0;i<block.length;i++) {
+                if (this._src_pos === 0) this._getSrcBlock()
+                block[i] = this._src_buffer[this._src_pos] / 32800   
+                this._src_pos++
+                if (this._src_pos >= this._src_buffer.length) this._src_pos = 0
+            }
+        }
     }
 }
