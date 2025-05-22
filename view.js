@@ -165,7 +165,7 @@ export class View {
     sendMyMessage(message) {
         switch (message) {
             // we need to send the text of his call
-            case StationMessage.send_his:
+            case StationMessage.HisCall:
                 this.sendMessage({
                     type: AudioMessage.send_his,
                     data: this.Call,

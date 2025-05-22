@@ -179,8 +179,10 @@ This means after stating the contest the cursor is places automatically in the C
 
 ## Version
 * **0.8-beta** (2025-05-21)
-   * Added HST Mode
-   * bug fix
+   * Added HST Mode, grazie Pietro IN3GYP
+   * small bug fix
+   * (2025-05-22) Fixed bug:
+     * Function key F5 is not sending \<his\>.
 * **0.7-beta** (2025-04-08) - **Easter Edition**
    * Further internal restructuring of the code to allow different contests.
    * Bugfix: Contest-definition might not load correctly when the configuration is still initial.
