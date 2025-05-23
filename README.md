@@ -179,7 +179,7 @@ This means after stating the contest the cursor is places automatically in the C
 
 ## Version
 * **0.8-beta** (2025-05-21)
-   * Added HST Mode, grazie Pietro IN3GYP
+   * Added HST Mode, grazie Pietro IN3GYO
    * small bug fix
    * (2025-05-22) Fixed bug:
      * Function key F5 is not sending \<his\>.
