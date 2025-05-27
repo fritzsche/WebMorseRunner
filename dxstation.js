@@ -107,7 +107,7 @@ export class DxStation extends Station {
 
         if (this.State !== Station.State.Sending)
           this.State = Station.State.Copying
-        this.TimeOut = this.NEVER
+        this.TimeOut = Station.NEVER
         break
     }
   }

@@ -38,7 +38,7 @@ export const StationMessage = {
   Garbage: 'Garbage',
   R_NR: 'R_NR',
   R_NR2: 'R_NR2',
-  DeMyCall1: 'DeMyCall',
+  DeMyCall1: 'DeMyCall1',
   DeMyCall2: 'DeMyCall2',
   DeMyCallNr1: 'DeMyCallNr1',
   DeMyCallNr2: 'DeMyCallNr2',
