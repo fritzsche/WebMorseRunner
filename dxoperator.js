@@ -21,6 +21,7 @@ export class DxOperator {
     }
 
     static IsMyCall(My, His) {
+        console.log(`Check ${My}/${His}`)
         const W_X = 2
         const W_Y = 2
         const W_D = 2
@@ -90,7 +91,8 @@ export class DxOperator {
                     if (Math.random() < 0.04) result = DxOperator.CallCheckResult.Yes
                     break
             }
-
+        console.log(`Check Result ${result}`)
+        if ( result === DxOperator.CallCheckResult.Almost ) debugger
         return result
     }
 
