@@ -106,6 +106,7 @@ export class Station {
         if (this.MsgText) {
             this.MsgText += ' ' + AMsg
         } else { this.MsgText = AMsg }
+        console.log(`sendtext ${ this.MsgText } `)
         this.SendMorse(Keyer.Encode(this.MsgText))
     }
 

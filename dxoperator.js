@@ -248,9 +248,14 @@ export class DxOperator {
     }
 
     _DecPatience() {
+
         if (this.State === OperatorState.Done) return
         this.Patience--
-        if (this.Patience < 1) this.State = OperatorState.Failed
+        console.log(`Patience: ${ this.Patience}`)
+        if (this.Patience < 1) {
+            console.log(`Fail!`)
+            this.State = OperatorState.Failed
+        }
     }
 
     // Delay before reply, keying speed and exchange number are functions
@@ -271,7 +276,7 @@ export class DxOperator {
         if (DEFAULT.RUNMODE === RunMode.Hst)
             result = random.SecondsToBlocks(60 / this.Wpm)
         else result = random.SecondsToBlocks(6 - this.Skills)
-        console.log(`WPM ${ this.Wpm } Blocks ${ result }`)
+        console.log(`calc ${ 60 / this.Wpm } WPM ${ this.Wpm } Blocks ${ result }`)
         result = Math.round(random.RndGaussLim(result, result / 2))
         console.log(`Final ${ result }`)
         /*  if(result <= 0 || result > 200) debugger;     */
