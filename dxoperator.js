@@ -271,7 +271,9 @@ export class DxOperator {
         if (DEFAULT.RUNMODE === RunMode.Hst)
             result = random.SecondsToBlocks(60 / this.Wpm)
         else result = random.SecondsToBlocks(6 - this.Skills)
+        console.log(`WPM ${ this.Wpm } Blocks ${ result }`)
         result = Math.round(random.RndGaussLim(result, result / 2))
+        console.log(`Final ${ result }`)
         /*  if(result <= 0 || result > 200) debugger;     */
         return result
     }
