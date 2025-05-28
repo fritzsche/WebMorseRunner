@@ -40,7 +40,7 @@ export class DxOperator {
                 let T = M[x][y - 1]
                 //'?' can match more than one char
                 //end may be missing
-                if ((x <= C.length) && (C[x - 1] !== '?')) T += W_Y
+                if ((x < C.length) && (C[x - 1] !== '?')) T += W_Y
 
                 let L = M[x - 1][y]
                 //'?' can match no chars  

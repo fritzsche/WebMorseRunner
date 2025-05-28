@@ -3,6 +3,9 @@ import { AudioMessage, DEFAULT, RunMode, StationMessage } from "./defaults.js"
 import { Log } from "./log.js"
 import { Config } from "./config.js"
 
+
+import { DxOperator } from "./DxOperator.js"
+
 import { ContestDefinition } from "./contest-definition.js"
 
 export class View {
@@ -464,6 +467,8 @@ export class View {
 
 
     onLoad() {
+        debugger
+        console.log(`Match ${  DxOperator.IsMyCall( "N5RFX","N5" )} `)
         this._ContestDefinition = new ContestDefinition()
         this.initConfig()
         this.initRunButton()
