@@ -225,6 +225,7 @@ export class View {
 
             switch (e.key) {
                 case "Space":
+                case " ": 
                     this.processSpace()
                     e.preventDefault()
                     break

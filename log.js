@@ -55,7 +55,10 @@ export class Log {
 
     wipe() {
 
-        this.runmode = this._contestDefinition._contest.runmode
+ //       this.runmode = this._contestDefinition._contest.runmode
+        this.runmode = ContestDefinition.getRunMode()
+
+        
 
         this.data = []
         let table = document.querySelector('#log table')
