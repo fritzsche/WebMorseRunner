@@ -178,6 +178,9 @@ This means after stating the contest the cursor is places automatically in the C
 
 
 ## Version
+* **0.8.3-beta** (2025-12-02)
+   * Fixed a bug reported by Lutz DM6EE as the space key did not work. This was a regression introduced by the adaptation for Android. Thanks for the bug report!
+   * Fixed a timing bug that could happen in rared cases during initialization.
 * **0.8.2-beta** (2025-05-28)
    * When matching partial call signs the original Morse Runner was not as strict as Web Morse Runner, now Web Morse Runner is relaxed. 
 * **0.8.1-beta** (2025-05-27)
