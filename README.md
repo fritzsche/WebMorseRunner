@@ -178,6 +178,9 @@ This means after stating the contest the cursor is places automatically in the C
 
 
 ## Version
+* **0.8.4-beta** (2025-12-03)
+   * Improve some situation on MacOS where the audio process would not start on Safari and Chrome.
+   * Notice: new version of Firefox on MacOS show some audio distortion while earlier versions already worked. I'm still analyzing the issue.
 * **0.8.3-beta** (2025-12-02)
    * Fixed a bug reported by Lutz DM6EE as the space key did not work. This was a regression introduced by the adaptation for Android. Thanks for the bug report!
    * Fixed a timing bug that could happen in rared cases during initialization.
