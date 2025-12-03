@@ -405,7 +405,7 @@ export class View {
         this.ContestNode.connect(this.ctx.destination)
         this._config.read_dom()
         let conf = this._config._config
-        conf['active_contest'] = this._ContestDefinition._contest
+//        conf['active_contest'] = this._ContestDefinition._contest
         this._ContestDefinition.updateConfig(this._config._config)
         this.sendMessage({
             type: AudioMessage.start_contest,
