@@ -14,7 +14,7 @@ export class View {
         this.MustAdvance = true
         this.call = document.getElementById("call")
         this.clock = document.getElementById("clock")
-        this.txIndicator = document.getElementById('tx-indicator')        
+        this.txIndicator = document.getElementById('tx-indicator')
         this._pileupStations = 0
         this.prev_call = ""
         this.CallSend = false
@@ -424,6 +424,11 @@ export class View {
                 case AudioMessage.update_pileup:
                     this.pileupStations = data
                     break
+                case AudioMessage.update_call:
+                    if (!data) {
+                        this.CallSend = false
+                    }
+                    break
                 default:
                     console.log("ERROR: Unsupported message")
                     debugger
@@ -440,13 +445,24 @@ export class View {
         })
     }
 
+    updateCall(e) {
+        const call = e.target.value
+        this.ContestNode.port.postMessage({
+            type: AudioMessage.update_call,
+            data: call,
+        })
+    }
+
     stopTX() {
         this.TX = false
-        this.txIndicator.classList.remove('tx-active');
+        this.txIndicator.classList.remove('tx-active')
+        this.call.removeEventListener('input', this.updateCall)
     }
 
     startTX() {
-        this.TX = false        
+        this.TX = false
+        this.updateCall = this.updateCall.bind(this); 
+        this.call.addEventListener('input', this.updateCall)
         this.txIndicator.classList.add('tx-active')
     }
 

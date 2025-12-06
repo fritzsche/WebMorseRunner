@@ -1,4 +1,4 @@
-
+import { Keyer } from "./keyer.js"
 import { DEFAULT, StationMessage, RunMode, AudioMessage } from "./defaults.js"
 import { Station } from "./station.js"
 import { Tst } from "./contest.js"
@@ -89,9 +89,48 @@ export class MyStation extends Station {
             super.SendText(this.HisCall)
     }
 
+
+    UpdateCall(call) {
+        let canUpdateCall = true
+        let NewEnvelope
+        // check the call is actually just send        
+        if ((this.Pieces.length > 0) && (this.Pieces[0] === Station.Messages.HisCall)) {
+            //create new envelope
+            NewEnvelope = super.generateEnvelope(Keyer.Encode(call))
+            // verify the send buffer
+            for (let i = 0; i < this._SendPos; i++) {
+                if (NewEnvelope[i] !== this._Envelope[i]) {
+                    canUpdateCall = false
+                    break
+                }
+            }
+
+        }
+        if (canUpdateCall) {
+            this._Envelope = NewEnvelope
+            this.HisCall = call
+        }
+        //could not correct the current message
+        //but another call is scheduled for sending
+        if (!canUpdateCall) {
+            for (let i = 0; i < this.Pieces.length;i++) {
+                if (this.Pieces[i] === Station.Messages.HisCall) {
+                    canUpdateCall = true
+                    this.HisCall = call
+                    break
+
+                }
+            }
+        }
+        Tst.post({
+            type: AudioMessage.update_call,
+            data: canUpdateCall
+        })
+    }
+
     GetBlock() {
         let result = super.GetBlock()
-        if (this._Envelope === null) {
+        if (this._Envelope === null  || this._Envelope === undefined) {
 
             this.Pieces.shift()
             if (this.Pieces.length > 0) {
@@ -108,7 +147,7 @@ export class MyStation extends Station {
             }
 
         } else {
-            if (this._Envelope !== undefined && this.TX === false) {
+            if (this.TX === false) { //this._Envelope !== undefined &&
                 Tst.post({
                     type: AudioMessage.start_tx,
                 })

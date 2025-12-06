@@ -168,6 +168,9 @@ export class Contest {
                 this.running = true
                 this.updateConfig(message.data)
                 break
+            case AudioMessage.update_call:            
+                this._MyStation.UpdateCall(message.data)
+                break                
             case AudioMessage.stop_contest:
                 this.init()
                 this.running = false

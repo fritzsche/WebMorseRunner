@@ -174,10 +174,16 @@ This means after stating the contest the cursor is places automatically in the C
     * **F7**: Question mark. You did not complete got the call, a questions mark with make the other station sending you the call again.
     * **F8**: NIL - Indicated the other station that you did not get his call. Very useful in Web Morse Runner when you already send a wrong call sign. The DX stations assumes you have QSO with somebody else and not reply to you. By sending NIL you indicated that could not pick other call, so the DX station will try to send his call again.
 * **Arrow-Up/Down** Control the RIT. Station will call you not always on the same frequency. Depending on the filter bandwidth you might not even hear the DX station, or with a very weak signal. Use the Arrow key to move the RIT up/down.
+* **Escape** abort ending.
 
 
 
 ## Version
+* **0.9-beta** (2025-12-06) - **Saint Nicholas Day Edition**
+   * pressing the escape key will abort the sending
+   * TX indicator that
+   * updating the call sign is possible after the transmission has started, the update is
+   only successful if the changes has not yet been transmitted
 * **0.8.4-beta** (2025-12-03)
    * Improve some situation on MacOS where the audio process would not start on Safari and Chrome.
    * On Firefox an MacOS a output sample rate > 48.000 kHz can cause issue. Its advisable to reduce the sample rate accordingly or use Chrome or Safari.

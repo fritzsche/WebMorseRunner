@@ -47,7 +47,7 @@ export class Station {
     }
 
     static contestExchangeMessage = '<rst><nr>'
-    
+
 
     constructor() {
         this._FBfo = 0
@@ -85,7 +85,7 @@ export class Station {
     }
 
     SendMsg(AMsg) {
-        this.getExchange()        
+        this.getExchange()
         if (!this._Envelope) this._Msg = new Array()
         if (AMsg === StationMessage.None) {
             this._State = State.Listening
@@ -96,16 +96,22 @@ export class Station {
         if (text) this.SendText(text)
     }
 
-    SendText(AMsg) {        
+    SendText(AMsg) {
         AMsg = AMsg.replaceAll('<#>', this.composeExchange())
         AMsg = AMsg.replaceAll('<my>', this.MyCall)
 
-        AMsg = AMsg.replaceAll('<1>', this.exchange1)   
- 
+        AMsg = AMsg.replaceAll('<1>', this.exchange1)
+
         if (this.MsgText) {
             this.MsgText += ' ' + AMsg
         } else { this.MsgText = AMsg }
         this.SendMorse(Keyer.Encode(this.MsgText))
+    }
+
+    generateEnvelope(AMorse) {
+        GKeyer.Wpm = this.Wpm
+        GKeyer.MorseMsg = AMorse
+        return GKeyer.GetEnvelope()
     }
 
     SendMorse(AMorse) {
@@ -114,11 +120,7 @@ export class Station {
             this._FBfo = 0
         }
 
-        GKeyer.Wpm = this.Wpm
-        GKeyer.MorseMsg = AMorse
-        this._Envelope = GKeyer.GetEnvelope()
-        for (let i = 0; i < this._Envelope.length; i++) this._Envelope[i] *= this.Amplitude
-
+        this._Envelope = this.generateEnvelope(AMorse)
         this.State = Station.State.Sending
         this.TimeOut = Station.NEVER
     }
@@ -129,7 +131,7 @@ export class Station {
         }
         let result = new Array()
         for (let i = 0; i < DEFAULT.BUFSIZE && this._SendPos + i < this._Envelope.length; i++) {
-            result.push(this._Envelope[this._SendPos + i])
+            result.push(this._Envelope[this._SendPos + i] * this.Amplitude)
         }
         // advance TX buffer
         this._SendPos += DEFAULT.BUFSIZE
@@ -166,30 +168,30 @@ export class Station {
         let result = exchange
         const rst_txt = Station.RstAsText(this.RST)
         result = result.replaceAll('<rst>', rst_txt)
-        if(this.exchange1) result = result.replaceAll('<1>', this.exchange1) 
-        if(this.exchange2) result = result.replaceAll('<2>', this.exchange2) 
+        if (this.exchange1) result = result.replaceAll('<1>', this.exchange1)
+        if (this.exchange2) result = result.replaceAll('<2>', this.exchange2)
         return result
     }
 
 
     getExchange() {
         const contest = new Contest()
-        let exchange = contest._conf.active_contest.exchange_msg       
-        if (!exchange) exchange = '<rst><nr>' 
-     //  "abcdeabcde".split(/(d)/)
+        let exchange = contest._conf.active_contest.exchange_msg
+        if (!exchange) exchange = '<rst><nr>'
+        //  "abcdeabcde".split(/(d)/)
         const split_ex = exchange.split(/(?=\<)/)
 
         let result = []
-        split_ex.forEach( ex => {
-            switch(ex) {
+        split_ex.forEach(ex => {
+            switch (ex) {
                 case '<rst>': result.push('599')
-                   break
+                    break
                 case '<1>': result.push(this.exchange1)
-                   break
+                    break
                 case '<2>': result.push(this.exchange2)
-                   break
+                    break
                 case '<nr>': result.push(String(this.NR).padStart(3, "0"))
-                   break;
+                    break
             }
             result.push
         })
