@@ -171,6 +171,9 @@ export class Contest {
             case AudioMessage.stop_contest:
                 this.init()
                 this.running = false
+                Tst.post({
+                    type: AudioMessage.stop_tx,
+                })                
                 break
             case AudioMessage.update_nr:
                 this._MyStation.NR = message.data

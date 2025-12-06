@@ -71,10 +71,9 @@ export class Station {
         this.exchange_msg = ''
         this.All_DxData = []
 
+        this.TX = false
         this.exchange1 = ''
         this.exchange2 = ''
-
-
 
     }
 

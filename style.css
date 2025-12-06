@@ -265,3 +265,25 @@ a {
 #input  input {
   font-size: 14pt;
 }
+
+
+.led-indicator {
+  width: 20px;
+  height: 20px;
+  background-color: #444; /* Dark gray when off */
+  border-radius: 50%; /* Makes it a circle */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Subtle shadow when off */
+  display: inline-block;
+  margin-right: 10px; /* Spacing next to input field */
+  vertical-align: middle;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+/* Style for the TX Active state (RED ON) */
+.tx-active {
+  background-color: #ff0000; /* Bright red center */
+  /* This creates the glow effect */
+  box-shadow: 0 0 10px #ff0000, /* Inner glow */
+              0 0 20px #ff0000, /* Outer glow */
+              0 0 30px #ff0000; /* Wider glow */
+}

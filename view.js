@@ -14,10 +14,12 @@ export class View {
         this.MustAdvance = true
         this.call = document.getElementById("call")
         this.clock = document.getElementById("clock")
+        this.txIndicator = document.getElementById('tx-indicator')        
         this._pileupStations = 0
         this.prev_call = ""
         this.CallSend = false
         this.NrSend = false
+        this.TX = false
 
         this.log = new Log()
 
@@ -97,7 +99,7 @@ export class View {
         let callSend = this.CallSend
         let numberSend = this.NrSend
 
-        
+
         // content in the NR/exchange field
         const dxNrLogged = this._ContestDefinition.isExchangeEdited()
 
@@ -214,7 +216,7 @@ export class View {
             })
         })
 
-//        document.getElementById("input").addEventListener("keydown", (e) => {
+        //        document.getElementById("input").addEventListener("keydown", (e) => {
         document.addEventListener("keydown", (e) => {
             if (!this.running) return
             //this.startContest()
@@ -224,16 +226,16 @@ export class View {
             }
 
             switch (e.key) {
-                case "Escape":        
-                    e.preventDefault()            
+                case "Escape":
+                    e.preventDefault()
                     this.MustAdvance = true
                     this.ContestNode.port.postMessage({
                         type: AudioMessage.abort_sending,
                         data: "",
-                    })                    
-                    break;
+                    })
+                    break
                 case "Space":
-                case " ": 
+                case " ":
                     this.processSpace()
                     e.preventDefault()
                     break
@@ -266,12 +268,12 @@ export class View {
                     const digit_match = e.code.match(regex)
 
                     let key = e.key
-                    const modifier_pressed = (  e.ctrlKey || e.altKey || e.metaKey || 
+                    const modifier_pressed = (e.ctrlKey || e.altKey || e.metaKey ||
                         e.location === KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) // e.shiftKey ||
                     // if a modifier key is pressed we also accept numbers as function key
-                    if ( modifier_pressed  && digit_match ) key = `F${ digit_match[1] }`
+                    if (modifier_pressed && digit_match) key = `F${digit_match[1]}`
                     if (this.processFunctionKey(key)) e.preventDefault()
-                    break;
+                    break
             }
         })
     }
@@ -282,14 +284,14 @@ export class View {
 
     get Nr() {
         const nr_dom = document.getElementById("nr")
-        if(!nr_dom) return -1
+        if (!nr_dom) return -1
         let nr = nr_dom.value
         if (nr === "") return -1
         return parseInt(nr)
     }
     get Rst() {
         const rst_dom = document.getElementById("rst")
-        if(!rst_dom) return 999
+        if (!rst_dom) return 999
         const rst = rst_dom.value
         if (rst === "") return 599
         return parseInt(rst)
@@ -345,11 +347,13 @@ export class View {
             (f) => f.disabled = !f.disabled,
         )
     }
+
     async startContest() {
         if (this.running === true) return
         this.hideTitle()
         this.running = true
         this.wipeFields()
+        this.stopTX()
         this.pileupStations = 0
 
         this.log.wipe()
@@ -398,13 +402,19 @@ export class View {
                     break
                 case AudioMessage.abort_sending:
                     const abort = data
-                    if(abort.sendHis) {
+                    if (abort.sendHis) {
                         this.CallSend = false
                     }
-                    if(abort.sendNr) {
+                    if (abort.sendNr) {
                         this.NrSend = false
                     }
-                    break    
+                    break
+                case AudioMessage.start_tx:
+                    this.startTX()
+                    break
+                case AudioMessage.stop_tx:
+                    this.stopTX()
+                    break
                 case AudioMessage.advance:
                     this.advance()
                     break
@@ -422,12 +432,22 @@ export class View {
         this.ContestNode.connect(this.ctx.destination)
         this._config.read_dom()
         let conf = this._config._config
-//        conf['active_contest'] = this._ContestDefinition._contest
+        //        conf['active_contest'] = this._ContestDefinition._contest
         this._ContestDefinition.updateConfig(this._config._config)
         this.sendMessage({
             type: AudioMessage.start_contest,
             data: conf,
         })
+    }
+
+    stopTX() {
+        this.TX = false
+        this.txIndicator.classList.remove('tx-active');
+    }
+
+    startTX() {
+        this.TX = false        
+        this.txIndicator.classList.add('tx-active')
     }
 
     stopContest() {
@@ -440,6 +460,7 @@ export class View {
         this.ContestNode.disconnect()
         this.ctx.close()
         if (this.timer_id) window.clearInterval(this.timer_id)
+        this.stopTX()
     }
 
     toggleRunButton() {

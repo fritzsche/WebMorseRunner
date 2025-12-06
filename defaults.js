@@ -23,6 +23,9 @@ export const AudioMessage = {
   stop_contest: 'stop_contest',
   config: 'config',
   update_pileup: 'update_pileup',
+  update_call: 'update_call',
+  start_tx: 'start_tx',
+  stop_tx: 'stop_tx',
 }
 
 export const StationMessage = {

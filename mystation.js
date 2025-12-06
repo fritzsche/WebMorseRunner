@@ -75,6 +75,7 @@ export class MyStation extends Station {
     }
 
     _SendNextPiece() {
+
         this.MsgText = ''
         if (this.Pieces[0] !== '@')
             super.SendText(this.Pieces[0])
@@ -97,6 +98,22 @@ export class MyStation extends Station {
                 this._SendNextPiece()
                 //cursor to exchange field
                 Tst.post({ type: AudioMessage.advance })
+            } else {
+                if (this.TX) {
+                    Tst.post({
+                        type: AudioMessage.stop_tx,
+                    })
+                    this.TX = false
+                }
+            }
+
+        } else {
+            if (this._Envelope !== undefined && this.TX === false) {
+                Tst.post({
+                    type: AudioMessage.start_tx,
+                })
+                this.TX = true
+
             }
         }
         return result
