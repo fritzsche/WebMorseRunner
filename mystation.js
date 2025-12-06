@@ -1,5 +1,5 @@
 
-import { DEFAULT, StationMessage, RunMode, AudioMessage } from "./defaults.js";
+import { DEFAULT, StationMessage, RunMode, AudioMessage } from "./defaults.js"
 import { Station } from "./station.js"
 import { Tst } from "./contest.js"
 
@@ -20,12 +20,23 @@ export class MyStation extends Station {
     }
 
     AbortSend() {
-        this.Envelope = new Array()
-        this.Msg = [StationMessage.Garbage]
+        const sendHis = this.Pieces.includes(Station.Messages.HisCall) ? true : false
+        const sendNr = this.Pieces.includes(Station.Messages.HisCall) ? true : false
+
+        Tst.post({
+            type: AudioMessage.abort_sending,
+            data: {
+                sendHis: sendHis,
+                sendNr: sendNr
+            }
+        })
+
+        this._Envelope = new Array()
+        this._Msg = [StationMessage.Garbage]
         this.MsgText = ''
         this.Pieces = new Array()
-        this.State = State.Listening
-        ProcessEvent(Event.MsgSent)
+        this.State = Station.State.Listening //State.Listening
+        this.ProcessEvent(Event.MsgSent)
     }
 
 
@@ -66,7 +77,7 @@ export class MyStation extends Station {
     _SendNextPiece() {
         this.MsgText = ''
         if (this.Pieces[0] !== '@')
-            super.SendText(this.Pieces[0]);
+            super.SendText(this.Pieces[0])
         else
             //            if ( /*CallsFromKeyer && */
             //                (!(DEFAULT.RUNMODE === RunMode.Hst

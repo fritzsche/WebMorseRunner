@@ -20,7 +20,7 @@ export class Station {
         NR: '<#>',
         TU: 'TU',
         MyCall: '<my>',
-        HisCall: '<his>',
+        HisCall: '@',
         B4: 'QSO B4',
         Qm: '?',
         Nil: 'NIL',

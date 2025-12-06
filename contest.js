@@ -160,10 +160,9 @@ export class Contest {
 
     onmessage = (message) => {
         switch (message.type) {
-            /*
-            case 'send':
-                this._MyStation.SendText(message.data)
-                break*/
+            case AudioMessage.abort_sending:
+                this._MyStation.AbortSend()
+                break
             case AudioMessage.start_contest:
                 this.init()
                 this.running = true
@@ -280,7 +279,7 @@ export class Contest {
                 }
             }
         }
-        //  this._Filter2.Filter(ReIm)
+
         this._Filter1.Filter(this._src_complex_buffer)
         let result = this._Modul.Modulate(this._src_complex_buffer)
         result = this._Agc.Process(result)

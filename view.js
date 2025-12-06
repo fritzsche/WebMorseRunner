@@ -224,6 +224,14 @@ export class View {
             }
 
             switch (e.key) {
+                case "Escape":        
+                    e.preventDefault()            
+                    this.MustAdvance = true
+                    this.ContestNode.port.postMessage({
+                        type: AudioMessage.abort_sending,
+                        data: "",
+                    })                    
+                    break;
                 case "Space":
                 case " ": 
                     this.processSpace()
@@ -388,6 +396,15 @@ export class View {
                         data: call,
                     })
                     break
+                case AudioMessage.abort_sending:
+                    const abort = data
+                    if(abort.sendHis) {
+                        this.CallSend = false
+                    }
+                    if(abort.sendNr) {
+                        this.NrSend = false
+                    }
+                    break    
                 case AudioMessage.advance:
                     this.advance()
                     break
