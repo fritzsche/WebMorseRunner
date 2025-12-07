@@ -446,7 +446,7 @@ export class View {
     }
 
     updateCall(e) {
-        const call = e.target.value
+        const call = this.Call
         this.ContestNode.port.postMessage({
             type: AudioMessage.update_call,
             data: call,
