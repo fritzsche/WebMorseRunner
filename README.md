@@ -181,7 +181,7 @@ This means after stating the contest the cursor is places automatically in the C
 ## Version
 * **0.9-beta** (2025-12-06) - **Saint Nicholas Day Edition**
    * pressing the escape key will abort the sending
-   * TX indicator that
+   * TX indicator
    * updating the call sign is possible after the transmission has started, the update is
    only successful if the changes has not yet been transmitted
 * **0.8.4-beta** (2025-12-03)
