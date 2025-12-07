@@ -98,6 +98,8 @@ export class View {
         // these are reset when qso finished
         let callSend = this.CallSend
         let numberSend = this.NrSend
+        console.log("call: ", callSend)
+        console.log("number: ", numberSend)
 
 
         // content in the NR/exchange field
@@ -401,7 +403,7 @@ export class View {
                     })
                     break
                 case AudioMessage.abort_sending:
-                    const abort = data
+                    const abort = data                    
                     if (abort.sendHis) {
                         this.CallSend = false
                     }
@@ -425,9 +427,13 @@ export class View {
                     this.pileupStations = data
                     break
                 case AudioMessage.update_call:
+                    console.log("U1: ",data)
+                    
                     if (!data) {
                         this.CallSend = false
-                    }
+                    } else this.prev_call = this.Call
+
+                    console.log("U2: ",this.CallSend)                    
                     break
                 default:
                     console.log("ERROR: Unsupported message")
