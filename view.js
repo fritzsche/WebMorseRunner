@@ -427,7 +427,7 @@ export class View {
                 case AudioMessage.update_call:
                     if (!data) {
                         this.CallSend = false
-                    }
+                    } else this.prev_call = this.Call
                     break
                 default:
                     console.log("ERROR: Unsupported message")
