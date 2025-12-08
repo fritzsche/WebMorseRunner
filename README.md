@@ -46,11 +46,9 @@ This project is new and independent of Alex project. The original Morse Runner t
 
 ## Features not (yet) implemented
 
-* Other contest modes (no WPX / HST)
 * WAV File Export
 * Best-List
 * Score over time
-* some Keyboard shortcuts missing
 
 ## Status
 This Web App is in a early stage. I'm still searching some bugs and looking for optimizations. The App can work, but consider this app as experimental.
