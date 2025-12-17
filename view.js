@@ -60,6 +60,34 @@ export class View {
         if (this.ContestNode) this.ContestNode.port.postMessage(data)
     }
 
+
+    saveQSO() {
+        const contestDef = new ContestDefinition()
+        const RecvExchange = contestDef.getExchange()
+
+        const call = this.Call
+        const recNr = String(this.Nr).padStart(3, "0")
+        const recRST = String(this.Rst)
+
+        // TODO: check Nr
+        if (call && recNr && recRST && RecvExchange) {
+            this.log.addQso(
+                {
+                    UTC: this.getClock(),
+                    Call: call,
+                    RecvNr: recNr,
+                    RecvRST: recRST,
+                    RecvExchange: RecvExchange,
+                },
+            )
+            this.sendMessage({
+                type: AudioMessage.update_nr,
+                data: this.log.NR,
+            })
+            this.wipeFields()
+        }
+    }
+
     processSpace() {
         this.MustAdvance = false
         const active = document.activeElement
@@ -139,23 +167,9 @@ export class View {
                 data: StationMessage.TU
             })
 
-            const contestDef = new ContestDefinition()
-            const RecvExchange = contestDef.getExchange()
+            this.saveQSO()
 
-            this.log.addQso(
-                {
-                    UTC: this.getClock(),
-                    Call: this.Call,
-                    RecvNr: String(this.Nr).padStart(3, "0"),
-                    RecvRST: String(this.Rst),
-                    RecvExchange: RecvExchange,
-                },
-            )
-            this.sendMessage({
-                type: AudioMessage.update_nr,
-                data: this.log.NR,
-            })
-            this.wipeFields()
+
         } else {
             this.MustAdvance = true
         }
@@ -240,8 +254,14 @@ export class View {
                     e.preventDefault()
                     break
                 case "Enter":
-                    this.processEnter()
-                    e.preventDefault()
+                    const modifier = (e.ctrlKey || e.altKey || e.metaKey)
+                    if (modifier) {
+                        this.saveQSO()
+                        e.preventDefault()
+                    } else {
+                        this.processEnter()
+                        e.preventDefault()
+                    }
                     break
                 case "ArrowDown":
                     this._config.updateRIT(-50)
@@ -263,7 +283,20 @@ export class View {
                     }
 
                     break
+                case ".":
+                    e.preventDefault()
+                    this.processFunctionKey('F3') // TU                    
+
+                    this.saveQSO()
+                    break
+                case ";":
+                    e.preventDefault()
+                    this.processFunctionKey('F5') // <his>
+                    this.processFunctionKey('F2') // <#> 
+                    break
                 default:
+                    console.log("key: ", e.key)
+                    //debugger;
                     const regex = /Digit(\d)/
                     const digit_match = e.code.match(regex)
 
@@ -272,6 +305,13 @@ export class View {
                         e.location === KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) // e.shiftKey ||
                     // if a modifier key is pressed we also accept numbers as function key
                     if (modifier_pressed && digit_match) key = `F${digit_match[1]}`
+
+                    // wipe fields on ALT-W / CTRL-W / META-W
+                    if (modifier_pressed && e.key == 'w') {
+                        e.preventDefault()
+                        this.wipeFields()
+                        return
+                    }
                     if (this.processFunctionKey(key)) e.preventDefault()
                     break
             }
@@ -461,7 +501,7 @@ export class View {
 
     startTX() {
         this.TX = false
-        this.updateCall = this.updateCall.bind(this); 
+        this.updateCall = this.updateCall.bind(this)
         this.call.addEventListener('input', this.updateCall)
         this.txIndicator.classList.add('tx-active')
     }

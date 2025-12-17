@@ -125,6 +125,10 @@ export class Log {
         //        if (last_qso.RecvRST !== rst) confirm = Log.Check.RST
         //      if (last_qso.RecvNr !== NR) confirm = Log.Check.NR
 
+        // check we have a last qso
+        if (!last_qso) {            
+            return
+        }
         const contestDefinition = new ContestDefinition()
         confirm = contestDefinition.checkExchange(last_qso.RecvExchange, qso.Ex)
 
