@@ -162,6 +162,13 @@ This means after stating the contest the cursor is places automatically in the C
 
 * **TAB**: move cursor between fields Call->RST->NR. If the cursor is in the NR fields another TAB should navigate back to Call.
 * **Space**: By pressing space the field in focus will be advanced (from call to NR / RST to to NR and NR to call). If RST is empty it will be filled with 599. 
+* **Alt-Enter, Meta-Enter, Ctrl-Enter**:  save QSO.
+* **Alt-W, Ctrl-W**: wipe the input fields.
+* **<;>, <Insert>**: equivalent to F5 + F2.
+* **<+> , <.>, <,>, <\[>**: equivalent to F3 + Save.
+* **\<PageUp>, \<PageDown>**:  keying speed,
+    in 5 WPM increments.
+
 * **Function Keys**
     * **F1**: Call CQ
     * **F2**: Send RST and Number: use it if DX station ask NR? or AGN
@@ -172,11 +179,23 @@ This means after stating the contest the cursor is places automatically in the C
     * **F7**: Question mark. You did not complete got the call, a questions mark with make the other station sending you the call again.
     * **F8**: NIL - Indicated the other station that you did not get his call. Very useful in Web Morse Runner when you already send a wrong call sign. The DX stations assumes you have QSO with somebody else and not reply to you. By sending NIL you indicated that could not pick other call, so the DX station will try to send his call again.
 * **Arrow-Up/Down** Control the RIT. Station will call you not always on the same frequency. Depending on the filter bandwidth you might not even hear the DX station, or with a very weak signal. Use the Arrow key to move the RIT up/down.
+* **CTRL-Arrow-Up/Down, Alt-Arrow-Up/Down, Meta-Arrow-Up/Down** bandwidth.
 * **Escape** abort sending.
 
 
 
 ## Version
+* **0.10-beta** (2025-12-17)
+   * Support for more keyboard shortcuts (tnx DK5TX es DJ5CW fer request)
+      * Alt-W, Ctrl-W, F11 - wipe the input fields.
+      * Alt-Enter, Shift-Enter, Ctrl-Enter - save QSO.
+      * <+>, <.>, <,>, <\[> - equivalent to F3 + Save
+      * <;>, <Insert> - equivalent to F5 + F2.
+      * \<PageUp>, \<PageDown> - Change WPM by 5 WPM
+      * <CTRL>-Arrow-Up/Down - Bandwidth
+      
+
+    
 * **0.9-beta** (2025-12-06) - **Saint Nicholas Day Edition**
    * pressing the escape key will abort the sending
    * TX indicator

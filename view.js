@@ -11,7 +11,7 @@ export class View {
         this.ContestNode = null
         this.calls = new Calls()
         this.calls.fetch_calls()
-        this.MustAdvance = true
+        this.MustAdvance = false
         this.call = document.getElementById("call")
         this.clock = document.getElementById("clock")
         this.txIndicator = document.getElementById('tx-indicator')
@@ -69,8 +69,8 @@ export class View {
         const recNr = String(this.Nr).padStart(3, "0")
         const recRST = String(this.Rst)
 
-        // TODO: check Nr
-        if (call && recNr && recRST && RecvExchange) {
+        console.log()
+        if (call && recNr !== '000' && this.Nr !== -1 && recRST && RecvExchange) {
             this.log.addQso(
                 {
                     UTC: this.getClock(),
@@ -248,6 +248,18 @@ export class View {
                         data: "",
                     })
                     break
+                /*  case "\\":
+                      his.processFunctionKey('F1')
+                      e.preventDefault()
+                      break    */
+                case "PageDown":
+                    e.preventDefault()
+                    this._config.updateWPM(-5)
+                    break
+                case "PageUp":
+                    e.preventDefault()
+                    this._config.updateWPM(5)
+                    break
                 case "Space":
                 case " ":
                     this.processSpace()
@@ -264,11 +276,19 @@ export class View {
                     }
                     break
                 case "ArrowDown":
-                    this._config.updateRIT(-50)
+                    if (e.ctrlKey || e.altKey || e.metaKey) {
+                        this._config.updateBW(-50)
+                    } else {
+                        this._config.updateRIT(-50)
+                    }
                     e.preventDefault()
                     break
                 case "ArrowUp":
-                    this._config.updateRIT(50)
+                    if (e.ctrlKey || e.altKey || e.metaKey) {
+                        this._config.updateBW(50)
+                    } else {
+                        this._config.updateRIT(50)
+                    }
                     e.preventDefault()
                     break
                 case "Tab":
@@ -283,20 +303,22 @@ export class View {
                     }
 
                     break
+                case "+":
+                case ",":
+                case "[":
                 case ".":
                     e.preventDefault()
                     this.processFunctionKey('F3') // TU                    
 
                     this.saveQSO()
                     break
+                case 'Insert':
                 case ";":
                     e.preventDefault()
                     this.processFunctionKey('F5') // <his>
                     this.processFunctionKey('F2') // <#> 
                     break
                 default:
-                    console.log("key: ", e.key)
-                    //debugger;
                     const regex = /Digit(\d)/
                     const digit_match = e.code.match(regex)
 

@@ -10,7 +10,7 @@ export class Config {
         if (Config._instance) {
             return Config._instance
         }
-        Config._instance = this           
+        Config._instance = this
         this._my_call = document.querySelector("#my_call")
         this._volume = document.querySelector("#volume")
         this._wpm = document.querySelector("#wpm")
@@ -24,8 +24,8 @@ export class Config {
         this._exchange1 = document.querySelector("#my_exchange1")
 
         // condx
-        this._qrn = document.querySelector("#qrn")          
-        this._qrm = document.querySelector("#qrm")        
+        this._qrn = document.querySelector("#qrn")
+        this._qrm = document.querySelector("#qrm")
         this._qsb = document.querySelector("#qsb")
         this._flutter = document.querySelector("#flutter")
         this._lids = document.querySelector("#lids")
@@ -74,6 +74,24 @@ export class Config {
         this.update()
     }
 
+    updateBW(x) {
+        const bw = Number(this._bandwidth.value)
+        const newBW = bw + x
+        if (newBW >= 100 && newBW <= 600) {
+            this._bandwidth.value = String(newBW)
+        }
+        this.update()
+    }
+
+    updateWPM(x) {
+        const wpm = Number(this._wpm.value)
+        const newWPM = wpm + x
+        if (newWPM >= 10 && newWPM <= 60) {
+            this._wpm.value = String(newWPM)
+            this.update()
+        }
+    }
+
     store() {
         localStorage.setItem(Config.store_key, JSON.stringify(this._config))
     }
@@ -81,9 +99,9 @@ export class Config {
         let config_str = localStorage.getItem(Config.store_key)
         if (config_str) {
             let conf = JSON.parse(config_str)
-            if (conf) { 
-               this._config = Object.assign({}, this._config, conf)
-               this._callback(this._config)    
+            if (conf) {
+                this._config = Object.assign({}, this._config, conf)
+                this._callback(this._config)
             }
         }
     }
@@ -103,12 +121,12 @@ export class Config {
         this._activity.value = String(this._config.activity)
         // condx
         this._qrn.checked = this._config.qrn
-        this._qrm.checked = this._config.qrm     
-        this._qsb.checked = this._config.qsb   
-        this._flutter.checked = this._config.flutter           
-        this._lids.checked = this._config.lids 
-        if(contest_id) {
-            if(this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange1)
+        this._qrm.checked = this._config.qrm
+        this._qsb.checked = this._config.qsb
+        this._flutter.checked = this._config.flutter
+        this._lids.checked = this._config.lids
+        if (contest_id) {
+            if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange1)
                 this._exchange1.value = this._config.contest[contest_id].exchange1
         }
     }
@@ -130,15 +148,15 @@ export class Config {
         this._config.activity = parseInt(this._activity.value)
 
         const exchange1 = this._exchange1.value
-        if (! this._config.contest[contest_id]) this._config.contest[contest_id] = {}
+        if (!this._config.contest[contest_id]) this._config.contest[contest_id] = {}
         if (old_contest_id === contest_id) this._config.contest[contest_id]["exchange1"] = exchange1
 
         this._config.qrn = this._qrn.checked
-        this._config.qrm = this._qrm.checked    
+        this._config.qrm = this._qrm.checked
         this._config.qsb = this._qsb.checked
         this._config.flutter = this._flutter.checked
-        this._config.lids = this._lids.checked                            
+        this._config.lids = this._lids.checked
 
-        if(!this._config.activity) this._config.activity = 2
+        if (!this._config.activity) this._config.activity = 2
     }
 }
