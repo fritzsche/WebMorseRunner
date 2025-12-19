@@ -55,10 +55,10 @@ export class Log {
 
     wipe() {
 
- //       this.runmode = this._contestDefinition._contest.runmode
+        //       this.runmode = this._contestDefinition._contest.runmode
         this.runmode = ContestDefinition.getRunMode()
 
-        
+
 
         this.data = []
         let table = document.querySelector('#log table')
@@ -126,7 +126,7 @@ export class Log {
         //      if (last_qso.RecvNr !== NR) confirm = Log.Check.NR
 
         // check we have a last qso
-        if (!last_qso) {            
+        if (!last_qso) {
             return
         }
         const contestDefinition = new ContestDefinition()
@@ -239,15 +239,22 @@ export class Log {
         }
         if (call.indexOf('/') >= 0) return ''
 
-        call = call.replace(/[^\d]*$/, '')
-
+        //delete trailing letters, retain at least 2 chars
+        call = call.replace(/([^\d]+)$/, (match, p1, offset) => {
+            const keepLength = Math.max(2, offset)
+            return call.substring(offset, keepLength)
+        })
 
         // ensure digit
-        if (!(/^\d$/.test(call[call.length - 1]))) call += '0'
+        if (!/\d$/.test(call)) {
+            call += '0'
+        }
         // replace digit
-        if (dig.length === 1) call = call.replace(/.$/, dig)
 
-        return call
+        if (dig.length > 0) {
+            call = call.slice(0, -1) + dig[0]
+        }
+        return call.slice(0, 5)
     }
 
     addTable(qso) {

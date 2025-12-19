@@ -185,7 +185,8 @@ This means after stating the contest the cursor is places automatically in the C
 
 
 ## Version
-* **0.10-beta** (2025-12-17)
+* **0.10-beta** (2025-12-19)
+   * Bugfix: make prefix detection work for CEPT like prefix like: F/DJ1TF
    * Support for more keyboard shortcuts (tnx DK5TX es DJ5CW fer request)
       * Alt-W, Ctrl-W, F11 - wipe the input fields.
       * Alt-Enter, Shift-Enter, Ctrl-Enter - save QSO.
