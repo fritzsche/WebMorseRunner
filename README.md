@@ -185,18 +185,15 @@ This means after stating the contest the cursor is places automatically in the C
 
 
 ## Version
-* **0.10-beta** (2025-12-19)
-   * Bugfix: make prefix detection work for CEPT like prefix like: F/DJ1TF
+* **0.10-beta** (2025-12-20) -- **Christmas 2025 Edition**
+   * Bugfix: make prefix detection work for CEPT like prefix e.g. F/DJ1TF
    * Support for more keyboard shortcuts (tnx DK5TX es DJ5CW fer request)
       * Alt-W, Ctrl-W, F11 - wipe the input fields.
       * Alt-Enter, Shift-Enter, Ctrl-Enter - save QSO.
       * <+>, <.>, <,>, <\[> - equivalent to F3 + Save
       * <;>, <Insert> - equivalent to F5 + F2.
       * \<PageUp>, \<PageDown> - Change WPM by 5 WPM
-      * <CTRL>-Arrow-Up/Down - Bandwidth
-      
-
-    
+      * <CTRL>-Arrow-Up/Down - Bandwidth    
 * **0.9-beta** (2025-12-06) - **Saint Nicholas Day Edition**
    * pressing the escape key will abort the sending
    * TX indicator
