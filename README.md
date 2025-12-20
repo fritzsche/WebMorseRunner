@@ -194,6 +194,9 @@ This means after stating the contest the cursor is places automatically in the C
       * <;>, <Insert> - equivalent to F5 + F2.
       * \<PageUp>, \<PageDown> - Change WPM by 5 WPM
       * <CTRL>-Arrow-Up/Down - Bandwidth    
+   * Bugfix (2025-12-20): 
+      * Thanks DK5TX for reporting the issue: If the call is changed and <Insert> or <;> is pressed the call will be send
+        so the QSO will be confirmed by the DX station.  
 * **0.9-beta** (2025-12-06) - **Saint Nicholas Day Edition**
    * pressing the escape key will abort the sending
    * TX indicator

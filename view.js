@@ -308,6 +308,9 @@ export class View {
                 case "[":
                 case ".":
                     e.preventDefault()
+                    if (this.call.value.toUpperCase() !== this.prev_call.toUpperCase()) {
+                       this.processFunctionKey('F5') 
+                    }
                     this.processFunctionKey('F3') // TU                    
 
                     this.saveQSO()
@@ -316,6 +319,7 @@ export class View {
                 case ";":
                     e.preventDefault()
                     this.processFunctionKey('F5') // <his>
+                    this.prev_call = this.call.value.toUpperCase() 
                     this.processFunctionKey('F2') // <#> 
                     break
                 default:
@@ -489,7 +493,7 @@ export class View {
                 case AudioMessage.update_call:
                     if (!data) {
                         this.CallSend = false
-                    } else this.prev_call = this.Call
+                    } else this.prev_call = this.Call.toUpperCase()
                     break
                 default:
                     console.log("ERROR: Unsupported message")
