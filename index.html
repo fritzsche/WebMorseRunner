@@ -14,7 +14,8 @@
 
 <body>
   <!-- <h1 class="block">WebMorseRunner</h1> -->
-  <div class="flex">
+  <div id="main">
+
     <div id="container">
       <div class="block" id="log">
         <table>
@@ -130,9 +131,9 @@
         <fieldset class="grid">
           <legend>Contest</legend>
           <div class="flex_form">
-            # Calls: <span id="no_of_calls"></span> / 
+            # Calls: <span id="no_of_calls"></span> /
             <input type="file" single id="fileElem" style="display:none" />
-            <a href="#" id="fileSelect">Upload</a> / 
+            <a href="#" id="fileSelect">Upload</a> /
             <a href="#" id="reset">Reset</a>
             <div id="fileList">
             </div>
@@ -147,7 +148,7 @@
           </div>
           <div id='myexchange1' class="flex_form hidden">
             <label for="my_exchange1">Exchange1</label>
-            <input class="watch no_run" autocomplete="off" id="my_exchange1" size="8" name="my_exchange1" value="" />            
+            <input class="watch no_run" autocomplete="off" id="my_exchange1" size="8" name="my_exchange1" value="" />
           </div>
           <div class="flex_form">
             <button id="run">&#9654; Run</button>
@@ -161,68 +162,71 @@
       </div>
 
     </div>
-  </div>
-  <div class="flex">
-    <div id="low_row" class="">
-      <div class="flex_form block" id="input">
-        <div>
-          <label for="call">Call</label>
-          <input autocomplete="off" enterkeyhint="enter" inputmode="text" id="call" class="cont_input" type="text" value="" name="call" maxlength="18" size="18" 
-            style="text-transform: uppercase">
-        </div> 
-        <div class="flex_form" id="exchange">       
+
+    <div id="footer" class="flex">
+      <div id="low_row" class="">
+        <div class="flex_form block" id="input">
           <div>
-            <label for="rst">RST</label>
-            <input autocomplete="off" enterkeyhint="enter" inputmode="text" id="rst" class="NR" maxlength="3" size="3" type="text" value="" name="rst">
+            <label for="call">Call</label>
+            <input autocomplete="off" enterkeyhint="enter" inputmode="text" id="call" class="cont_input" type="text"
+              value="" name="call" maxlength="18" size="18" style="text-transform: uppercase">
           </div>
-          <div>
-            <label for="nr" id="exchange1">Nr.</label>
-            <input autocomplete="off" enterkeyhint="enter" inputmode="text" id="nr" class="NR" maxlength="3" size="3" type="text" value="" name="nr">
-          </div>
-               
-        </div>
+          <div class="flex_form" id="exchange">
             <div>
+              <label for="rst">RST</label>
+              <input autocomplete="off" enterkeyhint="enter" inputmode="text" id="rst" class="NR" maxlength="3" size="3"
+                type="text" value="" name="rst">
+            </div>
+            <div>
+              <label for="nr" id="exchange1">Nr.</label>
+              <input autocomplete="off" enterkeyhint="enter" inputmode="text" id="nr" class="NR" maxlength="3" size="3"
+                type="text" value="" name="nr">
+            </div>
+
+          </div>
+          <div>
             <div> TX<wbr></div>
-        <div id="tx-indicator" class="led-indicator"></div>   
+            <div id="tx-indicator" class="led-indicator"></div>
+          </div>
+        </div>
+
+        <div class="block send" id="send_button">
+          <button id="F1">F1 CQ</button>
+          <button id="F2">F2 &lt;#&gt;</button>
+          <button id="F3">F3 TU</button>
+          <button id="F4">F4 &lt;my&gt;</button>
+          <button id="F5">F5 &lt;his&gt;</button>
+          <button id="F6">F6 B4</button>
+          <button id="F7">F7 &quest;</button>
+          <button id="F8">F8 NIL</button>
         </div>
       </div>
-
-      <div class="block send" id="send_button">
-        <button id="F1">F1 CQ</button>
-        <button id="F2">F2 &lt;#&gt;</button>
-        <button id="F3">F3 TU</button>
-        <button id="F4">F4 &lt;my&gt;</button>
-        <button id="F5">F5 &lt;his&gt;</button>
-        <button id="F6">F6 B4</button>
-        <button id="F7">F7 &quest;</button>
-        <button id="F8">F8 NIL</button>
-      </div>    
-    </div>
-    <div class="box">
-      <div class="pileup_only" id="pileup">Pileup: 0</div>
-      <div id="clock">00:00:00</div>
-      <table class="table_result">
-        <tr>
-          <th></th>
-          <th>Raw</th>
-          <th>Verified</th>
-        </tr>
-        <tr>
-          <td>Pts</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>Mult</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>Score</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-      </table>
+      <div class="box">
+        <div class="pileup_only" id="pileup">Pileup: 0</div>
+        <div id="clock">00:00:00</div>
+        <table class="table_result">
+          <tr>
+            <th></th>
+            <th>Raw</th>
+            <th>Verified</th>
+          </tr>
+          <tr>
+            <td>Pts</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Mult</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Score</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
   <div id="debug"></div>

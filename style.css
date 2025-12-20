@@ -80,7 +80,7 @@ label {
   width: 7em;
   font-size: 11pt;
   display: inline;
- /* margin-right: 0px;*/
+  /* margin-right: 0px;*/
 }
 
 th {
@@ -130,16 +130,16 @@ th {
   text-align: center;
   font-size: 18pt;
   color: rgb(28, 161, 202);
- /* display: inline-block;*/
+  /* display: inline-block;*/
   border-style: solid;
   border-color: gray;
- /* padding: 50px 0 50px;*/
+  /* padding: 50px 0 50px;*/
 }
 
 #send_button {
   display: grid;
   gap: 4px;
-  grid-template-columns: repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 #input {
@@ -153,7 +153,7 @@ th {
   flex-direction: column;
 }
 
-#low_row > * {
+#low_row>* {
   flex-grow: 0;
 }
 
@@ -176,7 +176,7 @@ fieldset {
 
 .grid {
   display: grid;
-  gap: 7px; 
+  gap: 7px;
 }
 
 .condx_grid {
@@ -185,30 +185,30 @@ fieldset {
 
 .grid_form {
   display: grid;
-  gap: 7px; 
+  gap: 7px;
   grid-template-columns: 1fr 0fr 0fr;
 }
 
 .flex_form {
   display: flex;
-  gap: 7px;  
+  gap: 7px;
   align-items: baseline;
 }
 
 #run {
   width: 8em;
   height: 30px;
-  background-color:darkgreen;
+  background-color: darkgreen;
 }
 
 .stop {
-  background-color:darkred !important;
+  background-color: darkred !important;
 }
 
 
 .grid_result {
   display: grid;
-  gap: 3px; 
+  gap: 3px;
   font-size: 10pt;
   grid-template-columns: 0fr 0fr 0fr;
 }
@@ -219,7 +219,7 @@ fieldset {
   gap: 30px;
 }
 
-.table_result tr td:nth-child(n+1) { 
+.table_result tr td:nth-child(n+1) {
   text-align: right;
 }
 
@@ -236,7 +236,7 @@ fieldset {
 }
 
 #pileup {
-  text-align: center;  
+  text-align: center;
 }
 
 
@@ -245,8 +245,8 @@ a {
 }
 
 .pileup_green {
-    color:rgb(4, 161, 4);
- }
+  color: rgb(4, 161, 4);
+}
 
 /*
 .pileup_only {
@@ -262,7 +262,7 @@ a {
 }
 
 
-#input  input {
+#input input {
   font-size: 14pt;
 }
 
@@ -270,20 +270,41 @@ a {
 .led-indicator {
   width: 20px;
   height: 20px;
-  background-color: #444; /* Dark gray when off */
-  border-radius: 50%; /* Makes it a circle */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Subtle shadow when off */
+  background-color: #444;
+  /* Dark gray when off */
+  border-radius: 50%;
+  /* Makes it a circle */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  /* Subtle shadow when off */
   display: inline-block;
-  margin-right: 10px; /* Spacing next to input field */
+  margin-right: 10px;
+  /* Spacing next to input field */
   vertical-align: middle;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Smooth transition */
 }
 
 /* Style for the TX Active state (RED ON) */
 .tx-active {
-  background-color: #ff0000; /* Bright red center */
+  background-color: #ff0000;
+  /* Bright red center */
   /* This creates the glow effect */
-  box-shadow: 0 0 10px #ff0000, /* Inner glow */
-              0 0 20px #ff0000, /* Outer glow */
-              0 0 30px #ff0000; /* Wider glow */
+  box-shadow: 0 0 10px #ff0000,
+    /* Inner glow */
+    0 0 20px #ff0000,
+    /* Outer glow */
+    0 0 30px #ff0000;
+  /* Wider glow */
+}
+
+
+#main {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: 1fr max-content;
+}
+
+#footer {
+  grid-column-start: span 2;
+  width: 100%;
 }
