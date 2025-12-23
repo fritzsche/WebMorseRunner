@@ -77,7 +77,7 @@ label {
 
 .send button {
   /*  font-family: 'Courier New', monospace;  */
-  width: 7em;
+  width: 6em;
   font-size: 11pt;
   display: inline;
   /* margin-right: 0px;*/
@@ -306,5 +306,9 @@ a {
 
 #footer {
   grid-column-start: span 2;
-  width: 100%;
+/*  width: 100%; */
+  flex-basis: 100%;
+}
+#stat {
+/*  flex-grow: 1; */
 }
