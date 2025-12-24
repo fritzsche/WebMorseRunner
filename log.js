@@ -44,6 +44,18 @@ export class Log {
         this.initScoreSets()
     }
 
+    count_qso(t) {
+        if (this.data.length > 0) {
+            console.log(this.data)
+        }
+        // console.log(this)
+        let count = 0
+        for (const item of this.data) if (item.Clock > t) count++
+
+        return count
+
+    }
+
     initScoreSets() {
         this.Calls = new Set()
         this.Prefix = new Set()
@@ -129,6 +141,15 @@ export class Log {
         if (!last_qso) {
             return
         }
+
+        /*
+        console.log(last_qso)
+        console.log(qso)
+        last_qso.DX_Call = qso.call
+        last_qso.DX_NR = qso.Ex.NR
+         */
+
+
         const contestDefinition = new ContestDefinition()
         confirm = contestDefinition.checkExchange(last_qso.RecvExchange, qso.Ex)
 

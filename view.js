@@ -14,6 +14,9 @@ export class View {
         this.MustAdvance = false
         this.call = document.getElementById("call")
         this.clock = document.getElementById("clock")
+        this.qso_per_h = document.getElementById("qso_per_h")
+
+
         this.txIndicator = document.getElementById('tx-indicator')
         this._pileupStations = 0
         this.prev_call = ""
@@ -24,6 +27,9 @@ export class View {
         this.log = new Log()
 
     }
+
+
+
     setFocus(id) {
         document.getElementById(id).focus()
     }
@@ -74,6 +80,7 @@ export class View {
             this.log.addQso(
                 {
                     UTC: this.getClock(),
+                    Clock: this.ctx.currentTime - this.start_time,
                     Call: call,
                     RecvNr: recNr,
                     RecvRST: recRST,
@@ -390,10 +397,25 @@ export class View {
             }:${String(seconds).padStart(2, "0")}`
     }
 
+
+    update_qso_per_h(t) {
+       const five_minutes = 5*60
+  
+       const sel_time = Math.min(five_minutes, t)
+     //  console.log(sel_time)
+
+       const count = this.log.count_qso(this.ctx.currentTime - this.start_time - sel_time)
+       const sec_per_h = 3600
+       const qso_rate = Math.round(( count / sel_time ) * sec_per_h )
+       if(qso_rate > 0) this.qso_per_h.innerText = `${qso_rate} qso/hr.`       
+       console.log("QSO rate: "+qso_rate + "  "+ count + "  "+ sel_time)
+    }
+
     updateTimer() {
         if (!this.running === true) return
         let t = this.ctx.currentTime - this.start_time
-
+        
+        this.update_qso_per_h(t)
 
         if (t > this._config._config.time * 60) {
             this.clock.innerText = this.formatTimer(
