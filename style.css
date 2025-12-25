@@ -306,34 +306,61 @@ a {
 
 #footer {
   grid-column-start: span 2;
-/*  width: 100%; */
+  /*  width: 100%; */
   flex-basis: 100%;
 }
+
 #stat {
-  flex-grow: 1; 
+  flex-grow: 1;
   border-width: 2px;
   border-style: groove;
   border-color: gray;
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;  
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: max-content 1fr;  
-  gap: 5px;
+  grid-template-rows: max-content 1fr;
+ /* gap: 5px;*/
 }
-#stat > div {
+
+#stat>div {
   /*border: 1px solid red; */
-  padding: 5px;          
+  /* padding: 5px;*/
 }
 
 #qso_per_h {
-  min-height: 2em; 
+  font-size: 10pt;
+  min-height: 1.2em;
 
   display: flex;
-  justify-content: center; /* Horizontal zentrieren */
-  align-items: center;  
+  justify-content: center;
+  /* Horizontal zentrieren */
+  align-items: center;
 
 }
 
 #qso_chart {
   background-color: rgb(66, 65, 65);
+}
+
+.bar {
+  flex: 1;
+  /* Alle Balken gleich breit */
+  background-color:  rgb(28, 161, 202);
+  /* transition: background 0.2s; */
+  position: relative;
+  /* cursor: pointer;*/
+}
+
+#qso_chart {
+  display: flex;
+  align-items: flex-end;
+  /* Balken wachsen von unten nach oben */
+  gap: 2px;
+  /* Abstand zwischen Balken */
+/*  width: 600px; */
+/*  height: 300px; */
+/*  border-bottom: 2px solid #333;
+  border-left: 2px solid #333; */
+  padding: 2px;
 }

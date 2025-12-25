@@ -15,6 +15,7 @@ export class View {
         this.call = document.getElementById("call")
         this.clock = document.getElementById("clock")
         this.qso_per_h = document.getElementById("qso_per_h")
+        this.qso_chart_bars = document.querySelectorAll(".bar")
 
 
         this.txIndicator = document.getElementById('tx-indicator')
@@ -400,15 +401,30 @@ export class View {
 
     update_qso_per_h(t) {
        const five_minutes = 5*60
-  
+       this.draw_chart()
        const sel_time = Math.min(five_minutes, t)
-     //  console.log(sel_time)
-
        const count = this.log.count_qso(this.ctx.currentTime - this.start_time - sel_time)
        const sec_per_h = 3600
        const qso_rate = Math.round(( count / sel_time ) * sec_per_h )
        if(qso_rate > 0) this.qso_per_h.innerText = `${qso_rate} qso/hr.`       
-       console.log("QSO rate: "+qso_rate + "  "+ count + "  "+ sel_time)
+//       console.log("QSO rate: "+qso_rate + "  "+ count + "  "+ sel_time)
+    }
+
+    update_chart() {
+        const data = [9,4,3,5,2,0,0,2,1,5,5,3,2,9,8,7,6,5,4,3]
+        console.log(this.qso_chart_bars.length)
+        for(let i= 0;i<this.qso_chart_bars.length;i++) {
+            this.qso_chart_bars[i].style.height = `${data[i]*10}%`
+        }
+
+        
+    }
+
+    draw_chart() {
+        const now = this.ctx.currentTime - this.start_time
+        this.log.qso_bins(now)
+        this.update_chart()
+
     }
 
     updateTimer() {
