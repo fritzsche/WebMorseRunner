@@ -45,10 +45,6 @@ export class Log {
     }
 
     count_qso(t) {
-       // if (this.data.length > 0) {
-       //     console.log(this.data)
-       // }
-        // console.log(this)
         let count = 0
         for (const item of this.data) if (item.Clock > t) count++
 
@@ -57,21 +53,23 @@ export class Log {
     }
 
     qso_bins(now) {
-        const time_per_bin = 60  // seconds
-        const bin_number = 10
-        const bin_now = Math.floor(now / time_per_bin)
-        const bin_min = Math.max(0, bin_now - bin_number)
+        const time_per_bin = 5 * 60  // seconds
+
+        const bin_number = 24
+     //   const bin_now = Math.floor(now / time_per_bin)
+      //  const bin_min = Math.max(0, bin_now - bin_number)
         const bins = new Array(bin_number).fill(0)
 
 
         for (const item of this.data) {
-            const qso_bin = bin_now - Math.floor(item.Clock / time_per_bin) 
-            //console.log(qso_bin)
-            if(qso_bin <= bin_number) bins[qso_bin]++
+            // const qso_bin = bin_now - Math.floor(item.Clock / time_per_bin) 
+            const qso_bin = Math.floor(item.Clock / time_per_bin)
+
+          
+            if (qso_bin <= bin_number) bins[qso_bin]++
 
         }
-        console.log(bins)
-
+        return bins
         //       console.log(bin_now)
 
 

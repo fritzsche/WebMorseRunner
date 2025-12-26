@@ -45,13 +45,45 @@ export class View {
     }
 
     _updatePileUp() {
-        if (this._config._config.runmode === RunMode.Pileup) {
+/*        if (this._config._config.runmode === RunMode.Pileup) {
             const element = document.getElementById("pileup")
             const txt = `Pileup: ${this._pileupStations}`
             element.innerText = txt
             if (this._pileupStations > 0) element.classList.add('pileup_green'); else element.classList.remove('pileup_green')
         }
+*/
+        if (this._config._config.contest_id === 'pileup') {
+            const element = document.getElementById("qso_info")
+            const txt = `Pileup: ${this._pileupStations}`
+            element.innerText = txt
+            if (this._pileupStations > 0) element.classList.add('pileup_green'); else element.classList.remove('pileup_green')
+        }
 
+
+    }
+
+    _update_info(){
+        const dom = document.getElementById("qso_info")
+        dom.classList.remove('pileup_green')
+        dom.classList.remove('green')
+        dom.classList.remove('red')
+        switch(this._config._config.contest_id ) {
+            case 'pileup': 
+               dom.innerText = `Pileup: ${this._pileupStations}`
+               if (this._pileupStations > 0) dom.classList.add('pileup_green'); else dom.classList.remove('pileup_green')
+               break
+            case 'single':   
+              dom.innerText = 'Single Calls'
+              break
+            case 'hst':  
+              dom.innerText = 'H S T'
+              dom.classList.add('red');
+              break
+            default:
+              dom.innerText = 'COMPETITION'  
+              dom.classList.add('red');
+              break
+        }
     }
 
     wipeFields() {
@@ -317,7 +349,7 @@ export class View {
                 case ".":
                     e.preventDefault()
                     if (this.call.value.toUpperCase() !== this.prev_call.toUpperCase()) {
-                       this.processFunctionKey('F5') 
+                        this.processFunctionKey('F5')
                     }
                     this.processFunctionKey('F3') // TU                    
 
@@ -327,7 +359,7 @@ export class View {
                 case ";":
                     e.preventDefault()
                     this.processFunctionKey('F5') // <his>
-                    this.prev_call = this.call.value.toUpperCase() 
+                    this.prev_call = this.call.value.toUpperCase()
                     this.processFunctionKey('F2') // <#> 
                     break
                 default:
@@ -400,37 +432,50 @@ export class View {
 
 
     update_qso_per_h(t) {
-       const five_minutes = 5*60
-       this.draw_chart()
-       const sel_time = Math.min(five_minutes, t)
-       const count = this.log.count_qso(this.ctx.currentTime - this.start_time - sel_time)
-       const sec_per_h = 3600
-       const qso_rate = Math.round(( count / sel_time ) * sec_per_h )
-       if(qso_rate > 0) this.qso_per_h.innerText = `${qso_rate} qso/hr.`       
-//       console.log("QSO rate: "+qso_rate + "  "+ count + "  "+ sel_time)
+        const five_minutes = 5 * 60
+        this.draw_chart()
+        const sel_time = Math.min(five_minutes, t)
+        const count = this.log.count_qso(this.ctx.currentTime - this.start_time - sel_time)
+        const sec_per_h = 3600
+
+        const qso_rate = sel_time === 0 ? 0 : Math.round((count / sel_time) * sec_per_h)
+
+//        let text = '0 qso/hr.'
+//        if (qso_rate > 0) 
+        const text = `${qso_rate} qso/hr.`
+
+        this.qso_per_h.innerText = text
     }
 
-    update_chart() {
-        const data = [9,4,3,5,2,0,0,2,1,5,5,3,2,9,8,7,6,5,4,3]
-        console.log(this.qso_chart_bars.length)
-        for(let i= 0;i<this.qso_chart_bars.length;i++) {
-            this.qso_chart_bars[i].style.height = `${data[i]*10}%`
+    update_chart(data) {
+        const no_bars = this.qso_chart_bars.length;
+
+        const standard_max_qso = ( 150 / 60 ) * 5
+        const max_value = Math.max(standard_max_qso,Math.max(...data))
+        const factor = 100/(1.1*max_value)
+//        console.log(factor)
+//        console.log(this.qso_chart_bars.length)
+        for(let i = 0;i< no_bars;i++) 
+        for (let i = 0; i < no_bars; i++) {
+            let number = 0
+            if (data[i] && data[i] > 0) number = data[i]
+            this.qso_chart_bars[i].style.height = `${number * factor}%`
         }
 
-        
+
     }
 
     draw_chart() {
         const now = this.ctx.currentTime - this.start_time
-        this.log.qso_bins(now)
-        this.update_chart()
+        const bins = this.log.qso_bins(now)
+        this.update_chart(bins)
 
     }
 
     updateTimer() {
         if (!this.running === true) return
         let t = this.ctx.currentTime - this.start_time
-        
+
         this.update_qso_per_h(t)
 
         if (t > this._config._config.time * 60) {
@@ -463,6 +508,7 @@ export class View {
 
         this.log.wipe()
         this.toggleRunButton()
+        this._update_info()
 
         //if (!this.ctx)
         document.getElementById("debug").innerText = ""
@@ -618,7 +664,6 @@ export class View {
             this._ContestDefinition.updateConfig(conf)
         })
         this._config.update_dom()
-        //const input = document.querySelector("#volume")
     }
 
 

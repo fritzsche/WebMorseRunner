@@ -74,6 +74,13 @@ const contest_def = [
         key: stdKey,
     },
     {
+        id: 'wpx',
+        name: "WPX-Competition",
+        runmode: RunMode.Pileup,
+        exchange: [Exchange.RST, Exchange.NR],
+        key: stdKey,
+    },    
+    {
         id: 'hst',
         name: "HST mode",
         runmode: RunMode.Hst,
@@ -353,13 +360,14 @@ export class ContestDefinition {
 
 
     updatePileupFields() {
-        document.querySelectorAll(".pileup_only").forEach(
+/*        document.querySelectorAll(".pileup_only").forEach(
             (e) => {
                 if (this._config.runmode === RunMode.Pileup) {
                     e.classList.remove("pileup_hidden")
                 } else e.classList.add("pileup_hidden")
             },
         )
+            */
     }
 
 }

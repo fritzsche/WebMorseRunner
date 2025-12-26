@@ -248,6 +248,15 @@ a {
   color: rgb(4, 161, 4);
 }
 
+
+.red {
+  color: red;
+}
+
+.green {
+  color: rgb(4, 161, 4);
+}
+
 /*
 .pileup_only {
   
@@ -260,6 +269,9 @@ a {
 .pileup_hidden {
   display: none;
 }
+
+
+
 
 
 #input input {
@@ -318,15 +330,10 @@ a {
   margin-top: 10px;
   margin-bottom: 10px;  
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: max-content 1fr;
- /* gap: 5px;*/
 }
 
-#stat>div {
-  /*border: 1px solid red; */
-  /* padding: 5px;*/
-}
 
 #qso_per_h {
   font-size: 10pt;
@@ -336,31 +343,44 @@ a {
   justify-content: center;
   /* Horizontal zentrieren */
   align-items: center;
+  border-left: rgb(66, 65, 65) solid;
+  border-width: 1px;
+}
 
+#qso_info {
+  font-size: 10pt;
+    
+  border-right: rgb(66, 65, 65) solid;
+  border-width: 1px;
+  place-self: center;
+  align-self: center;
+  text-align: center;
+  padding: 3px;
+  width: 100%
 }
 
 #qso_chart {
   background-color: rgb(66, 65, 65);
+  grid-column-start: span 2;
 }
 
 .bar {
   flex: 1;
-  /* Alle Balken gleich breit */
   background-color:  rgb(28, 161, 202);
-  /* transition: background 0.2s; */
   position: relative;
-  /* cursor: pointer;*/
 }
 
 #qso_chart {
   display: flex;
   align-items: flex-end;
-  /* Balken wachsen von unten nach oben */
   gap: 2px;
-  /* Abstand zwischen Balken */
-/*  width: 600px; */
-/*  height: 300px; */
-/*  border-bottom: 2px solid #333;
-  border-left: 2px solid #333; */
   padding: 2px;
+}
+
+#result {
+  padding-right:  0px;
+}
+
+#log_hdr {
+  color:  rgb(28, 161, 202);
 }
