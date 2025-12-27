@@ -17,11 +17,13 @@ This project is new and independent of Alex project. The original Morse Runner t
 ## Functions
 
 * Runs in Browser using Javascript
+* Privacy: The app is running in your browser. No data is collected by Web Morse Runner and not even send back to the webserver.
 * Web Audio API using AudioWorklet
 * No Backend
 * Contest Mode: 
     * Single Call
     * Pileup
+    * WPX Competition
     * DARC CW Ausbildungscontest (CWA)
     * A1CLUB AWT
 * (Complex) Noise
@@ -30,6 +32,7 @@ This project is new and independent of Alex project. The original Morse Runner t
 * AGC
 * Read List of calls from calls.txt
 * Speed in WPM
+* Display qso/h rate and chart
 * Stetting: 
     * Pitch
     * RX Bandwidth
@@ -48,10 +51,9 @@ This project is new and independent of Alex project. The original Morse Runner t
 
 * WAV File Export
 * Best-List
-* Score over time
 
 ## Status
-This Web App is in a early stage. I'm still searching some bugs and looking for optimizations. The App can work, but consider this app as experimental.
+This Web App is in a beta stage. I'm still searching bugs optimize the app. Please use Github Issues to report bugs or feature requests. You can also contact me by Email.
 
 ## Usage
 Web Morse Runner is a contest simulator. The target is to get as much points (QSO's) and multis (Prefix) as possible.
@@ -65,6 +67,13 @@ Use the respective buttons or function key to respond to the stations. Find more
 The simulator supports ESM (Enter to Send Message), means hitting the Enter key will allow you to send messages depending on the state of the QSO. Details on ESM can be found: [here](#esm-enter-to-send-message).
 
 As in the real world stations that are sending will not listen what you are sending. Hence you need to wait until the DX station has finished sending before you reply.
+
+## Privacy 
+Web Morse Runner is executed in your Browser. During start of the app the necessary static files are loaded from the server but **no usage data is collected**. 
+
+## Hosting
+Web Morse Runner is a standalone Javascript App with official version hosted on Github. 
+You can host the project on your own (local) Webserver. You need a "Secure Context" (https or localhost) for Web Morse Runner to execute. 
 
 ## Operating systems
 Web Morse Runner is tested successful to work on **Mac**/**Windows 11** and **Linux**. 
@@ -108,6 +117,7 @@ The file format for the call signs file is very simple. Some examples can be fou
 Web Morse Runner supports the following contest modes:
 * **Single Call** Always one station is calling to you. No pileup and you not need to call CQ.
 * **Pileup** In this station you need to call CQ first before stations will reply. The parameter *Activity* will determine how many stations will answer in average. The number of stations calling you will be displayed over the running clock.
+* **WPX Contest ** Similar to the Pile-Up mode, but the number of stations in the Pile-up is not displayed. The usage of Band Condition (QRM/QSB etc.) is not enforced.
 * **DARC CWA** (EXPERIMENTAL) Exchange is DOK. You need to [upload](#upload-calls) calls with file [DL-All_DOK.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/DL-All_DOK.txt) that contain necessary DOK information for stations. Notice the points are still calculated by prefix not DOK, this might be later updated.
 * **AWT** (EXPERIMENTAL) Exchange is the name. You need to [upload](#upload-calls) [AWT.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/AWT.txt) that contain necessary example calls with names. The point calculation is still bases on prefix. This might be later added.
 
@@ -182,9 +192,19 @@ This means after stating the contest the cursor is places automatically in the C
 * **CTRL-Arrow-Up/Down, Alt-Arrow-Up/Down, Meta-Arrow-Up/Down** bandwidth.
 * **Escape** abort sending.
 
-
+## Statistics
+Web Morse Runner provides (since version 0.11-Beta) some statistical information. The data is based on logged data and does include confirmed and unconfirmed QSO.
+The qso/h will be shown after you logged your first context.
+Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO data.
+Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). THis is useful if you run longer contest sessions.
 
 ## Version
+* **0.11-beta** (2025-12-27) -- **Zwischen den Jahren 2025 Edition**
+   * New: QSO per hour is displayed as text and diagram. 
+   * New: WPX Contest mode. (Band Conditions are not enforced)
+   * UI redesign to provide space for qso/h chart.  
+   * Bugfix: Using QRN Band Condition could lead to a Sine Tone (Amplitude cause flat curve in filter)
+   * Bugfix: QSB/Flutter Band condition could not be activated during running contest.
 * **0.10-beta** (2025-12-20) -- **Christmas 2025 Edition**
    * Bugfix: make prefix detection work for CEPT like prefix e.g. F/DJ1TF
    * Support for more keyboard shortcuts (tnx DK5TX es DJ5CW fer request)
@@ -263,7 +283,7 @@ Like to thank VE3NEA Alex Shovkoplyas for his inspiring work on Morse Runner.
 
 
 
-73, Thomas - DJ1TF
+73, Thomas - DJ1TF/JJ1QPB
 
 
 

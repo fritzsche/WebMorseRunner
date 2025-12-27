@@ -42,6 +42,13 @@ export class DxStation extends Station {
     this.State = Station.State.Copying
   }
 
+  initQSB() {
+     this.Qsb = new Qsb()
+      if (DEFAULT.QSB) this.Qsb.Bandwidth = 0.1 + Math.random() / 2
+      if (DEFAULT.FLUTTER && Math.random() < 0.3) {
+        this.Qsb.Bandwidth = 3 + Math.random() * 30
+      }    
+  }
 
   ProcessEvent(AEvent) {
     if (this.Oper.State === OperatorState.Done) return
@@ -117,7 +124,10 @@ export class DxStation extends Station {
 
   GetBlock() {
     let result = super.GetBlock()
-    if (DEFAULT.QSB || DEFAULT.FLUTTER) this.Qsb.ApplyTo(result)
+    if (DEFAULT.QSB || DEFAULT.FLUTTER) {
+      if (!this.Qsb) this.initQSB()
+      this.Qsb.ApplyTo(result)
+    }  
     return result
   }
 

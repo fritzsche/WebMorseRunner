@@ -16,6 +16,7 @@ class MovAvg {
         this._CalcScale()
     }
     _CalcScale() {
+        console.log("CalcScape")
         this.FNorm = Math.pow(10, 0.05 * this.FGainDb) * Math.pow(this.FPoints, -this.FPasses)
     }
     set passes(pass) {

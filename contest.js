@@ -236,7 +236,8 @@ export class Contest {
             for (let i = 0; i < this._src_complex_buffer.Re.length; i++)
                 if (Math.random() < 0.01) this._src_complex_buffer.Re[i] = 60 * Contest.noise_amp * (Math.random() - 0.5)
             //burst
-            if (Math.random() < 0.01) this.Stations.push(new QrnStation())
+            const qrm = Math.random()
+            if (qrm  < 0.01) this.Stations.push(new QrnStation())
 
         }
 
