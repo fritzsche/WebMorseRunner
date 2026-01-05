@@ -222,6 +222,7 @@ export class View {
         switch (message) {
             // we need to send the text of his call
             case StationMessage.HisCall:
+                this.CallSend = true
                 this.sendMessage({
                     type: AudioMessage.send_his,
                     data: this.Call,
@@ -234,6 +235,13 @@ export class View {
                     data: exchange
                 })
                 break
+            case StationMessage.NR:
+                this.NrSend = true
+                this.sendMessage({
+                    type: AudioMessage.send_msg,
+                    data: message
+                })                
+                break;    
             default:
                 this.sendMessage({
                     type: AudioMessage.send_msg,
@@ -247,8 +255,9 @@ export class View {
     processFunctionKey(key) {
         const Constest_FKey = this._ContestDefinition._contest.key
         if (Constest_FKey) {
-            if (!Constest_FKey[key]) return false
-            this.sendMyMessage(Constest_FKey[key].send)
+            if (!Constest_FKey[key]) return false            
+            const msg = Constest_FKey[key].send
+            this.sendMyMessage(msg)
         } else {
             //debugger;
         }

@@ -199,6 +199,8 @@ Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO 
 Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). THis is useful if you run longer contest sessions.
 
 ## Version
+* **0.11.1-beta** (2026-01-01)
+   * Bugfix: sending Call / Nr with <Insert> or <;> should memorize Call/Nr send so using ESM will pick the call/Nr as send.
 * **0.11-beta** (2025-12-27) -- **Zwischen den Jahren 2025 Edition**
    * New: QSO per hour is displayed as text and diagram. 
    * New: WPX Contest mode. (Band Conditions are not enforced)
