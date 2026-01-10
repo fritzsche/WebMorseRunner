@@ -25,6 +25,8 @@ export class DxOperator {
         const W_Y = 2
         const W_D = 2
 
+
+        console.log("com ",My,His)
         let C0 = My
         let C = His
 
