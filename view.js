@@ -108,8 +108,7 @@ export class View {
         const recNr = String(this.Nr).padStart(3, "0")
         const recRST = String(this.Rst)
 
-        console.log()
-        if (call && recNr !== '000' && this.Nr !== -1 && recRST && RecvExchange) {
+        if (call && recNr !== '000'  && recRST && RecvExchange) { //&& this.Nr !== -1
             this.log.addQso(
                 {
                     UTC: this.getClock(),
@@ -201,7 +200,7 @@ export class View {
         // qso finished:
         // we have NR and call
         // now send TU and log QSO and reset the fields.
-        if (dxNrLogged && (callSend || numberSend)) {
+                if (dxNrLogged && (callSend || numberSend)) {
             this.sendMessage({
                 type: AudioMessage.send_msg,
                 data: StationMessage.TU
