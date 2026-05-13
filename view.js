@@ -286,8 +286,14 @@ export class View {
                 this.prev_call = ""
                 this.CallSend = false
             }
+            let key_value = e.key
+            if (e.ctrlKey || e.altKey || e.metaKey)   {
+                const regex = /Digit(\d)/
+                const digit_match = e.code.match(regex)
+                if (digit_match) key_value = ''
+            }
 
-            switch (e.key) {
+            switch (key_value) {
                 case "Escape":
                     e.preventDefault()
                     this.MustAdvance = true
