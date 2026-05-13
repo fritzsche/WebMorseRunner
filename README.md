@@ -199,6 +199,9 @@ Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO 
 Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). THis is useful if you run longer contest sessions.
 
 ## Version
+* **0.11.2-beta** (2026-05-03)
+   * Bugfix: On Apple keyboard the option key can be use in combination with a number to issue the respective function key, however <Option>-5 did not sent <His> but <His><TU> Reason is that the browser event action send "[" in the key attribute. This was reported by OE8ZZZ thats a lot for the feedback.
+   * A small regression was removed that could prevent a correct logging in DARC-Ausbildungscontest and A1Club Contest.
 * **0.11.1-beta** (2026-01-01)
    * Bugfix: sending Call / Nr with <Insert> or <;> should memorize Call/Nr send so using ESM will pick the call/Nr as send.
 * **0.11-beta** (2025-12-27) -- **Zwischen den Jahren 2025 Edition**
