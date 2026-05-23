@@ -84,6 +84,8 @@ export class DEFAULT {
   static RUNMODE = RunMode.Single
   static CALL = 'DJ1TF'
   static WPM = 20
+  static DX_MIN_WPM = 18
+  static DX_MAX_WPM = 25
   static RIT = 0
   static ACTIVITY = 2
   static QRN = false

@@ -25,8 +25,6 @@ export class DxOperator {
         const W_Y = 2
         const W_D = 2
 
-
-        console.log("com ",My,His)
         let C0 = My
         let C = His
 
@@ -99,8 +97,18 @@ export class DxOperator {
 
 
     get Wpm() {
+        return this.getWpm(DEFAULT.DX_MIN_WPM, DEFAULT.DX_MAX_WPM)
+    }
+
+    getWpm(configuredMinWpm, configuredMaxWpm) {
         if (DEFAULT.RUNMODE === RunMode.Hst) return DEFAULT.WPM
-        else return Math.round(DEFAULT.WPM * 0.5 * (1 + Math.random()))
+        const defaultMinWpm = Math.max(10, Number(DEFAULT.WPM) - 2)
+        const defaultMaxWpm = Math.min(60, Number(DEFAULT.WPM) + 5)
+        const min = Number(configuredMinWpm) || defaultMinWpm
+        const max = Number(configuredMaxWpm) || defaultMaxWpm
+        const minWpm = Math.min(min, max)
+        const maxWpm = Math.max(min, max)
+        return Math.round(minWpm + Math.random() * (maxWpm - minWpm))
     }
 
 
