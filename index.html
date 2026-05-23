@@ -53,6 +53,14 @@
             <input class="watch" autocomplete="off" type="number" step="1" min="10" max="60" id="wpm" size="4"
               name="wpm" value="20" />
             <div>WPM</div>
+            <label for="dx_min_wpm">DX Min</label>
+            <input class="watch no_run" autocomplete="off" type="number" step="1" min="10" max="60" id="dx_min_wpm"
+              size="4" name="dx_min_wpm" value="28" />
+            <div>WPM</div>
+            <label for="dx_max_wpm">DX Max</label>
+            <input class="watch no_run" autocomplete="off" type="number" step="1" min="10" max="60" id="dx_max_wpm"
+              size="4" name="dx_max_wpm" value="35" />
+            <div>WPM</div>
             <label for="pitch">Pitch</label>
             <select class="watch" autocomplete="off" id="pitch" name="pitch" selected="500">
               <option value="300">300Hz</option>
@@ -149,6 +157,10 @@
           <div id='myexchange1' class="flex_form hidden">
             <label for="my_exchange1">Exchange1</label>
             <input class="watch no_run" autocomplete="off" id="my_exchange1" size="8" name="my_exchange1" value="" />
+          </div>
+          <div id='myexchange2' class="flex_form hidden">
+            <label for="my_exchange2">Exchange2</label>
+            <input class="watch no_run" autocomplete="off" id="my_exchange2" size="8" name="my_exchange2" value="" />
           </div>
           <div class="flex_form">
             <button id="run">&#9654; Run</button>

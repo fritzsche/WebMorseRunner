@@ -7,6 +7,7 @@ export class Log {
     static Check = {
         NIL: "Nil",
         NR: 'NR',
+        NAME: 'NAME',
         RST: 'Rst',
         DUP: 'DUP',
         OK: ''
@@ -137,6 +138,11 @@ export class Log {
         let log = document.getElementById("log")
         this.data.push(complete_qso)
         this.addTable(complete_qso)
+        if (complete_qso.ExpectedExchange) {
+            const contestDefinition = new ContestDefinition()
+            const confirm = contestDefinition.checkExchange(complete_qso.RecvExchange, complete_qso.ExpectedExchange)
+            this.updateQsoCheck(this.data.length - 1, confirm)
+        }
 
         if (this.runmode === RunMode.Hst) {
             this.updateScore()
@@ -144,53 +150,48 @@ export class Log {
 
     }
 
+    updateQsoCheck(qso_index, confirm) {
+        const log_qso = this.data[qso_index]
+        const wasConfirmed = log_qso.Check === Log.Check.OK
+        log_qso.Check = confirm
 
-    checkQSO(qso) {
-        // console.log("CHECK",qso)
-        const call = qso.call
-        const NR = String(qso.NR).padStart(3, '0')
-        const last_qso = this.data[this.data.length - 1]
-        const rst = (qso.RST ? qso.RST : 599).toString()
-        let confirm = Log.Check.OK
-
-        //        if (last_qso.RecvRST !== rst) confirm = Log.Check.RST
-        //      if (last_qso.RecvNr !== NR) confirm = Log.Check.NR
-
-        // check we have a last qso
-        if (!last_qso) {
-            return
+        const row = document.querySelector("#log > table").rows[qso_index + 1]
+        if (row) {
+            row.cells[row.cells.length - 1].innerText = confirm
         }
 
-        /*
-        console.log(last_qso)
-        console.log(qso)
-        last_qso.DX_Call = qso.call
-        last_qso.DX_NR = qso.Ex.NR
-         */
-
-
-        const contestDefinition = new ContestDefinition()
-        confirm = contestDefinition.checkExchange(last_qso.RecvExchange, qso.Ex)
-
-
-        if (last_qso.Call !== call) confirm = Log.Check.NIL
-
-        last_qso.Check = confirm
-
-        if (confirm !== Log.Check.NIL) {
-            const el = document.querySelector("#log > table tr:last-child td:last-child")
-            el.innerText = confirm
-        }
-
-        if (confirm === Log.Check.OK) {
-            this.ConfCalls.add(last_qso.Call)
-            this.ConfPrefix.add(last_qso.Pref)
+        if (confirm === Log.Check.OK && !wasConfirmed) {
+            this.ConfCalls.add(log_qso.Call)
+            this.ConfPrefix.add(log_qso.Pref)
             if (this.runmode === RunMode.Hst) {
-                const confPoint = parseInt(last_qso.Pref)
+                const confPoint = parseInt(log_qso.Pref)
                 this.HstVerifiedScore += confPoint
             }
             this.updateScore()
         }
+    }
+
+
+    checkQSO(qso) {
+        // console.log("CHECK",qso)
+        const call = qso.call
+        let qso_index = -1
+        for (let i = this.data.length - 1; i >= 0; i--) {
+            if (this.data[i].Call === call && this.data[i].Check !== Log.Check.OK) {
+                qso_index = i
+                break
+            }
+        }
+
+        if (qso_index < 0) {
+            return
+        }
+        const log_qso = this.data[qso_index]
+
+        const contestDefinition = new ContestDefinition()
+        const expected = log_qso.ExpectedExchange ? log_qso.ExpectedExchange : qso.Ex
+        const confirm = contestDefinition.checkExchange(log_qso.RecvExchange, expected)
+        this.updateQsoCheck(qso_index, confirm)
     }
 
     static callToScore(call) {

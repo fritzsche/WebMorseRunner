@@ -120,6 +120,7 @@ Web Morse Runner supports the following contest modes:
 * **WPX Contest ** Similar to the Pile-Up mode, but the number of stations in the Pile-up is not displayed. The usage of Band Condition (QRM/QSB etc.) is not enforced.
 * **DARC CWA** (EXPERIMENTAL) Exchange is DOK. You need to [upload](#upload-calls) calls with file [DL-All_DOK.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/DL-All_DOK.txt) that contain necessary DOK information for stations. Notice the points are still calculated by prefix not DOK, this might be later updated.
 * **AWT** (EXPERIMENTAL) Exchange is the name. You need to [upload](#upload-calls) [AWT.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/AWT.txt) that contain necessary example calls with names. The point calculation is still bases on prefix. This might be later added.
+* **CWOps CWT** (EXPERIMENTAL) Exchange is name and CWOps member number, or name and SPC for non-members. Upload a CSV call list using `CALL,NAME,NR` or `CALL,NAME,SPC` so stations can send the full exchange. The point calculation is still based on prefix.
 
 ## Pileup
 To master pileup it is helpful to pick station by station. Typically you can start with station calling on frequency that you copy the best.
@@ -289,6 +290,5 @@ Like to thank VE3NEA Alex Shovkoplyas for his inspiring work on Morse Runner.
 
 
 73, Thomas - DJ1TF/JJ1QPB
-
 
 

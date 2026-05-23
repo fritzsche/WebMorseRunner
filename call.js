@@ -93,4 +93,9 @@ export class Calls {
         let call = this.calls[random]
         return call
     }
+
+    get_call(call) {
+        const uc_call = call.toUpperCase()
+        return this.calls.find(c => c[0].toUpperCase() === uc_call)
+    }
 }
