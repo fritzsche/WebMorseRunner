@@ -80,6 +80,28 @@ export class Contest {
         this.Stations = new Array()
     }
 
+    getStationExchange(stn) {
+        const exchange = this._conf.active_contest.exchange
+        let result = []
+        exchange.forEach(ex => {
+            switch (ex.id) {
+                case 'rst':
+                    result.push(String(stn.RST ? stn.RST : 599))
+                    break
+                case 'nr':
+                    result.push(String(stn.NR).padStart(3, '0'))
+                    break
+                case 'exchange1':
+                    result.push(stn.exchange1)
+                    break
+                case 'exchange2':
+                    result.push(stn.exchange2)
+                    break
+            }
+        })
+        return result
+    }
+
     updateConfig(conf) {
         this._conf = conf
 
@@ -95,6 +117,8 @@ export class Contest {
             if (contest_data) {
                 const exchange1 = contest_data.exchange1
                 if (exchange1) this._MyStation.exchange1 = exchange1
+                const exchange2 = contest_data.exchange2
+                if (exchange2) this._MyStation.exchange2 = exchange2
                 //     console.log(exchange1)
                 const exchange_msg = contest_data.exchange_msg
                 if (exchange_msg) Station.contestExchangeMessage = exchange_msg
@@ -107,10 +131,17 @@ export class Contest {
         if (active_contest) Station.Messages = { ...Station.Messages, ...active_contest.contest_messages }
 
         // WPM
-        if (DEFAULT.WPM !== conf.wpm) {
-            DEFAULT.WPM = conf.wpm
+        const wpm = Number(conf.wpm)
+        if (DEFAULT.WPM !== wpm) {
+            DEFAULT.WPM = wpm
             this._MyStation.Wpm = DEFAULT.WPM
         }
+        let dxMinWpm = Number(conf.dx_min_wpm)
+        let dxMaxWpm = Number(conf.dx_max_wpm)
+        if (!dxMinWpm) dxMinWpm = Math.max(10, DEFAULT.WPM - 2)
+        if (!dxMaxWpm) dxMaxWpm = Math.min(60, DEFAULT.WPM + 5)
+        DEFAULT.DX_MIN_WPM = Math.min(dxMinWpm, dxMaxWpm)
+        DEFAULT.DX_MAX_WPM = Math.max(dxMinWpm, dxMaxWpm)
 
         // Pitch / Bandwidth
         if (
@@ -185,8 +216,10 @@ export class Contest {
                 // this is a lock to avoid more dx stations created (Android)
                 this._dx_requested = false
                 if (DEFAULT.RUNMODE === RunMode.Single || DEFAULT.RUNMODE === RunMode.Hst) this._MyStation._Msg = [StationMessage.CQ]
-                message.data.forEach((call) => {
+                const dxCalls = Array.isArray(message.data) ? message.data : message.data.calls
+                dxCalls.forEach((call) => {
                     const dx = new DxStation(call)
+                    if (DEFAULT.RUNMODE !== RunMode.Hst && call[3]) dx.Wpm = Number(call[3])
                     this.Stations.push(dx)
                     dx.ProcessEvent(Station.Event.MeFinished)
                 })
@@ -407,7 +440,7 @@ export class Contest {
                         call: stn.MyCall,
                         NR: stn.NR,
                         RST: stn.RST,
-                        Ex: stn.getExchange(),
+                        Ex: this.getStationExchange(stn),
                     },
                 })
             }

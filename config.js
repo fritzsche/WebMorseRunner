@@ -14,6 +14,8 @@ export class Config {
         this._my_call = document.querySelector("#my_call")
         this._volume = document.querySelector("#volume")
         this._wpm = document.querySelector("#wpm")
+        this._dx_min_wpm = document.querySelector("#dx_min_wpm")
+        this._dx_max_wpm = document.querySelector("#dx_max_wpm")
         this._pitch = document.querySelector("#pitch")
         this._time = document.querySelector("#time")
         this._qsk = document.querySelector("#qsk")
@@ -22,6 +24,7 @@ export class Config {
         this._contest_id = document.querySelector("#mode")
         this._activity = document.querySelector("#activity")
         this._exchange1 = document.querySelector("#my_exchange1")
+        this._exchange2 = document.querySelector("#my_exchange2")
 
         // condx
         this._qrn = document.querySelector("#qrn")
@@ -35,6 +38,7 @@ export class Config {
         this.all = document.querySelectorAll(".watch").forEach(
             (d) =>
                 d.addEventListener("input", (e) => {
+                    if (e.target === this._wpm) this.updateDefaultDxWpm()
                     this.update()
                 }),
         )
@@ -43,6 +47,8 @@ export class Config {
             my_call: "DJ1TF",
             volume: 0.75,
             wpm: 30,
+            dx_min_wpm: 28,
+            dx_max_wpm: 35,
             pitch: 500,
             rx_bandwidth: 300,
             time: 10,
@@ -88,8 +94,22 @@ export class Config {
         const newWPM = wpm + x
         if (newWPM >= 10 && newWPM <= 60) {
             this._wpm.value = String(newWPM)
+            this.setDefaultDxWpm()
             this.update()
         }
+    }
+
+    setDefaultDxWpm() {
+        const wpm = Number(this._wpm.value)
+        this._dx_min_wpm.value = String(Math.max(10, wpm - 2))
+        this._dx_max_wpm.value = String(Math.min(60, wpm + 5))
+    }
+
+    updateDefaultDxWpm() {
+        const oldWpm = Number(this._config.wpm)
+        const minWasDefault = Number(this._dx_min_wpm.value) === Math.max(10, oldWpm - 2)
+        const maxWasDefault = Number(this._dx_max_wpm.value) === Math.min(60, oldWpm + 5)
+        if (minWasDefault && maxWasDefault) this.setDefaultDxWpm()
     }
 
     store() {
@@ -111,6 +131,10 @@ export class Config {
         this._my_call.value = this._config.my_call
         this._volume.value = this._config.volume
         this._wpm.value = this._config.wpm
+        if (this._config.dx_min_wpm === undefined) this._config.dx_min_wpm = Math.max(10, Number(this._config.wpm) - 2)
+        if (this._config.dx_max_wpm === undefined) this._config.dx_max_wpm = Math.min(60, Number(this._config.wpm) + 5)
+        this._dx_min_wpm.value = this._config.dx_min_wpm
+        this._dx_max_wpm.value = this._config.dx_max_wpm
         this._pitch.value = this._config.pitch
         this._time.value = this._config.time
         this._qsk.checked = this._config.qsk
@@ -128,13 +152,24 @@ export class Config {
         if (contest_id) {
             if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange1)
                 this._exchange1.value = this._config.contest[contest_id].exchange1
+            if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange2)
+                this._exchange2.value = this._config.contest[contest_id].exchange2
         }
     }
 
     read_dom() {
         this._config.my_call = this._my_call.value.toUpperCase()
         this._config.volume = this._volume.value
-        this._config.wpm = this._wpm.value
+        this._config.wpm = parseInt(this._wpm.value)
+        this._config.dx_min_wpm = parseInt(this._dx_min_wpm.value)
+        this._config.dx_max_wpm = parseInt(this._dx_max_wpm.value)
+        if (!this._config.dx_min_wpm) this._config.dx_min_wpm = Math.max(10, Number(this._config.wpm) - 2)
+        if (!this._config.dx_max_wpm) this._config.dx_max_wpm = Math.min(60, Number(this._config.wpm) + 5)
+        if (this._config.dx_min_wpm > this._config.dx_max_wpm) {
+            const dx_min_wpm = this._config.dx_max_wpm
+            this._config.dx_max_wpm = this._config.dx_min_wpm
+            this._config.dx_min_wpm = dx_min_wpm
+        }
         this._config.pitch = this._pitch.value
         this._config.time = this._time.value
         this._config.qsk = this._qsk.checked
@@ -148,8 +183,10 @@ export class Config {
         this._config.activity = parseInt(this._activity.value)
 
         const exchange1 = this._exchange1.value
+        const exchange2 = this._exchange2.value
         if (!this._config.contest[contest_id]) this._config.contest[contest_id] = {}
         if (old_contest_id === contest_id) this._config.contest[contest_id]["exchange1"] = exchange1
+        if (old_contest_id === contest_id) this._config.contest[contest_id]["exchange2"] = exchange2
 
         this._config.qrn = this._qrn.checked
         this._config.qrm = this._qrm.checked

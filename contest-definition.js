@@ -4,7 +4,8 @@ import { Log } from "./log.js"
 const exchangeId = {
     nr: 'nr',
     rst: 'rst',
-    exchange1: 'exchange1'
+    exchange1: 'exchange1',
+    exchange2: 'exchange2'
 }
 
 const Exchange = {
@@ -26,7 +27,14 @@ const Exchange = {
         id: exchangeId.exchange1,
         text: 'Name',
         log: "NAME",
-        length: 6,
+        length: 10,
+    },
+    CWT_NR: {
+        id: exchangeId.exchange2,
+        text: 'Nr/SPC',
+        log: "NR",
+        length: 5,
+        uppercase: true
     },
     DOK: {
         id: exchangeId.exchange1,
@@ -55,6 +63,11 @@ const cwaKey = Object.assign({}, stdKey, {
 
 const awtKey = Object.assign({}, stdKey, {
    F2: { label: "<Name>", send: StationMessage.NR },
+})
+
+const cwtKey = Object.assign({}, stdKey, {
+   F1: { label: "CQ CWT", send: StationMessage.CQ },
+   F2: { label: "<Name Nr>", send: StationMessage.NR },
 })
 
 
@@ -110,6 +123,20 @@ const contest_def = [
         contest_messages: {
             CQ: 'CQ AWT <my>',
             NrQm: 'NAME?',
+        }
+    },
+    {
+        id: 'cwt',
+        name: "CWOps CWT",
+        runmode: RunMode.Pileup,
+        exchange: [Exchange.NAME, Exchange.CWT_NR],
+        exchange_msg: '<1>  <2>',
+        key: cwtKey,
+        my_exchange: 'My Name',
+        my_exchange2: 'My Nr/SPC',
+        contest_messages: {
+            CQ: 'CQ CWT <my>',
+            NrQm: 'NR?',
         }
     }
 ]
@@ -169,6 +196,21 @@ export class ContestDefinition {
         } else {
             const div_myexchange1 = document.querySelector("#myexchange1")
             div_myexchange1.classList.add("hidden")
+        }
+
+        if (this._contest.my_exchange2) {
+            const exchange2_label = this._contest.my_exchange2
+            const div_myexchange2 = document.querySelector("#myexchange2")
+            div_myexchange2.classList.remove("hidden")
+            const label_myexchange2 = document.querySelector("#myexchange2 label")
+            label_myexchange2.innerText = exchange2_label
+            const input_myexchange2 = document.querySelector("#myexchange2 input")
+            if (!this._config.contest[this._contest.id].exchange2)
+                input_myexchange2.value = ''
+            else input_myexchange2.value = this._config.contest[this._contest.id].exchange2
+        } else {
+            const div_myexchange2 = document.querySelector("#myexchange2")
+            div_myexchange2.classList.add("hidden")
         }
 
     }
@@ -250,13 +292,14 @@ export class ContestDefinition {
     isExchangeEdited() {
        // get current contest
        const contest = ContestDefinition.getContest(this._config.contest_id)
-       // get the main exchange field (not RST)
-       const exchange = contest.exchange.find( e => {
+       // get the exchange fields that must be copied (not RST)
+       const exchange = contest.exchange.filter( e => {
           return e.id !== exchangeId.rst 
        })
-       const nr_dom = document.getElementById(exchange.id)
-        
-       return nr_dom.value !== ""
+       return exchange.every(ex => {
+          const exchange_dom = document.getElementById(ex.id)
+          return exchange_dom && exchange_dom.value.trim() !== ""
+       })
        
     }
 
@@ -287,6 +330,11 @@ export class ContestDefinition {
                     let exchange = my_exchange_dom.value
                     result += exchange
                     break
+                case exchangeId.exchange2:
+                    const my_exchange2_dom = document.getElementById("my_exchange2")
+                    let exchange2 = my_exchange2_dom.value
+                    result += exchange2
+                    break
             }
 
         })
@@ -315,6 +363,12 @@ export class ContestDefinition {
                     let exchange = my_exchange_dom.value.trim().toUpperCase()                    
                     result.push(exchange)
                     break
+                case exchangeId.exchange2:
+                    let my_exchange2_dom = document.getElementById(exchangeId.exchange2)
+
+                    let exchange2 = my_exchange2_dom.value.trim().toUpperCase()
+                    result.push(exchange2)
+                    break
             }
 
         })
@@ -341,20 +395,27 @@ export class ContestDefinition {
                     let exchange = my_exchange_dom.value
                     result.push(exchange)
                     break
+                case exchangeId.exchange2:
+                    const my_exchange2_dom = document.getElementById("my_exchange2")
+                    let exchange2 = my_exchange2_dom.value
+                    result.push(exchange2)
+                    break
             }
         })
         return result
     }    
 
     checkExchange(his,my) {
-        let result = Log.Check.OK
+        if (!his) his = []
+        if (!my) my = []
+        let errors = []
         for(let i = 0; i<this._contest.exchange.length;i++) {
             const ex = this._contest.exchange[i]
-            const his_ex = his[i].trim().toLowerCase()
-            const my_ex = my[i].trim().toLowerCase()
-            if (his_ex !== my_ex) result = ex.log
+            const his_ex = his[i] ? his[i].trim() : ''
+            const my_ex = my[i] ? my[i].trim() : ''
+            if (his_ex.toLowerCase() !== my_ex.toLowerCase()) errors.push(`${ex.log}:${my_ex}`)
         }
-         return result
+         return errors.length === 0 ? Log.Check.OK : errors.join('/')
 
     }
 

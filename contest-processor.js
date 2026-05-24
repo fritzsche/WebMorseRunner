@@ -1,5 +1,19 @@
 
 import { Tst } from "./contest.js"
+import { DEFAULT, RunMode } from "./defaults.js"
+import { DxOperator } from "./dxoperator.js"
+
+const dxWpmByCall = new Map()
+
+Object.defineProperty(DxOperator.prototype, "Wpm", {
+  get() {
+    if (DEFAULT.RUNMODE !== RunMode.Hst && dxWpmByCall.has(this.Call)) {
+      return dxWpmByCall.get(this.Call)
+    }
+    if (DEFAULT.RUNMODE === RunMode.Hst) return DEFAULT.WPM
+    return Math.round(DEFAULT.WPM * 0.5 * (1 + Math.random()))
+  }
+})
 
 class ContestWorkletProcessor extends AudioWorkletProcessor {
 
@@ -10,6 +24,12 @@ class ContestWorkletProcessor extends AudioWorkletProcessor {
     this._block = new Float32Array(128)
     this._start = false
     this.port.onmessage = (e) => {
+      if (e.data.type === "create_dx") {
+        const calls = Array.isArray(e.data.data) ? e.data.data : e.data.data.calls
+        calls.forEach(call => {
+          if (call[3]) dxWpmByCall.set(call[0], Number(call[3]))
+        })
+      }
       Tst.onmessage(e.data)
       this._start = true
     }

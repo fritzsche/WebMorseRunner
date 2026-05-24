@@ -105,10 +105,14 @@ export class View {
         const RecvExchange = contestDef.getExchange()
 
         const call = this.Call
-        const recNr = String(this.Nr).padStart(3, "0")
+        const nr = this.Nr
+        const recNr = nr === -1 ? "" : String(nr).padStart(3, "0")
         const recRST = String(this.Rst)
+        const call_data = this.calls.get_call(call)
+        const contest = ContestDefinition.getContest(this._config._config.contest_id)
+        const expectedExchange = contest.id === 'cwt' && call_data ? call_data.slice(1, 1 + contest.exchange.length) : null
 
-        if (call && recNr !== '000'  && recRST && RecvExchange) { //&& this.Nr !== -1
+        if (call && recRST && RecvExchange && contestDef.isExchangeEdited()) {
             this.log.addQso(
                 {
                     UTC: this.getClock(),
@@ -117,6 +121,7 @@ export class View {
                     RecvNr: recNr,
                     RecvRST: recRST,
                     RecvExchange: RecvExchange,
+                    ExpectedExchange: expectedExchange,
                 },
             )
             this.sendMessage({
@@ -170,6 +175,34 @@ export class View {
         // content in the NR/exchange field
         const dxNrLogged = this._ContestDefinition.isExchangeEdited()
 
+        // If the copied exchange is already complete, log the QSO immediately.
+        // Still send the DX call and our exchange first if this Enter press is
+        // the first action for the QSO, so the simulated DX can confirm it.
+        if (dxNrLogged) {
+            if (!callSend) {
+                this.CallSend = true
+                this.prev_call = new_call
+                this.sendMessage({
+                    type: AudioMessage.send_his,
+                    data: new_call,
+                })
+            }
+            if (!numberSend) {
+                this.NrSend = true
+                this.sendMessage({
+                    type: AudioMessage.send_msg,
+                    data: StationMessage.NR
+                })
+            }
+            this.sendMessage({
+                type: AudioMessage.send_msg,
+                data: StationMessage.TU
+            })
+
+            this.saveQSO()
+            return
+        }
+
         // Call has not yet send, so we send the call
         if (!callSend || (!numberSend && !dxNrLogged)) {
             // remember we have send the call
@@ -200,18 +233,7 @@ export class View {
         // qso finished:
         // we have NR and call
         // now send TU and log QSO and reset the fields.
-                if (dxNrLogged && (callSend || numberSend)) {
-            this.sendMessage({
-                type: AudioMessage.send_msg,
-                data: StationMessage.TU
-            })
-
-            this.saveQSO()
-
-
-        } else {
-            this.MustAdvance = true
-        }
+        this.MustAdvance = true
     }
 
 
@@ -286,14 +308,8 @@ export class View {
                 this.prev_call = ""
                 this.CallSend = false
             }
-            let key_value = e.key
-            if (e.ctrlKey || e.altKey || e.metaKey)   {
-                const regex = /Digit(\d)/
-                const digit_match = e.code.match(regex)
-                if (digit_match) key_value = ''
-            }
 
-            switch (key_value) {
+            switch (e.key) {
                 case "Escape":
                     e.preventDefault()
                     this.MustAdvance = true
@@ -514,6 +530,7 @@ export class View {
 
     async startContest() {
         if (this.running === true) return
+        this._config.read_dom()
         this.hideTitle()
         this.running = true
         this.wipeFields()
@@ -533,7 +550,7 @@ export class View {
             await this.ctx.resume()
         }
 
-        await this.ctx.audioWorklet.addModule("contest-processor.js")
+        await this.ctx.audioWorklet.addModule("contest-processor.js?v=dx-wpm-ui")
         this.ContestNode = new AudioWorkletNode(
             this.ctx,
             "contest-processor",
@@ -550,9 +567,24 @@ export class View {
             switch (type) {
                 case AudioMessage.request_dx:
                     let calls = new Array()
-                    for (let i = 0; i < data; i++) calls.push(this.calls.get_random())
-                    // console.log(calls[0])
+                    const dxMinWpm = Number(document.querySelector("#dx_min_wpm").value)
+                    const dxMaxWpm = Number(document.querySelector("#dx_max_wpm").value)
+                    const minWpm = Math.min(dxMinWpm, dxMaxWpm)
+                    const maxWpm = Math.max(dxMinWpm, dxMaxWpm)
+                    for (let i = 0; i < data; i++) {
+                        const call = [...this.calls.get_random()]
+                        call[3] = Math.round(minWpm + Math.random() * (maxWpm - minWpm))
+                        calls.push(call)
+                    }
                     this.pileupStations += data
+                    this.ContestNode.port.postMessage({
+                        type: AudioMessage.config,
+                        data: {
+                            ...this._config._config,
+                            dx_min_wpm: minWpm,
+                            dx_max_wpm: maxWpm,
+                        },
+                    })
                     this.ContestNode.port.postMessage({
                         type: AudioMessage.create_dx,
                         data: calls,
@@ -600,7 +632,6 @@ export class View {
             }
         }
         this.ContestNode.connect(this.ctx.destination)
-        this._config.read_dom()
         let conf = this._config._config
         //        conf['active_contest'] = this._ContestDefinition._contest
         this._ContestDefinition.updateConfig(this._config._config)

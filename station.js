@@ -178,11 +178,10 @@ export class Station {
         const contest = new Contest()
         let exchange = contest._conf.active_contest.exchange_msg
         if (!exchange) exchange = '<rst><nr>'
-        //  "abcdeabcde".split(/(d)/)
-        const split_ex = exchange.split(/(?=\<)/)
 
         let result = []
-        split_ex.forEach(ex => {
+        const tokens = exchange.match(/<rst>|<1>|<2>|<nr>/g) || []
+        tokens.forEach(ex => {
             switch (ex) {
                 case '<rst>': result.push('599')
                     break
@@ -193,7 +192,6 @@ export class Station {
                 case '<nr>': result.push(String(this.NR).padStart(3, "0"))
                     break
             }
-            result.push
         })
         return result
     }
