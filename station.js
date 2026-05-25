@@ -105,6 +105,7 @@ export class Station {
         if (this.MsgText) {
             this.MsgText += ' ' + AMsg
         } else { this.MsgText = AMsg }
+        console.log(`${this.MyCall.toUpperCase()}: ${this.MsgText.toUpperCase()}`)
         this.SendMorse(Keyer.Encode(this.MsgText))
     }
 
