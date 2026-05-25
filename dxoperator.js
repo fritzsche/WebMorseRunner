@@ -26,7 +26,7 @@ export class DxOperator {
         const W_D = 2
 
 
-        console.log("com ",My,His)
+        //   console.log("com ",My,His)
         let C0 = My
         let C = His
 
@@ -60,7 +60,7 @@ export class DxOperator {
             case 0:
                 result = this.CallCheckResult.Yes
                 break
-            case 1: 
+            case 1:
             case 2:
                 result = this.CallCheckResult.Almost
                 break
@@ -187,8 +187,8 @@ export class DxOperator {
                     this._State = OperatorState.Failed
                     break
                 case OperatorState.NeedCall:
-                case OperatorState.NeedCallNr: 
-                  break //same state: correct the call
+                case OperatorState.NeedCallNr:
+                    break //same state: correct the call
 
             }
         }
@@ -242,10 +242,10 @@ export class DxOperator {
         else this.Patience = FULL_PATIENCE
 
         // on pile up and other repeat sometimes (not HST)
-        if (AState === OperatorState.NeedQso && 
-            (! (DEFAULT.RUNMODE === RunMode.Single || DEFAULT.RUNMODE === RunMode.Hst)) && 
+        if (AState === OperatorState.NeedQso &&
+            (!(DEFAULT.RUNMODE === RunMode.Single || DEFAULT.RUNMODE === RunMode.Hst)) &&
             (Math.random() < 0.1)) this.RepeatCnt = 2
-            else this.RepeatCnt = 1
+        else this.RepeatCnt = 1
 
     }
 

@@ -19,11 +19,11 @@ export class Calls {
             (e) => {
                 localStorage.removeItem(Calls.store_key)
                 this.fileElem.value = ""
-                this.fetch_calls() 
+                this.fetch_calls()
                 e.preventDefault() // prevent navigation to "#"
             },
             false,
-        )        
+        )
         this.fileElem.addEventListener("change",
             (e) => {
                 const files = e.target.files
@@ -31,9 +31,9 @@ export class Calls {
                     const file = files[i]
                     const reader = new FileReader()
                     reader.onload = (e) => {
-                        const fetched_calls=e.target.result     
+                        const fetched_calls = e.target.result
                         const calls = this.filter_calls(fetched_calls)
-                        if(calls.length > 0) {
+                        if (calls.length > 0) {
                             this.calls = calls
                             localStorage.setItem(Calls.store_key, fetched_calls)
                             this.update_calls()
@@ -45,25 +45,25 @@ export class Calls {
     }
 
     filter_calls(calls) {
-        return calls.split('\n').filter( l => {
+        return calls.split('\n').filter(l => {
             // ignore lines starting with hash as comments
             return l.substring(0, 1) !== '#'
-        }).map(e => { 
+        }).map(e => {
             e.trim()
             // strip tabs and line breaks to ensure
             // call signs are just call signs 
-            e = e.replace(/[\n\r\t]/gm, "");
-            return e.split(',') 
+            e = e.replace(/[\n\r\t]/gm, "")
+            return e.split(',')
         }
         ).filter(
             (c) => {
-                return c.length >= 1 && c[0].length > 2 && c[0].length < 15 
+                return c.length >= 1 && c[0].length > 2 && c[0].length < 15
             })
     }
 
     update_calls() {
         const no_of_calls = document.getElementById("no_of_calls")
-        no_of_calls.innerText = this.calls.length        
+        no_of_calls.innerText = this.calls.length
 
     }
 
@@ -90,7 +90,7 @@ export class Calls {
 
     get_random() {
         let random = this.get_random_int(0, this.calls.length)
-        let call = this.calls[random]
+        let call = this.calls[random]       
         return call
     }
 }

@@ -210,8 +210,8 @@ export class View {
 
 
         } else {
-            this.MustAdvance = true
-        }
+        this.MustAdvance = true
+    }
     }
 
 
@@ -514,6 +514,7 @@ export class View {
 
     async startContest() {
         if (this.running === true) return
+        this._config.read_dom()
         this.hideTitle()
         this.running = true
         this.wipeFields()
@@ -600,7 +601,6 @@ export class View {
             }
         }
         this.ContestNode.connect(this.ctx.destination)
-        this._config.read_dom()
         let conf = this._config._config
         //        conf['active_contest'] = this._ContestDefinition._contest
         this._ContestDefinition.updateConfig(this._config._config)

@@ -26,6 +26,7 @@ This project is new and independent of Alex project. The original Morse Runner t
     * WPX Competition
     * DARC CW Ausbildungscontest (CWA)
     * A1CLUB AWT
+    * CWOps CWT
 * (Complex) Noise
 * Modulation
 * Filter
@@ -120,6 +121,8 @@ Web Morse Runner supports the following contest modes:
 * **WPX Contest ** Similar to the Pile-Up mode, but the number of stations in the Pile-up is not displayed. The usage of Band Condition (QRM/QSB etc.) is not enforced.
 * **DARC CWA** (EXPERIMENTAL) Exchange is DOK. You need to [upload](#upload-calls) calls with file [DL-All_DOK.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/DL-All_DOK.txt) that contain necessary DOK information for stations. Notice the points are still calculated by prefix not DOK, this might be later updated.
 * **AWT** (EXPERIMENTAL) Exchange is the name. You need to [upload](#upload-calls) [AWT.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/AWT.txt) that contain necessary example calls with names. The point calculation is still bases on prefix. This might be later added.
+* **CWOps CWT** (EXPERIMENTAL) Exchange is the name and the CWOps Nr.. You need to [upload](#upload-calls) [CWOps.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/CWOps.txt) that contain necessary example calls with names and Numbers. The point calculation is still bases on prefix. This might be later added.
+
 
 ## Pileup
 To master pileup it is helpful to pick station by station. Typically you can start with station calling on frequency that you copy the best.
@@ -199,6 +202,8 @@ Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO 
 Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). THis is useful if you run longer contest sessions.
 
 ## Version
+* **0.12-beta** (2026-05-24) -- **Pentecost 2026 Edition**
+   * Added new CWT Contest. Thanks David - CT7AUP for the Pull Request!
 * **0.11.2-beta** (2026-05-03)
    * Bugfix: On Apple keyboard the option key can be use in combination with a number to issue the respective function key, however <Option>-5 did not sent <His> but <His><TU> Reason is that the browser event action send "[" in the key attribute. This was reported by OE8ZZZ thats a lot for the feedback.
    * A small regression was removed that could prevent a correct logging in DARC-Ausbildungscontest and A1Club Contest.
@@ -288,7 +293,7 @@ Like to thank VE3NEA Alex Shovkoplyas for his inspiring work on Morse Runner.
 
 
 
-73, Thomas - DJ1TF/JJ1QPB
+73, Thomas - DJ1TF
 
 
 

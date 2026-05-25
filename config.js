@@ -22,6 +22,7 @@ export class Config {
         this._contest_id = document.querySelector("#mode")
         this._activity = document.querySelector("#activity")
         this._exchange1 = document.querySelector("#my_exchange1")
+        this._exchange2 = document.querySelector("#my_exchange2")
 
         // condx
         this._qrn = document.querySelector("#qrn")
@@ -128,6 +129,8 @@ export class Config {
         if (contest_id) {
             if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange1)
                 this._exchange1.value = this._config.contest[contest_id].exchange1
+            if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange2)
+                this._exchange2.value = this._config.contest[contest_id].exchange2
         }
     }
 
@@ -148,8 +151,10 @@ export class Config {
         this._config.activity = parseInt(this._activity.value)
 
         const exchange1 = this._exchange1.value
+        const exchange2 = this._exchange2.value
         if (!this._config.contest[contest_id]) this._config.contest[contest_id] = {}
         if (old_contest_id === contest_id) this._config.contest[contest_id]["exchange1"] = exchange1
+        if (old_contest_id === contest_id) this._config.contest[contest_id]["exchange2"] = exchange2
 
         this._config.qrn = this._qrn.checked
         this._config.qrm = this._qrm.checked

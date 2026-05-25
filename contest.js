@@ -95,6 +95,8 @@ export class Contest {
             if (contest_data) {
                 const exchange1 = contest_data.exchange1
                 if (exchange1) this._MyStation.exchange1 = exchange1
+                const exchange2 = contest_data.exchange2
+                if (exchange2) this._MyStation.exchange2 = exchange2
                 //     console.log(exchange1)
                 const exchange_msg = contest_data.exchange_msg
                 if (exchange_msg) Station.contestExchangeMessage = exchange_msg
@@ -107,8 +109,9 @@ export class Contest {
         if (active_contest) Station.Messages = { ...Station.Messages, ...active_contest.contest_messages }
 
         // WPM
-        if (DEFAULT.WPM !== conf.wpm) {
-            DEFAULT.WPM = conf.wpm
+        const wpm = Number(conf.wpm)
+        if (DEFAULT.WPM !== wpm) {
+            DEFAULT.WPM = wpm
             this._MyStation.Wpm = DEFAULT.WPM
         }
 
@@ -168,15 +171,15 @@ export class Contest {
                 this.running = true
                 this.updateConfig(message.data)
                 break
-            case AudioMessage.update_call:            
+            case AudioMessage.update_call:
                 this._MyStation.UpdateCall(message.data)
-                break                
+                break
             case AudioMessage.stop_contest:
                 this.init()
                 this.running = false
                 Tst.post({
                     type: AudioMessage.stop_tx,
-                })                
+                })
                 break
             case AudioMessage.update_nr:
                 this._MyStation.NR = message.data
@@ -237,7 +240,7 @@ export class Contest {
                 if (Math.random() < 0.01) this._src_complex_buffer.Re[i] = 60 * Contest.noise_amp * (Math.random() - 0.5)
             //burst
             const qrm = Math.random()
-            if (qrm  < 0.01) this.Stations.push(new QrnStation())
+            if (qrm < 0.01) this.Stations.push(new QrnStation())
 
         }
 
@@ -326,13 +329,13 @@ export class Contest {
         }
 
         // Hst has pile-up of 4
-        
+
         if (DEFAULT.RUNMODE == RunMode.Hst && this._dx_count < 4 && !this._dx_requested) {
             this._dx_requested = true
             this.post({
                 type: AudioMessage.request_dx,
                 data: 1,
-            })            
+            })
         }
 
 

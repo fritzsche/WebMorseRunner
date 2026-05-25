@@ -176,28 +176,51 @@ export class Station {
 
     getExchange() {
         const contest = new Contest()
-        let exchange = contest._conf.active_contest.exchange_msg
-        if (!exchange) exchange = '<rst><nr>'
-        //  "abcdeabcde".split(/(d)/)
-        const split_ex = exchange.split(/(?=\<)/)
-
+        let exchange = contest._conf.active_contest.exchange
         let result = []
-        split_ex.forEach(ex => {
-            switch (ex) {
-                case '<rst>': result.push('599')
+        exchange.forEach(ex => {
+            switch (ex.id) {
+                case 'rst':
+                    result.push(String(this.RST ? this.RST : 599))
                     break
-                case '<1>': result.push(this.exchange1)
+                case 'nr':
+                    result.push(String(this.NR).padStart(3, '0'))
                     break
-                case '<2>': result.push(this.exchange2)
+                case 'exchange1':
+                    result.push(this.exchange1)
                     break
-                case '<nr>': result.push(String(this.NR).padStart(3, "0"))
+                case 'exchange2':
+                    result.push(this.exchange2)
                     break
             }
-            result.push
         })
         return result
     }
-
+    /*
+        getExchange() {
+            const contest = new Contest()
+            let exchange = contest._conf.active_contest.exchange_msg
+            if (!exchange) exchange = '<rst><nr>'
+            //  "abcdeabcde".split(/(d)/)
+            const split_ex = exchange.split(/(?=\<)/)
+    
+            let result = []
+            split_ex.forEach(ex => {
+                switch (ex) {
+                    case '<rst>': result.push('599')
+                        break
+                    case '<1>': result.push(this.exchange1)
+                        break
+                    case '<2>': result.push(this.exchange2)
+                        break
+                    case '<nr>': result.push(String(this.NR).padStart(3, "0"))
+                        break
+                }
+                result.push
+            })
+            return result
+        }
+    */
 
     static RstAsText(rst) {
         // convert rst to string
