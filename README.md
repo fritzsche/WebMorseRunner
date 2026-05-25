@@ -118,7 +118,7 @@ The file format for the call signs file is very simple. Some examples can be fou
 Web Morse Runner supports the following contest modes:
 * **Single Call** Always one station is calling to you. No pileup and you not need to call CQ.
 * **Pileup** In this station you need to call CQ first before stations will reply. The parameter *Activity* will determine how many stations will answer in average. The number of stations calling you will be displayed over the running clock.
-* **WPX Contest ** Similar to the Pile-Up mode, but the number of stations in the Pile-up is not displayed. The usage of Band Condition (QRM/QSB etc.) is not enforced.
+* **WPX Contest** Similar to the Pile-Up mode, but the number of stations in the Pile-up is not displayed. The usage of Band Condition (QRM/QSB etc.) is not enforced.
 * **DARC CWA** (EXPERIMENTAL) Exchange is DOK. You need to [upload](#upload-calls) calls with file [DL-All_DOK.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/DL-All_DOK.txt) that contain necessary DOK information for stations. Notice the points are still calculated by prefix not DOK, this might be later updated.
 * **AWT** (EXPERIMENTAL) Exchange is the name. You need to [upload](#upload-calls) [AWT.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/AWT.txt) that contain necessary example calls with names. The point calculation is still bases on prefix. This might be later added.
 * **CWOps CWT** (EXPERIMENTAL) Exchange is the name and the CWOps Nr.. You need to [upload](#upload-calls) [CWOps.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/CWOps.txt) that contain necessary example calls with names and Numbers. The point calculation is still bases on prefix. This might be later added.
@@ -203,7 +203,7 @@ Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes interv
 
 ## Version
 * **0.12-beta** (2026-05-24) -- **Pentecost 2026 Edition**
-   * Added new CWT Contest. Thanks David - CT7AUP for the Pull Request!
+   * Added new **CWOps CWT Contest**. Thanks David - CT7AUP for the Pull Request. This Pull-Request was modified to fit better into the current architecture. Github-Bug-reports are welcome.
 * **0.11.2-beta** (2026-05-03)
    * Bugfix: On Apple keyboard the option key can be use in combination with a number to issue the respective function key, however <Option>-5 did not sent <His> but <His><TU> Reason is that the browser event action send "[" in the key attribute. This was reported by OE8ZZZ thats a lot for the feedback.
    * A small regression was removed that could prevent a correct logging in DARC-Ausbildungscontest and A1Club Contest.
