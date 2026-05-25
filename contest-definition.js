@@ -130,7 +130,7 @@ const contest_def = [
         name: "CWOps CWT",
         runmode: RunMode.Pileup,
         exchange: [Exchange.NAME, Exchange.CWT_NR],
-        exchange_msg: '<1>  <2>',
+        exchange_msg: '<1> <2>',
         key: cwtKey,
         my_exchange: 'My Name',
         my_exchange2: 'My Nr',

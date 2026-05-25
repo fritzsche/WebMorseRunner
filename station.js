@@ -1,6 +1,7 @@
 import { Keyer } from "./keyer.js"
-import { DEFAULT, RunMode, StationMessage } from "./defaults.js"
-import { Contest } from "./contest.js"
+import { DEFAULT, RunMode, StationMessage, AudioMessage } from "./defaults.js"
+import { Contest, Tst } from "./contest.js"
+
 
 let GKeyer = new Keyer()
 
@@ -105,7 +106,13 @@ export class Station {
         if (this.MsgText) {
             this.MsgText += ' ' + AMsg
         } else { this.MsgText = AMsg }
-        console.log(`${this.MyCall.toUpperCase()}: ${this.MsgText.toUpperCase()}`)
+        // post message to the transcript
+        Tst.post(
+            {
+                type: AudioMessage.transcript,
+                data: `${this.MyCall.toUpperCase()}: ${this.MsgText.toUpperCase()}`,
+            }
+        )
         this.SendMorse(Keyer.Encode(this.MsgText))
     }
 

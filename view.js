@@ -2,6 +2,7 @@ import { Calls } from "./call.js"
 import { AudioMessage, DEFAULT, RunMode, StationMessage } from "./defaults.js"
 import { Log } from "./log.js"
 import { Config } from "./config.js"
+import { Transcript } from "./transcript.js"
 
 import { ContestDefinition } from "./contest-definition.js"
 
@@ -595,6 +596,9 @@ export class View {
                         this.CallSend = false
                     } else this.prev_call = this.Call.toUpperCase()
                     break
+                case AudioMessage.transcript: 
+                    new Transcript().log(`${this.getClock()} ${data}`)
+                    break   
                 default:
                     console.log("ERROR: Unsupported message")
                     debugger

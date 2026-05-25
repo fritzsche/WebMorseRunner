@@ -26,6 +26,7 @@ export const AudioMessage = {
   update_call: 'update_call',
   start_tx: 'start_tx',
   stop_tx: 'stop_tx',
+  transcript: "transcript",
 }
 
 export const StationMessage = {
