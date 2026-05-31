@@ -47,6 +47,7 @@ This project is new and independent of Alex project. The original Morse Runner t
 * Display log
 * Confirm QSO's
 * Band Condition (QRM/QRN/QSB/Flutter/LID's)
+* Transcript
 
 ## Features not (yet) implemented
 
@@ -202,6 +203,8 @@ Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO 
 Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). THis is useful if you run longer contest sessions.
 
 ## Version
+* **0.14-beta** (2026-06-01) 
+   * Added a Transcript as suggested in feature request. This transcript is hidden by default but can be made visible by clicking the "page"-icon.
 * **0.12-beta** (2026-05-24) -- **Pentecost 2026 Edition**
    * Added new **CWOps CWT Contest**. Thanks David - CT7AUP for the Pull Request. This Pull-Request was modified to fit better into the current architecture. Github-Bug-reports are welcome.
 * **0.11.2-beta** (2026-05-03)
