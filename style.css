@@ -328,6 +328,10 @@ a {
   padding: 5px;
   white-space: pre-wrap;
   word-wrap: break-word;
+  resize: vertical;
+  background-color: black;
+  color: #ccc;
+  border: 1px solid #444;
 }
 
 #footer {

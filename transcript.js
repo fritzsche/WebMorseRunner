@@ -16,9 +16,7 @@ export class Transcript {
 
     log(msg) {
         console.log(msg)
-        const line = document.createElement('div')
-        line.textContent = msg
-        this._element.appendChild(line)
+        this._element.value += msg + '\n'
         this._element.scrollTop = this._element.scrollHeight
        // this._log.push(msg)
     }
