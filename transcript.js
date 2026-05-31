@@ -11,12 +11,14 @@ export class Transcript {
     init() {
         this._startTime = 0
         this._log = []
+        this._lines = []
         this._element = document.getElementById('transcript_content')
     }
 
     log(msg) {
         console.log(msg)
-        this._element.value += msg + '\n'
+        this._lines.push(msg)
+        this._element.value = this._lines.join('\n')
         this._element.scrollTop = this._element.scrollHeight
        // this._log.push(msg)
     }
