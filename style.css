@@ -335,6 +335,14 @@ a {
   border: 1px solid #444;
 }
 
+#toggle_transcript {
+  background: transparent;
+  border: none;
+  font-size: 16pt;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
 #footer {
   grid-column-start: span 2;
   /*  width: 100%; */

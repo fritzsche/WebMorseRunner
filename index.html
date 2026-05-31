@@ -158,6 +158,7 @@
             <input class="watch no_run" type="number" min="1" max="100" step="1" autocomplete="off" id="time" size="4"
               name="time" value="10" />
             <label for="time">min.</label>
+            <button id="toggle_transcript" title="Toggle Transcript">📄</button>
           </div>
         </fieldset>
 
@@ -165,7 +166,7 @@
 
     </div>
 
-    <fieldset id="transcript" class="grid">
+    <fieldset id="transcript" class="grid hidden">
       <legend>Transcript</legend>
       <textarea id="transcript_content" rows="5" readonly></textarea>
     </fieldset>

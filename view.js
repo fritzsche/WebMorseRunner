@@ -668,6 +668,18 @@ export class View {
         })
     }
 
+    initToggleTranscript() {
+        this.transcriptToggle = document.getElementById("toggle_transcript")
+        this.transcriptToggle.addEventListener("click", (e) => {
+            const transcript = document.getElementById("transcript")
+            if (transcript.classList.contains("hidden")) {
+                transcript.classList.remove("hidden")
+            } else {
+                transcript.classList.add("hidden")
+            }
+        })
+    }
+
     updateConf(conf) {
         if (this.running) {
             this.sendMessage({
@@ -691,6 +703,7 @@ export class View {
         this._ContestDefinition = new ContestDefinition()
         this.initConfig()
         this.initRunButton()
+        this.initToggleTranscript()
         this.sendButton()
         this.wipeFields()
     }

@@ -21,7 +21,7 @@ export class Transcript {
     }
 
     log(msg) {
-        console.log(msg)
+     //   console.log(msg)
         this._lines.push(msg)
         this._element.value = this._lines.join('\n')
         this._element.scrollTop = this._element.scrollHeight
