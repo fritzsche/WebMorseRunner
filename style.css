@@ -313,7 +313,21 @@ a {
 #main {
   display: grid;
   grid-template-columns: max-content max-content;
-  grid-template-rows: 1fr max-content;
+  grid-template-rows: 1fr max-content max-content;
+}
+
+#transcript {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+
+#transcript_content {
+  font-family: 'Courier New', monospace;
+  height: 120px;
+  overflow-y: auto;
+  padding: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 #footer {
