@@ -15,6 +15,11 @@ export class Transcript {
         this._element = document.getElementById('transcript_content')
     }
 
+    clear() {
+        this._lines = []
+        this._element.value = ''
+    }
+
     log(msg) {
         console.log(msg)
         this._lines.push(msg)

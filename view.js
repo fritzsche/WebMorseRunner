@@ -523,6 +523,7 @@ export class View {
         this.pileupStations = 0
 
         this.log.wipe()
+        new Transcript().clear()
         this.toggleRunButton()
         this._update_info()
 
