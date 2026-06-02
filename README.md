@@ -34,7 +34,7 @@ This project is new and independent of Alex project. The original Morse Runner t
 * Read List of calls from calls.txt
 * Speed in WPM
 * Display qso/h rate and chart
-* Stetting: 
+* Settings: 
     * Pitch
     * RX Bandwidth
     * Monitor Level
@@ -200,9 +200,13 @@ This means after stating the contest the cursor is places automatically in the C
 Web Morse Runner provides (since version 0.11-Beta) some statistical information. The data is based on logged data and does include confirmed and unconfirmed QSO.
 The qso/h will be shown after you logged your first context.
 Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO data.
-Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). THis is useful if you run longer contest sessions.
+Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). This is useful if you run longer contest sessions.
 
 ## Version
+* **0.15-beta** (2026-06-02) 
+   * New expert configuration that you can open pressing the "gear"-icon in the contest settings.
+       * Max Pile-up: you can limit the number of DX-stations that are responding in a pile-up relevant mode to avoid too many stations calling you.
+       * DX-Stations:  You can use the Morserunner standard setting (default) or set individual Max/Min WPM for the DX-Station that respond. In the standard setting the speed of DX stations will be between half of your own speed minimum and your own speed maximum.
 * **0.14-beta** (2026-06-01) 
    * Added a Transcript as suggested in feature request. This transcript is hidden by default but can be made visible by clicking the "page"-icon.
 * **0.12-beta** (2026-05-24) -- **Pentecost 2026 Edition**
