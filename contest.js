@@ -159,6 +159,12 @@ export class Contest {
         if (DEFAULT.LIDS !== conf.lids) DEFAULT.LIDS = conf.lids
         if (DEFAULT.FLUTTER !== conf.flutter) DEFAULT.FLUTTER = conf.flutter
 
+        // Expert Config
+        if (DEFAULT.MAX_DX !== conf.max_dx) DEFAULT.MAX_DX = conf.max_dx
+        if (DEFAULT.DX_WPM_TYPE !== conf.dx_wpm_type) DEFAULT.DX_WPM_TYPE = conf.dx_wpm_type
+        if (DEFAULT.DX_MIN_WPM !== conf.dx_min_wpm) DEFAULT.DX_MIN_WPM = conf.dx_min_wpm
+        if (DEFAULT.DX_MAX_WPM !== conf.dx_max_wpm) DEFAULT.DX_MAX_WPM = conf.dx_max_wpm
+
     }
 
     onmessage = (message) => {
@@ -187,11 +193,25 @@ export class Contest {
             case AudioMessage.create_dx:
                 // this is a lock to avoid more dx stations created (Android)
                 this._dx_requested = false
+                // Apply MAX_DX limit if set (but not for HST mode which has fixed settings)
+                let dx_calls = message.data
+                if (DEFAULT.MAX_DX > 0 && DEFAULT.RUNMODE !== RunMode.Hst) {
+                    const current_dx = this.countDXStations()
+                    const remaining = DEFAULT.MAX_DX - current_dx
+                    if (remaining <= 0) break
+                    dx_calls = dx_calls.slice(0, remaining)
+                }
                 if (DEFAULT.RUNMODE === RunMode.Single || DEFAULT.RUNMODE === RunMode.Hst) this._MyStation._Msg = [StationMessage.CQ]
-                message.data.forEach((call) => {
+                dx_calls.forEach((call) => {
                     const dx = new DxStation(call)
                     this.Stations.push(dx)
                     dx.ProcessEvent(Station.Event.MeFinished)
+                })
+
+                // Update pileup count after creating stations
+                this.post({
+                    type: AudioMessage.update_pileup,
+                    data: this.countDXStations(),
                 })
 
                 break

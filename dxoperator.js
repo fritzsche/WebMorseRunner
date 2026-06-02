@@ -99,8 +99,21 @@ export class DxOperator {
 
 
     get Wpm() {
-        if (DEFAULT.RUNMODE === RunMode.Hst) return DEFAULT.WPM
-        else return Math.round(DEFAULT.WPM * 0.5 * (1 + Math.random()))
+        // HST mode always uses DEFAULT.WPM (fixed settings)
+        if (DEFAULT.RUNMODE === RunMode.Hst) {
+            console.log(`DX WPM (HST): ${DEFAULT.WPM}`)
+            return DEFAULT.WPM
+        }
+        // Individual mode: use configured min/max range
+        if (DEFAULT.DX_WPM_TYPE === 'individual') {
+            const wpm = random.RndIntInclusive(DEFAULT.DX_MIN_WPM, DEFAULT.DX_MAX_WPM)
+            console.log(`DX WPM (individual): ${wpm}`)
+            return wpm
+        }
+        // Standard mode: use original logic
+        const wpm = Math.round(DEFAULT.WPM * 0.5 * (1 + Math.random()))
+        console.log(`DX WPM (standard): ${wpm}`)
+        return wpm
     }
 
 

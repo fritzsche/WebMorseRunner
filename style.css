@@ -411,3 +411,119 @@ a {
 #log_hdr {
   color:  rgb(28, 161, 202);
 }
+
+/* Expert Config Button */
+#expert_config {
+  background: transparent;
+  border: none;
+  font-size: 16pt;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+/* Expert Config Button - stays visible but grayed out when contest is running */
+#expert_config.contest-hidden {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+#expert_config {
+  transition: opacity 0.2s;
+}
+
+/* Modal Content Box */
+.modal-content {
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0;
+  min-width: 350px;
+  max-width: 450px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: #333;
+  border-bottom: 1px solid #444;
+  border-radius: 6px 6px 0 0;
+}
+
+.modal-header span {
+  font-weight: bold;
+  color: rgb(28, 161, 202);
+}
+
+.modal-body {
+  padding: 15px;
+}
+
+.modal-body .flex_form {
+  margin-bottom: 0;
+}
+
+.modal-body > * + * {
+  margin-top: 10px;
+}
+
+/* Close Button */
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  padding: 0 5px;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+/* Expert Config form grid for aligned dropdowns */
+.expert-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.expert-form-grid label {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.expert-form-grid select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Disabled inputs in expert config */
+#expert_modal input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -158,6 +158,7 @@
             <input class="watch no_run" type="number" min="1" max="100" step="1" autocomplete="off" id="time" size="4"
               name="time" value="10" />
             <label for="time">min.</label>
+            <button id="expert_config" title="Expert Configuration">⚙</button>
             <button id="toggle_transcript" title="Toggle Transcript">📄</button>
           </div>
         </fieldset>
@@ -268,6 +269,46 @@
     </div>
   </div>
   <div id="debug"></div>
+
+  <!-- Expert Configuration Modal -->
+  <div id="expert_modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span>Expert Configuration</span>
+        <button id="close_expert" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="expert-form-grid">
+          <label for="max_dx">Max DX Station</label>
+          <select id="max_dx" name="max_dx">
+            <option value="0">Unlimited</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          <label for="dx_wpm_type">DX-Station WPM</label>
+          <select id="dx_wpm_type" name="dx_wpm_type">
+            <option value="standard">Standard</option>
+            <option value="individual">Individual</option>
+          </select>
+        </div>
+        <div class="flex_form">
+          <label for="dx_min_wpm">Min WPM</label>
+          <input type="number" id="dx_min_wpm" min="10" max="60" value="15" disabled />
+          <label for="dx_max_wpm">Max WPM</label>
+          <input type="number" id="dx_max_wpm" min="10" max="60" value="20" disabled />
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="main.js"></script>
 </body>
 

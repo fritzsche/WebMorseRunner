@@ -31,6 +31,12 @@ export class Config {
         this._flutter = document.querySelector("#flutter")
         this._lids = document.querySelector("#lids")
 
+        // expert config
+        this._max_dx = document.querySelector("#max_dx")
+        this._dx_wpm_type = document.querySelector("#dx_wpm_type")
+        this._dx_min_wpm = document.querySelector("#dx_min_wpm")
+        this._dx_max_wpm = document.querySelector("#dx_max_wpm")
+
         this._callback = callback
 
         this.all = document.querySelectorAll(".watch").forEach(
@@ -58,6 +64,11 @@ export class Config {
             qsb: false,
             flutter: false,
             lids: false,
+            // expert config
+            max_dx: 0,
+            dx_wpm_type: 'standard',
+            dx_min_wpm: null,
+            dx_max_wpm: null,
             contest: {},
         }
         this.load()
@@ -126,6 +137,11 @@ export class Config {
         this._qsb.checked = this._config.qsb
         this._flutter.checked = this._config.flutter
         this._lids.checked = this._config.lids
+        // expert config
+        this._max_dx.value = String(this._config.max_dx)
+        this._dx_wpm_type.value = this._config.dx_wpm_type
+        this._dx_min_wpm.value = String(this._config.dx_min_wpm)
+        this._dx_max_wpm.value = String(this._config.dx_max_wpm)
         if (contest_id) {
             if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange1)
                 this._exchange1.value = this._config.contest[contest_id].exchange1
@@ -161,6 +177,14 @@ export class Config {
         this._config.qsb = this._qsb.checked
         this._config.flutter = this._flutter.checked
         this._config.lids = this._lids.checked
+
+        // expert config
+        this._config.max_dx = parseInt(this._max_dx.value) || 0
+        this._config.dx_wpm_type = this._dx_wpm_type.value
+        const minWpm = parseInt(this._dx_min_wpm.value)
+        const maxWpm = parseInt(this._dx_max_wpm.value)
+        this._config.dx_min_wpm = isNaN(minWpm) ? 20 : minWpm
+        this._config.dx_max_wpm = isNaN(maxWpm) ? 20 : maxWpm
 
         if (!this._config.activity) this._config.activity = 2
     }

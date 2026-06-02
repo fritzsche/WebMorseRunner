@@ -92,4 +92,9 @@ export class DEFAULT {
   static FLUTTER = false
   static QRM = false
   static LIDS = false
+  // Expert Config
+  static MAX_DX = 0
+  static DX_WPM_TYPE = 'standard'
+  static DX_MIN_WPM = 15
+  static DX_MAX_WPM = 30
 }

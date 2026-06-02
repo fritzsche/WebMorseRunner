@@ -3,6 +3,7 @@ import { AudioMessage, DEFAULT, RunMode, StationMessage } from "./defaults.js"
 import { Log } from "./log.js"
 import { Config } from "./config.js"
 import { Transcript } from "./transcript.js"
+import { ExpertConfig } from "./expert.js"
 
 import { ContestDefinition } from "./contest-definition.js"
 
@@ -27,6 +28,7 @@ export class View {
         this.TX = false
 
         this.log = new Log()
+        this._expertConfig = null  // Will be initialized in onLoad after config
 
     }
 
@@ -518,6 +520,7 @@ export class View {
         this._config.read_dom()
         this.hideTitle()
         this.running = true
+        if (this._expertConfig) this._expertConfig.hide()
         this.wipeFields()
         this.stopTX()
         this.pileupStations = 0
@@ -554,8 +557,6 @@ export class View {
                 case AudioMessage.request_dx:
                     let calls = new Array()
                     for (let i = 0; i < data; i++) calls.push(this.calls.get_random())
-                    // console.log(calls[0])
-                    this.pileupStations += data
                     this.ContestNode.port.postMessage({
                         type: AudioMessage.create_dx,
                         data: calls,
@@ -639,6 +640,7 @@ export class View {
     stopContest() {
         this.running = false
         this.toggleRunButton()
+        if (this._expertConfig) this._expertConfig.show()
         this.sendMessage({
             type: AudioMessage.stop_contest,
         })
@@ -701,9 +703,15 @@ export class View {
 
     onLoad() {
         this._ContestDefinition = new ContestDefinition()
+        // initConfig must come first so Config._instance is set
         this.initConfig()
         this.initRunButton()
         this.initToggleTranscript()
+        // Now create ExpertConfig - Config singleton is ready
+        this._expertConfig = new ExpertConfig()
+        if (this._expertConfig) {
+            this._expertConfig.setDefaultWpmValues()
+        }
         this.sendButton()
         this.wipeFields()
     }
