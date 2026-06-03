@@ -1,6 +1,12 @@
 import { Keyer } from "./keyer.js"
 import { DEFAULT, RunMode, StationMessage, AudioMessage } from "./defaults.js"
-import { Contest, Tst } from "./contest.js"
+
+let _Contest = null
+let _Tst = null
+export function _setContestRef(Contest, Tst) {
+    _Contest = Contest
+    _Tst = Tst
+}
 
 
 let GKeyer = new Keyer()
@@ -107,7 +113,7 @@ export class Station {
             this.MsgText += ' ' + AMsg
         } else { this.MsgText = AMsg }
         // post message to the transcript
-        Tst.post(
+        _Tst.post(
             {
                 type: AudioMessage.transcript,
                 data: `${this.MyCall.toUpperCase()}: ${this.MsgText.toUpperCase()}`,
@@ -118,6 +124,7 @@ export class Station {
 
     generateEnvelope(AMorse) {
         GKeyer.Wpm = this.Wpm
+        GKeyer.FarnsworthEffWpm = DEFAULT.FARNSWORTH ? DEFAULT.FARNSWORTH_EFF_WPM : 0
         GKeyer.MorseMsg = AMorse
         return GKeyer.GetEnvelope()
     }
@@ -169,7 +176,7 @@ export class Station {
 
 
     composeExchange() {
-        const contest = new Contest()
+        const contest = new _Contest()
         const exchange = contest._conf.active_contest.exchange_msg
 
         if (!exchange || exchange === '<rst><nr>') return Station.NrAsText(this.RST, this.NR)
@@ -183,7 +190,7 @@ export class Station {
 
 
     getExchange() {
-        const contest = new Contest()
+        const contest = new _Contest()
         let exchange = contest._conf.active_contest.exchange
         let result = []
         exchange.forEach(ex => {
@@ -192,7 +199,7 @@ export class Station {
                     result.push(String(this.RST ? this.RST : 599))
                     break
                 case 'nr':
-                    result.push(String(this.NR).padStart(3, '0'))
+                    result.push(String(this.NR).padStart(this.NR > 999 ? 4 : 3, '0'))
                     break
                 case 'exchange1':
                     result.push(this.exchange1)
@@ -244,7 +251,7 @@ export class Station {
         // convert rst to string
         let rst_str = rst.toString().padStart(3, '0')
         // convert NR to string
-        let nr_str = nr.toString().padStart(3, '0')
+        let nr_str = nr.toString().padStart(nr > 999 ? 4 : 3, '0')
         // return combination like: "599001" without space
         let result = `${rst_str}${nr_str}`
         // lids might cause errors.

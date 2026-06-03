@@ -108,7 +108,7 @@ export class View {
         const RecvExchange = contestDef.getExchange()
 
         const call = this.Call
-        const recNr = String(this.Nr).padStart(3, "0")
+        const recNr = String(this.Nr).padStart(this.Nr > 999 ? 4 : 3, "0")
         const recRST = String(this.Rst)
 
         if (call && recNr !== '000'  && recRST && RecvExchange) { //&& this.Nr !== -1

@@ -36,6 +36,9 @@ export class Config {
         this._dx_wpm_type = document.querySelector("#dx_wpm_type")
         this._dx_min_wpm = document.querySelector("#dx_min_wpm")
         this._dx_max_wpm = document.querySelector("#dx_max_wpm")
+        this._farnsworth_enabled = document.querySelector("#farnsworth_enabled")
+        this._farnsworth_eff_wpm = document.querySelector("#farnsworth_eff_wpm")
+        this._contest_start_offset = document.querySelector("#contest_start_offset")
 
         this._callback = callback
 
@@ -69,6 +72,9 @@ export class Config {
             dx_wpm_type: 'standard',
             dx_min_wpm: null,
             dx_max_wpm: null,
+            farnsworth: false,
+            farnsworth_eff_wpm: null,
+            contest_start_offset_min: 0,
             contest: {},
         }
         this.load()
@@ -142,6 +148,9 @@ export class Config {
         this._dx_wpm_type.value = this._config.dx_wpm_type
         this._dx_min_wpm.value = String(this._config.dx_min_wpm)
         this._dx_max_wpm.value = String(this._config.dx_max_wpm)
+        this._farnsworth_enabled.value = String(this._config.farnsworth ?? false)
+        this._farnsworth_eff_wpm.value = String(this._config.farnsworth_eff_wpm ?? 15)
+        this._contest_start_offset.value = String((this._config.contest_start_offset_min ?? 0) / 60)
         if (contest_id) {
             if (this._config.contest && this._config.contest[contest_id] && this._config.contest[contest_id].exchange1)
                 this._exchange1.value = this._config.contest[contest_id].exchange1
@@ -185,6 +194,11 @@ export class Config {
         const maxWpm = parseInt(this._dx_max_wpm.value)
         this._config.dx_min_wpm = isNaN(minWpm) ? 20 : minWpm
         this._config.dx_max_wpm = isNaN(maxWpm) ? 20 : maxWpm
+        this._config.farnsworth = this._farnsworth_enabled.value === 'true'
+        const effWpm = parseInt(this._farnsworth_eff_wpm.value)
+        this._config.farnsworth_eff_wpm = isNaN(effWpm) ? 15 : effWpm
+        const offsetHours = parseFloat(this._contest_start_offset.value)
+        this._config.contest_start_offset_min = isNaN(offsetHours) ? 0 : Math.round(offsetHours * 60)
 
         if (!this._config.activity) this._config.activity = 2
     }

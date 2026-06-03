@@ -97,4 +97,7 @@ export class DEFAULT {
   static DX_WPM_TYPE = 'standard'
   static DX_MIN_WPM = 15
   static DX_MAX_WPM = 30
+  static FARNSWORTH = false
+  static FARNSWORTH_EFF_WPM = 15
+  static CONTEST_START_OFFSET_MIN = 0
 }

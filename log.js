@@ -121,7 +121,7 @@ export class Log {
         this.updateScore()
         complete_qso.Check = Log.Check.NIL
         complete_qso.SendRST = '599'
-        complete_qso.SendNr = String(this.NR).padStart(3, '0')
+        complete_qso.SendNr = String(this.NR).padStart(this.NR > 999 ? 4 : 3, '0')
 
         // my own exchange
         const myexchange = this._contestDefinition.getMyExchange()

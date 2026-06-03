@@ -12,7 +12,7 @@ const Exchange = {
     NR: {
         id: exchangeId.nr,
         text: "Nr.",
-        length: 3,
+        length: 4,
         log: "NR",
         numeric: true,
     },
@@ -260,7 +260,7 @@ export class ContestDefinition {
                     e.target.value.substring(0, e.target.selectionStart) +
                     (e.data ?? "") +
                     e.target.value.substring(e.target.selectionEnd)
-                if (!/^\d{0,3}$/.test(nextVal)) {
+                if (!/^\d{0,4}$/.test(nextVal)) {
                     e.preventDefault()
                 }
                 return
@@ -354,7 +354,8 @@ export class ContestDefinition {
                     break
                 case exchangeId.nr:
                     const nr_dom = document.getElementById(exchangeId.nr)
-                    let nr_exchange = String(nr_dom.value).padStart(3, '0')
+                    const nr_val = parseInt(nr_dom.value) || 0
+                    let nr_exchange = String(nr_val).padStart(nr_val > 999 ? 4 : 3, '0')
                     result.push(nr_exchange)
                     break
                 case exchangeId.exchange1:
@@ -387,7 +388,8 @@ export class ContestDefinition {
                     break
                 case exchangeId.nr:
                     const log = new Log()
-                    let nr_exchange = String(log.NR).padStart(3, '0')
+                    const logNr = log.NR
+                    let nr_exchange = String(logNr).padStart(logNr > 999 ? 4 : 3, '0')
                     result.push(nr_exchange)
                     break
                 case exchangeId.exchange1:

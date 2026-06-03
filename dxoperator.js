@@ -113,7 +113,7 @@ export class DxOperator {
 
 
     get NR() {
-        return 1 + Math.round(Math.random() * Tst.Minute * this.Skills)
+        return 1 + Math.round(Math.random() * (Tst.Minute + DEFAULT.CONTEST_START_OFFSET_MIN) * this.Skills)
     }
 
     // Process an incoming message

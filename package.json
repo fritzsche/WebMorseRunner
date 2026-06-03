@@ -1,0 +1,7 @@
+{
+  "name": "webmorserunner",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/keyer.test.js test/random.test.js test/nr.test.js test/dxoperator.test.js test/dxoperator_statemachine.test.js test/movavg.test.js test/quickavg.test.js test/modulator.test.js test/volume.test.js test/qsb.test.js test/stations.test.js"
+  }
+}

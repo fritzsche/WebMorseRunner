@@ -305,6 +305,21 @@
           <label for="dx_max_wpm">Max WPM</label>
           <input type="number" id="dx_max_wpm" min="10" max="60" value="20" disabled />
         </div>
+        <div class="expert-form-grid">
+          <label for="farnsworth_enabled">Farnsworth</label>
+          <select id="farnsworth_enabled" name="farnsworth_enabled">
+            <option value="false">Off</option>
+            <option value="true">On</option>
+          </select>
+        </div>
+        <div class="flex_form">
+          <label for="farnsworth_eff_wpm">Eff. WPM</label>
+          <input type="number" id="farnsworth_eff_wpm" min="5" max="40" value="15" disabled />
+        </div>
+        <div class="expert-form-grid">
+          <label for="contest_start_offset">Contest Offset (h)</label>
+          <input type="number" id="contest_start_offset" min="0" max="10" step="0.5" value="0" />
+        </div>
       </div>
     </div>
   </div>

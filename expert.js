@@ -11,6 +11,10 @@ export class ExpertConfig {
         this.minWpmInput = document.getElementById("dx_min_wpm")
         this.maxWpmInput = document.getElementById("dx_max_wpm")
 
+        this.farnsworthEnabled = document.getElementById("farnsworth_enabled")
+        this.farnsworthEffWpm = document.getElementById("farnsworth_eff_wpm")
+        this.contestStartOffset = document.getElementById("contest_start_offset")
+
         this.init()
     }
 
@@ -53,8 +57,23 @@ export class ExpertConfig {
             this._config.update()
         })
 
+        // Farnsworth controls
+        this.farnsworthEnabled.addEventListener("change", () => {
+            this.updateFarnsworthInputs()
+            this._config.update()
+        })
+        this.farnsworthEffWpm.addEventListener("input", () => {
+            this._config.update()
+        })
+
+        // Contest start offset
+        this.contestStartOffset.addEventListener("input", () => {
+            this._config.update()
+        })
+
         // Initialize WPM input states based on current config
         this.updateWpmInputs()
+        this.updateFarnsworthInputs()
     }
 
     open() {
@@ -98,6 +117,13 @@ export class ExpertConfig {
             this._config._config.dx_max_wpm = maxWpm
             defaultsSet = true
         }
+        if (this._config._config.farnsworth_eff_wpm == null) {
+            const userWpm = parseInt(this._config._config.wpm) || 20
+            const effWpm = Math.max(5, Math.round(userWpm * 0.6))
+            this.farnsworthEffWpm.value = effWpm
+            this._config._config.farnsworth_eff_wpm = effWpm
+            defaultsSet = true
+        }
         return defaultsSet
     }
 
@@ -108,6 +134,14 @@ export class ExpertConfig {
         } else {
             this.minWpmInput.disabled = true
             this.maxWpmInput.disabled = true
+        }
+    }
+
+    updateFarnsworthInputs() {
+        if (this.farnsworthEnabled.value === "true") {
+            this.farnsworthEffWpm.disabled = false
+        } else {
+            this.farnsworthEffWpm.disabled = true
         }
     }
 }

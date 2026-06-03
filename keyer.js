@@ -56,6 +56,7 @@ class Keyer {
         this.RiseTime = 0.005
         this.FRiseTime = 0.005
         this.Wpm = DEFAULT.WPM
+        this.FarnsworthEffWpm = 0
         this.BufSize = DEFAULT.BUFSIZE
         this.MorseMsg = Keyer.Encode('DJ1TF')
         this._MakeRamp()
@@ -109,11 +110,21 @@ class Keyer {
     }
 
     GetEnvelope() {
-        let UnitCount = 0
         let position = 0
 
         //calc buffer size
-        let SamplesInUnit = Math.round(0.1 * this.Rate * 12 / this.Wpm);        
+        let SamplesInUnit = Math.round(0.1 * this.Rate * 12 / this.Wpm);
+
+        // Farnsworth timing: inter-character gaps use a slower effective WPM
+        // Using ARRL formula: inter-char gap duration = (50*T_eff - 31*T_char) / 19 * 3
+        // where T_char = 1.2/charWpm and T_eff = 1.2/effWpm (seconds per unit)
+        let SamplesInGapUnit = SamplesInUnit
+        if (this.FarnsworthEffWpm > 0 && this.FarnsworthEffWpm < this.Wpm) {
+            const T_char = 1.2 / this.Wpm
+            const T_eff = 1.2 / this.FarnsworthEffWpm
+            const interCharSec = (50 * T_eff - 31 * T_char) / 19 * 3
+            SamplesInGapUnit = Math.max(SamplesInUnit, Math.round(interCharSec * this.Rate / 2))
+        }
 
         const AddRampOn = () => {
             for (let i = 0; i < this._RampLength; i++) result[position + i] = this._RampOn[i]
@@ -130,28 +141,33 @@ class Keyer {
             position += Duration * SamplesInUnit - this._RampLength
         }
 
+        const AddGapOff = (Duration) => {
+            for (let i = 0; i < Duration * SamplesInGapUnit - this._RampLength; i++) result[position + i] = 0
+            position += Duration * SamplesInGapUnit - this._RampLength
+        }
+
         const AddOn = (Duration) => {
             for (let i = 0; i < Duration * SamplesInUnit - this._RampLength; i++) result[position + i] = 1
             position += Duration * SamplesInUnit - this._RampLength
         }
 
+        let charSamples = 0
+        let gapSamples = 0
         for (let i = 0; i < this.MorseMsg.length; i++) {
             switch (this.MorseMsg[i]) {
-                case '.': UnitCount += 2
+                case '.': charSamples += 2 * SamplesInUnit
                     break
-                case '-': UnitCount += 4
+                case '-': charSamples += 4 * SamplesInUnit
                     break
-                case ' ': UnitCount += 2
+                case ' ': gapSamples += 2 * SamplesInGapUnit
                     break
-                case '~': UnitCount++
+                case '~': gapSamples += 1 * SamplesInGapUnit
                     break
-
             }
         }
 
-
-        let TrueEnvelopeLen = UnitCount * SamplesInUnit + this._RampLength;
-        let Length = this.BufSize * Math.ceil(TrueEnvelopeLen / this.BufSize);       
+        let TrueEnvelopeLen = charSamples + gapSamples + this._RampLength;
+        let Length = this.BufSize * Math.ceil(TrueEnvelopeLen / this.BufSize);
 
         let result =  new Float32Array(Length) //new Array()
         for (let i = 0; i < this.MorseMsg.length; i++) {
@@ -168,9 +184,9 @@ class Keyer {
                     AddRampOff()
                     AddOff(1)
                     break
-                case ' ': AddOff(2)
+                case ' ': AddGapOff(2)
                     break
-                case '~': AddOff(1)
+                case '~': AddGapOff(1)
                     break
             }
 

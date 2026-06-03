@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --input-type=module)",
+      "Bash(node --test test/keyer.test.js)",
+      "Bash(node --test test/random.test.js)",
+      "Bash(node --test test/dxoperator.test.js)",
+      "Bash(node --test test/keyer.test.js test/random.test.js test/nr.test.js test/dxoperator.test.js)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(npm test *)",
+      "Bash(node --test test/movavg.test.js test/quickavg.test.js test/modulator.test.js test/volume.test.js test/qsb.test.js)"
+    ]
+  }
+}

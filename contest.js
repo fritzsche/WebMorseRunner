@@ -1,4 +1,5 @@
 import { AudioMessage, DEFAULT, OperatorState, RunMode, StationMessage } from "./defaults.js"
+import { _setContestRef } from "./station.js"
 
 import { Modulator } from "./modulator.js"
 import { Volume } from "./volume.js"
@@ -164,6 +165,9 @@ export class Contest {
         if (DEFAULT.DX_WPM_TYPE !== conf.dx_wpm_type) DEFAULT.DX_WPM_TYPE = conf.dx_wpm_type
         if (DEFAULT.DX_MIN_WPM !== conf.dx_min_wpm) DEFAULT.DX_MIN_WPM = conf.dx_min_wpm
         if (DEFAULT.DX_MAX_WPM !== conf.dx_max_wpm) DEFAULT.DX_MAX_WPM = conf.dx_max_wpm
+        if (DEFAULT.FARNSWORTH !== conf.farnsworth) DEFAULT.FARNSWORTH = conf.farnsworth ?? false
+        if (DEFAULT.FARNSWORTH_EFF_WPM !== conf.farnsworth_eff_wpm) DEFAULT.FARNSWORTH_EFF_WPM = conf.farnsworth_eff_wpm ?? 15
+        if (DEFAULT.CONTEST_START_OFFSET_MIN !== conf.contest_start_offset_min) DEFAULT.CONTEST_START_OFFSET_MIN = conf.contest_start_offset_min ?? 0
 
     }
 
@@ -439,3 +443,4 @@ export class Contest {
 }
 
 export const Tst = new Contest()
+_setContestRef(Contest, Tst)
