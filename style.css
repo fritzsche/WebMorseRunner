@@ -453,6 +453,7 @@ a {
 
 /* Modal Content Box */
 .modal-content {
+  position: relative;
   background: #222;
   border: 1px solid #444;
   border-radius: 6px;
@@ -501,6 +502,20 @@ a {
 
 .close-btn:hover {
   color: #fff;
+}
+
+/* Modal footer bar */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 15px;
+  border-top: 1px solid #444;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Confirm button in modal footer */
+.confirm-btn {
+  font-size: 28px;
 }
 
 /* Expert Config form grid for aligned dropdowns */
