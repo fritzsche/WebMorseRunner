@@ -203,6 +203,9 @@ Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO 
 Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). This is useful if you run longer contest sessions.
 
 ## Version
+* **0.16-beta** (2026-06-06)
+  + New setting to support Farnsworth timing as part of the expert configuration.
+  * New setting to support higher contest numbers.
 * **0.15-beta** (2026-06-02) 
    * New expert configuration that you can open pressing the "gear"-icon in the contest settings.
        * Max Pile-up: you can limit the number of DX-stations that are responding in a pile-up relevant mode to avoid too many stations calling you.
