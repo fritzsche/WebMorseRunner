@@ -48,10 +48,14 @@ This project is new and independent of Alex project. The original Morse Runner t
 * Confirm QSO's
 * Band Condition (QRM/QRN/QSB/Flutter/LID's)
 * Transcript
+* WAV Recording
+* Expert Configuration settings:
+    * Farnsworth timing
+    * DX Station WPM (standard or individual min/max range)
+    * Contest Start Offset (simulate joining a running contest)
 
 ## Features not (yet) implemented
 
-* WAV File Export
 * Best-List
 
 ## Status
@@ -202,7 +206,35 @@ The qso/h will be shown after you logged your first context.
 Once you reached the mark of 5 minutes it will represent the last 5 minutes QSO data.
 Web Morse Runner shows also a bar chart containing the qso/h in 5 minutes intervals. 24 Bars (a 5 Minutes). This is useful if you run longer contest sessions.
 
+## Transcript
+The transcript shows a chronological log of all messages exchanged during the contest. It is hidden by default. Click the **📄 (page icon)** to show or hide it. The transcript is cleared when a new contest starts.
+
+## Expert Configuration
+Click the **⚙ (gear icon)** to open the Expert Configuration panel. These settings take effect immediately when changed during a running contest.
+
+* **Max Pile-up** Limits the maximum number of DX stations that simultaneously call you in Pile-up relevant modes. Useful if you want to practice with a more manageable number of callers. Set to 0 for unlimited.
+* **DX Stations WPM** Controls the speed of calling DX stations:
+    * *Standard* — stations respond at between half and the full speed of your own CW speed setting.
+    * *Individual* — set your own minimum and maximum WPM range for DX stations independently of your own speed.
+* **Min WPM / Max WPM** (visible in Individual mode) The lower and upper bound of the DX station speed range.
+* **Farnsworth Timing** When enabled, characters are sent at the full character speed but extra spacing is added between characters and words so the effective words-per-minute rate is lower. This is the classic Farnsworth method for learning CW at speed. Set the effective WPM with the **Eff. WPM** field — it must be lower than your CW Speed.
+* **Contest Start Offset** Simulates joining a contest that has already been running for a number of minutes. The DX station serial numbers will start at a value matching the offset, which is useful for practicing realistic exchange numbers rather than always starting from 001.
+
+## WAV Recording
+Web Morse Runner can record the generated audio to a WAV file for later review or analysis.
+
+The **⏺ Rec** button is always available in the Contest panel. It operates independently of the Run button:
+
+1. **Arm the recording** — press **⏺ Rec** before or during a contest. The button turns red, indicating it is armed and ready.
+2. **Active recording** — once a contest is running and the button is armed, recording starts automatically. The button flashes to show audio is being captured.
+3. **Paused between contests** — if the contest stops while armed the button returns to solid red. When the next contest starts the recording resumes automatically, appending to the same session.
+4. **Download** — press **⏺ Rec** again to disarm. The recording stops and the WAV file is downloaded automatically.
+
+The output is an uncompressed PCM WAV file (11,025 Hz, 16-bit mono) named `morse_<CALL>_<DATE>_<TIME>Z.wav`. At this sample rate the audio is well suited for CW tones and the file size is approximately 1.3 MB per minute. Recording is capped at 90 minutes per session (≈ 119 MB).
+
 ## Version
+* **0.17-beta** (2026-06-09)
+  * WAV Recording: the **⏺ Rec** button arms the recorder independently of the Run button. Audio is captured while the contest runs and downloaded as a WAV file when the button is pressed again. The recording arms and disarms across multiple contest sessions without losing data.
 * **0.16-beta** (2026-06-06)
   + New setting to support Farnsworth timing as part of the expert configuration.
   * New setting to support higher contest numbers.

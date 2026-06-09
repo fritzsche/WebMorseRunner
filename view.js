@@ -4,12 +4,18 @@ import { Log } from "./log.js"
 import { Config } from "./config.js"
 import { Transcript } from "./transcript.js"
 import { ExpertConfig } from "./expert.js"
+import { float32ToInt16, buildWavBuffer, recFilename } from "./recording.js"
 
 import { ContestDefinition } from "./contest-definition.js"
 
 export class View {
     constructor() {
         this.running = false
+        this.recording = false
+        this._recArmed = false
+        this._recChunks = []
+        this._recTotalSamples = 0
+        this._recMaxSamples = 11025 * 60 * 90
         this.ContestNode = null
         this.calls = new Calls()
         this.calls.fetch_calls()
@@ -598,9 +604,12 @@ export class View {
                         this.CallSend = false
                     } else this.prev_call = this.Call.toUpperCase()
                     break
-                case AudioMessage.transcript: 
+                case AudioMessage.transcript:
                     new Transcript().log(`${this.getClock()} ${data}`)
-                    break   
+                    break
+                case AudioMessage.audio_chunk:
+                    this._onAudioChunk(e.data.data)
+                    break
                 default:
                     console.log("ERROR: Unsupported message")
                     debugger
@@ -614,6 +623,7 @@ export class View {
             type: AudioMessage.start_contest,
             data: conf,
         })
+        if (this._recArmed) this._startCapture()
     }
 
     updateCall(e) {
@@ -638,6 +648,7 @@ export class View {
     }
 
     stopContest() {
+        if (this.recording) this._stopCapture()
         this.running = false
         this.toggleRunButton()
         if (this._expertConfig) this._expertConfig.show()
@@ -668,6 +679,63 @@ export class View {
             if (this.running) this.stopContest()
             else this.startContest()
         })
+    }
+
+    initRecordButton() {
+        this.recordBtn = document.getElementById('record')
+        this.recordBtn.addEventListener('click', () => {
+            if (this._recArmed) this._disarmRecording()
+            else this._armRecording()
+        })
+    }
+
+    _armRecording() {
+        this._recArmed = true
+        this._recChunks = []
+        this._recTotalSamples = 0
+        this.recordBtn.classList.add('rec-armed')
+        if (this.running) this._startCapture()
+    }
+
+    _disarmRecording() {
+        if (this.recording) this._stopCapture()
+        this._recArmed = false
+        this.recordBtn.classList.remove('rec-armed')
+        setTimeout(() => this._finalizeRecording(), 200)
+    }
+
+    _startCapture() {
+        this.recording = true
+        this.recordBtn.classList.add('recording')
+        this.sendMessage({ type: AudioMessage.start_recording })
+    }
+
+    _stopCapture() {
+        this.recording = false
+        this.recordBtn.classList.remove('recording')
+        this.sendMessage({ type: AudioMessage.stop_recording })
+    }
+
+    _onAudioChunk(buffer) {
+        const i16 = float32ToInt16(new Float32Array(buffer))
+        this._recChunks.push(i16)
+        this._recTotalSamples += i16.length
+        if (this._recTotalSamples >= this._recMaxSamples) {
+            this._stopCapture()
+        }
+    }
+
+    _finalizeRecording() {
+        if (this._recChunks.length === 0) return
+        const buf = buildWavBuffer(this._recChunks, this._recTotalSamples)
+        this._recChunks = []
+        const blob = new Blob([buf], { type: 'audio/wav' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = recFilename(this._config._config.my_call)
+        a.click()
+        setTimeout(() => URL.revokeObjectURL(url), 10000)
     }
 
     initToggleTranscript() {
@@ -706,6 +774,7 @@ export class View {
         // initConfig must come first so Config._instance is set
         this.initConfig()
         this.initRunButton()
+        this.initRecordButton()
         this.initToggleTranscript()
         // Now create ExpertConfig - Config singleton is ready
         this._expertConfig = new ExpertConfig()

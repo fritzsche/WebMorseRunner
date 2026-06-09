@@ -27,7 +27,7 @@
         </table>
       </div>
       <div id="title">
-        <div class="large"> Web Morse Runner 0.16&beta;</div>
+        <div class="large"> Web Morse Runner 0.17&beta;</div>
         <div> by DJ1TF - Thomas Fritzsche</div>
         <div> <a href="https://github.com/fritzsche/WebMorseRunner">GitHub</a>
         </div>
@@ -137,6 +137,11 @@
             </div>
           </div>
           <div class="flex_form">
+            <button id="record" title="Record audio to WAV">&#9210; Rec</button>
+            <button id="expert_config" title="Expert Configuration">⚙</button>
+            <button id="toggle_transcript" title="Toggle Transcript">📄</button>
+          </div>
+          <div class="flex_form">
             <label for="mode">Mode</label>
             <select class="watch no_run" autocomplete="off" id="mode" name="mode">
             </select>
@@ -158,8 +163,6 @@
             <input class="watch no_run" type="number" min="1" max="100" step="1" autocomplete="off" id="time" size="4"
               name="time" value="10" />
             <label for="time">min.</label>
-            <button id="expert_config" title="Expert Configuration">⚙</button>
-            <button id="toggle_transcript" title="Toggle Transcript">📄</button>
           </div>
         </fieldset>
 

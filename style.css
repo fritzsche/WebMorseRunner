@@ -201,6 +201,16 @@ fieldset {
   background-color: darkgreen;
 }
 
+#record {
+  height: 30px;
+  padding: 0 10px;
+  background-color: darkgreen;
+}
+
+#time {
+  width: 2.8em;
+}
+
 .stop {
   background-color: darkred !important;
 }
@@ -307,6 +317,22 @@ a {
     /* Outer glow */
     0 0 30px #ff0000;
   /* Wider glow */
+}
+
+/* Recording button states */
+button#record.rec-armed {
+  background-color: #990000;
+}
+
+button#record.recording {
+  background-color: #990000;
+  animation: rec-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes rec-pulse {
+  0%   { opacity: 1.0; }
+  50%  { opacity: 0.45; }
+  100% { opacity: 1.0; }
 }
 
 

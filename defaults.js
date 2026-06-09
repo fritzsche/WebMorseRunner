@@ -27,6 +27,9 @@ export const AudioMessage = {
   start_tx: 'start_tx',
   stop_tx: 'stop_tx',
   transcript: "transcript",
+  start_recording: 'start_recording',
+  stop_recording:  'stop_recording',
+  audio_chunk:     'audio_chunk',
 }
 
 export const StationMessage = {
