@@ -233,6 +233,8 @@ The **⏺ Rec** button is always available in the Contest panel. It operates ind
 The output is an uncompressed PCM WAV file (11,025 Hz, 16-bit mono) named `morse_<CALL>_<DATE>_<TIME>Z.wav`. At this sample rate the audio is well suited for CW tones and the file size is approximately 1.3 MB per minute. Recording is capped at 90 minutes per session (≈ 119 MB).
 
 ## Version
+* **0.17.1-beta** (2026-06-10)
+  * Bugfix: minor layout bugs fixed.
 * **0.17-beta** (2026-06-09)
   * WAV Recording: the **⏺ Rec** button arms the recorder independently of the Run button. Audio is captured while the contest runs and downloaded as a WAV file when the button is pressed again. The recording arms and disarms across multiple contest sessions without losing data.
 * **0.16-beta** (2026-06-06)

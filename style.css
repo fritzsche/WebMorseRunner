@@ -72,7 +72,9 @@ label {
   font-family: 'Courier New', monospace;
   height: 350px;
   overflow-y: auto;
-  display: inline-block;
+  display: block;
+  position: relative;
+  z-index: 2;
 }
 
 .send button {
@@ -92,8 +94,7 @@ th {
 
 #container {
   position: relative;
-  display: inline-block;
-
+  z-index: 1;
 }
 
 #container * {
@@ -105,7 +106,7 @@ th {
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 100%;
+  height: auto;
 
   background-color: black;
   text-align: center;
@@ -288,6 +289,11 @@ a {
   font-size: 14pt;
 }
 
+#input input.NR {
+  width: 3.5em;
+  box-sizing: border-box;
+}
+
 
 .led-indicator {
   width: 20px;
@@ -339,7 +345,7 @@ button#record.recording {
 #main {
   display: grid;
   grid-template-columns: max-content max-content;
-  grid-template-rows: 1fr max-content max-content;
+  grid-template-rows: max-content max-content max-content;
 }
 
 #transcript {
