@@ -42,6 +42,13 @@ const Exchange = {
         length: 3,
         log: "DOK",
         uppercase: true
+    },
+    LOC: {
+        id: exchangeId.exchange1,
+        text: 'LOC',
+        length: 6,
+        log: "LOC",
+        uppercase: true
     }
 }
 
@@ -138,7 +145,16 @@ const contest_def = [
             CQ: 'CQ CWT <my>',
             NrQm: 'NR?',
         }
-    }
+    },
+    {
+        id: 'iaru',
+        name: "IARU VHF",
+        runmode: RunMode.Single,
+        exchange: [Exchange.RST, Exchange.NR, Exchange.LOC],
+        exchange_msg: '<rst> <1> <2>',
+        key: stdKey,
+        my_exchange: 'LOC'
+    },
 ]
 
 export class ContestDefinition {
