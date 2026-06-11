@@ -7,6 +7,8 @@ This is a new written version of Morse Runner as Web-Application.
 
 The app is hosted on GitHub Pages: https://fritzsche.github.io/WebMorseRunner/
 
+**Translations:** [Deutsch](README_DE.md) · [日本語](README_JP.md)
+
 
 The Project is inspired by the Program [MorseRunner by VE3NEA - Alex Shovkoplyas](https://github.com/VE3NEA/MorseRunner). The Idea to start a complete new Web App Project originate from the authors previous effort to [port MorseRunner to Linux and Mac](https://github.com/fritzsche/MorseRunner).
 
@@ -23,7 +25,7 @@ This project is new and independent of Alex project. The original Morse Runner t
 * Contest Mode: 
     * Single Call
     * Pileup
-    * WPX Competition
+    * WPX Contest
     * DARC CW Ausbildungscontest (CWA)
     * A1CLUB AWT
     * CWOps CWT

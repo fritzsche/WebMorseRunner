@@ -88,7 +88,7 @@ const contest_def = [
     },
     {
         id: 'wpx',
-        name: "WPX-Competition",
+        name: "WPX Contest",
         runmode: RunMode.Pileup,
         exchange: [Exchange.RST, Exchange.NR],
         key: stdKey,
