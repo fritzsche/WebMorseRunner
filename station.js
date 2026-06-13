@@ -182,7 +182,9 @@ export class Station {
         if (!exchange || exchange === '<rst><nr>') return Station.NrAsText(this.RST, this.NR)
         let result = exchange
         const rst_txt = Station.RstAsText(this.RST)
+        const nr_txt = Station.NrAsText(undefined, this.NR)
         result = result.replaceAll('<rst>', rst_txt)
+        result = result.replaceAll('<nr>', nr_txt)
         if (this.exchange1) result = result.replaceAll('<1>', this.exchange1)
         if (this.exchange2) result = result.replaceAll('<2>', this.exchange2)
         return result
@@ -245,11 +247,10 @@ export class Station {
         return result
     }
 
-
-
     static NrAsText(rst, nr) {
         // convert rst to string
-        let rst_str = rst.toString().padStart(3, '0')
+        let rst_str = "";
+        if(rst !== undefined) rst_str = rst.toString().padStart(3, '0')
         // convert NR to string
         let nr_str = nr.toString().padStart(nr > 999 ? 4 : 3, '0')
         // return combination like: "599001" without space
