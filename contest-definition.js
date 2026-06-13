@@ -151,8 +151,8 @@ const contest_def = [
         name: "IARU VHF",
         runmode: RunMode.Single,
         exchange: [Exchange.RST, Exchange.NR, Exchange.LOC],
-        exchange_msg: '<rst> <1> <2>',
         key: stdKey,
+        exchange_msg: "<rst> <nr> <1>",
         my_exchange: 'LOC'
     },
 ]
