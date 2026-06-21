@@ -53,8 +53,6 @@ export class Station {
         MeFinished: 4
     }
 
-    static contestExchangeMessage = '<rst><nr>'
-
 
     constructor() {
         this._FBfo = 0
@@ -249,8 +247,8 @@ export class Station {
 
     static NrAsText(rst, nr) {
         // convert rst to string
-        let rst_str = "";
-        if(rst !== undefined) rst_str = rst.toString().padStart(3, '0')
+        let rst_str = ''
+        if (rst !== undefined) rst_str = rst.toString().padStart(3, '0')
         // convert NR to string
         let nr_str = nr.toString().padStart(nr > 999 ? 4 : 3, '0')
         // return combination like: "599001" without space
@@ -269,6 +267,8 @@ export class Station {
         }
         // flip 599 in 5NN
         result = result.replaceAll('599', '5NN')
+        // bare NR (no RST) is sent verbatim for contests like IARU VHF — do not mangle digits
+        if (rst === undefined) return result
         if (DEFAULT.RUNMODE !== RunMode.Hst) {
             result = result.replaceAll('000', 'TTT')
             result = result.replaceAll('00', 'TT')

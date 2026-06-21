@@ -22,13 +22,14 @@ This project is new and independent of Alex project. The original Morse Runner t
 * Privacy: The app is running in your browser. No data is collected by Web Morse Runner and not even send back to the webserver.
 * Web Audio API using AudioWorklet
 * No Backend
-* Contest Mode: 
+* Contest Mode:
     * Single Call
     * Pileup
     * WPX Contest
     * DARC CW Ausbildungscontest (CWA)
     * A1CLUB AWT
     * CWOps CWT
+    * IARU VHF
 * (Complex) Noise
 * Modulation
 * Filter
@@ -126,9 +127,11 @@ Web Morse Runner supports the following contest modes:
 * **Single Call** Always one station is calling to you. No pileup and you not need to call CQ.
 * **Pileup** In this station you need to call CQ first before stations will reply. The parameter *Activity* will determine how many stations will answer in average. The number of stations calling you will be displayed over the running clock.
 * **WPX Contest** Similar to the Pile-Up mode, but the number of stations in the Pile-up is not displayed. The usage of Band Condition (QRM/QSB etc.) is not enforced.
+* **HST** (HST = High Speed Traffic) Stations call quickly one after another. The parameter *Activity* determines how many stations will appear. You log each QSO using ESM.
 * **DARC CWA** (EXPERIMENTAL) Exchange is DOK. You need to [upload](#upload-calls) calls with file [DL-All_DOK.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/DL-All_DOK.txt) that contain necessary DOK information for stations. Notice the points are still calculated by prefix not DOK, this might be later updated.
 * **AWT** (EXPERIMENTAL) Exchange is the name. You need to [upload](#upload-calls) [AWT.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/AWT.txt) that contain necessary example calls with names. The point calculation is still bases on prefix. This might be later added.
 * **CWOps CWT** (EXPERIMENTAL) Exchange is the name and the CWOps Nr.. You need to [upload](#upload-calls) [CWOps.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/CWOps.txt) that contain necessary example calls with names and Numbers. The point calculation is still bases on prefix. This might be later added.
+* **IARU VHF** Exchange is RST, serial number, and your own 6-character QTH locator (LOC, e.g. `JN58TD`). You need to [upload](#upload-calls) one of the new example files — [`IARU-VHF-NOCW.txt`](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/IARU-VHF-NOCW.txt) for mixed-mode callers or [`IARU-VHF-ONLYCW.txt`](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/IARU-VHF-ONLYCW.txt) for CW-active callers — that contain callsigns together with their associated QTH locators. Set your own QTH locator in the **LOC** field of the My Exchange panel before starting the contest.
 
 
 ## Pileup
@@ -235,6 +238,8 @@ The **⏺ Rec** button is always available in the Contest panel. It operates ind
 The output is an uncompressed PCM WAV file (11,025 Hz, 16-bit mono) named `morse_<CALL>_<DATE>_<TIME>Z.wav`. At this sample rate the audio is well suited for CW tones and the file size is approximately 1.3 MB per minute. Recording is capped at 90 minutes per session (≈ 119 MB).
 
 ## Version
+* **0.18-beta** (2026-06-13)
+  * New **IARU VHF Contest** mode. Exchange is RST, serial number, and your own QTH locator (LOC). Thanks to Kalin (LZ1MZK) for the pull request. Two new example call files are provided in the [Example_Calls](Example_Calls) folder: `IARU-VHF-NOCW.txt` (mixed-mode callers) and `IARU-VHF-ONLYCW.txt` (CW-active callers). Both files associate callsigns with their 6-character Maidenhead locator.
 * **0.17.1-beta** (2026-06-10)
   * Bugfix: minor layout bugs fixed.
 * **0.17-beta** (2026-06-09)

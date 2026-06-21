@@ -77,6 +77,10 @@ const cwtKey = Object.assign({}, stdKey, {
     F2: { label: "<Exch>", send: StationMessage.NR },
 })
 
+const iaruKey = Object.assign({}, stdKey, {
+    F2: { label: "<Exch>", send: StationMessage.NR },
+})
+
 
 const contest_def = [
     {
@@ -151,9 +155,12 @@ const contest_def = [
         name: "IARU VHF",
         runmode: RunMode.Single,
         exchange: [Exchange.RST, Exchange.NR, Exchange.LOC],
-        key: stdKey,
+        key: iaruKey,
         exchange_msg: "<rst> <nr> <1>",
-        my_exchange: 'LOC'
+        my_exchange: 'LOC',
+        contest_messages: {
+            NrQm: 'LOC?',
+        }
     },
 ]
 
