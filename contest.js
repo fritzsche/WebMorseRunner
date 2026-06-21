@@ -98,9 +98,6 @@ export class Contest {
                 if (exchange1) this._MyStation.exchange1 = exchange1
                 const exchange2 = contest_data.exchange2
                 if (exchange2) this._MyStation.exchange2 = exchange2
-                //     console.log(exchange1)
-                const exchange_msg = contest_data.exchange_msg
-                if (exchange_msg) Station.contestExchangeMessage = exchange_msg
             }
         }
 

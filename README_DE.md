@@ -7,6 +7,8 @@ Dies ist eine neu geschriebene Version von Morse Runner als Web-Anwendung.
 
 Die App wird auf GitHub Pages gehostet: https://fritzsche.github.io/WebMorseRunner/
 
+**Translations:** [English](README.md) · [日本語](README_JP.md)
+
 
 Das Projekt ist inspiriert durch das Programm [Morse Runner von VE3NEA - Alex Shovkoplyas](https://github.com/VE3NEA/MorseRunner). Die Idee, ein komplett neues Web-App-Projekt zu starten, stammt aus dem vorherigen Versuch des Autors, [Morse Runner auf Linux und Mac zu portieren](https://github.com/fritzsche/MorseRunner).
 
@@ -27,6 +29,7 @@ Dieses Projekt ist neu und unabhängig vom Alex-Projekt. Der originale Morse Run
     * DARC CW Ausbildungscontest (CWA)
     * A1CLUB AWT
     * CWOps CWT
+    * IARU VHF
 * (Komplexes) Rauschen
 * Modulation
 * Filter
@@ -124,9 +127,11 @@ Web Morse Runner unterstützt die folgenden Contest-Modi:
 * **Single Call**: Es ruft immer eine Station dich an. Kein Pileup und du musst kein CQ rufen.
 * **Pileup**: In dieser Station musst du zuerst CQ rufen, bevor Stationen antworten. Der Parameter *Activity* bestimmt, wie viele Stationen im Durchschnitt antworten. Die Anzahl der Stationen, die dich rufen, wird über der laufenden Uhr angezeigt.
 * **WPX Contest**: Ähnlich wie der Pileup-Modus, aber die Anzahl der Stationen im Pileup wird nicht angezeigt. Die Verwendung von Bandbedingungen (QRM/QSB usw.) ist nicht erzwungen.
+* **HST** (HST = High Speed Traffic): Stationen rufen sich schnell hintereinander. Der Parameter *Activity* bestimmt, wie viele Stationen erscheinen. Du protokollierst jedes QSO mit ESM.
 * **DARC CWA** (EXPERIMENTELL): Austausch ist DOK. Du musst [DL-All_DOK.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/DL-All_DOK.txt) [hochladen](#rufzeichen-hochladen), das die notwendigen DOK-Informationen für Stationen enthält. Beachte, dass die Punkte immer noch nach Präfix berechnet werden, nicht nach DOK. Dies könnte später aktualisiert werden.
 * **AWT** (EXPERIMENTELL): Austausch ist der Name. Du musst [AWT.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/AWT.txt) [hochladen](#rufzeichen-hochladen), das Beispielrufe mit Namen enthält. Die Punkteberechnung basiert weiterhin auf dem Präfix. Dies könnte später hinzugefügt werden.
 * **CWOps CWT** (EXPERIMENTELL): Austausch ist der Name und die CWOps-Nr. Du musst [CWOps.txt](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/CWOps.txt) [hochladen](#rufzeichen-hochladen), das Beispielrufe mit Namen und Nummern enthält. Die Punkteberechnung basiert weiterhin auf dem Präfix. Dies könnte später hinzugefügt werden.
+* **IARU VHF**: Austausch ist RST, laufende Nummer und dein eigener 6-stelliger QTH-Locator (LOC, z.B. `JN58TD`). Du musst eine der neuen Beispieldateien [hochladen](#rufzeichen-hochladen) — [`IARU-VHF-NOCW.txt`](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/IARU-VHF-NOCW.txt) für Stationen mit gemischten Betriebsarten oder [`IARU-VHF-ONLYCW.txt`](https://raw.githubusercontent.com/fritzsche/WebMorseRunner/refs/heads/main/Example_Calls/IARU-VHF-ONLYCW.txt) für CW-aktive Stationen — die Rufzeichen zusammen mit ihrem zugehörigen QTH-Locator enthalten. Trage deinen eigenen QTH-Locator vor dem Start des Contests im Feld **LOC** des My-Exchange-Panels ein.
 
 
 ## Pileup
@@ -232,6 +237,8 @@ Die **⏺ Rec**-Taste ist im Contest-Panel immer verfügbar. Sie arbeitet unabh�
 Die Ausgabe ist eine unkomprimierte PCM-WAV-Datei (11.025 Hz, 16-Bit Mono) mit dem Namen `morse_<CALL>_<DATE>_<TIME>Z.wav`. Bei dieser Abtastrate ist das Audio gut für CW-Töne geeignet und die Dateigröße beträgt ungefähr 1,3 MB pro Minute. Die Aufnahme ist auf 90 Minuten pro Sitzung begrenzt (≈ 119 MB).
 
 ## Versionsverlauf
+* **0.18-beta** (2026-06-13)
+  * Neuer **IARU VHF Contest**-Modus. Der Austausch besteht aus RST, laufender Nummer und deinem eigenen QTH-Locator (LOC). Danke an Kalin (LZ1MZK) für den Pull Request. Zwei neue Beispiel-Call-Dateien werden im Ordner [Example_Calls](Example_Calls) bereitgestellt: `IARU-VHF-NOCW.txt` (gemischte Betriebsarten) und `IARU-VHF-ONLYCW.txt` (CW-aktive Stationen). Beide Dateien verknüpfen Rufzeichen mit ihrem 6-stelligen Maidenhead-Locator.
 * **0.17.1-beta** (2026-06-10)
   * Bugfix: kleinere Layout-Bugs behoben.
 * **0.17-beta** (2026-06-09)

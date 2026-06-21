@@ -26,7 +26,7 @@ const _stubConf = {
 class _StubContest {
     constructor() { this._conf = _stubConf }
 }
-const _stubTst = { post: () => {} }
+const _stubTst = { post: () => { } }
 _setContestRef(_StubContest, _stubTst)
 
 // ── Station base class ────────────────────────────────────────────────────────
@@ -56,6 +56,16 @@ test('Station: NrAsText for 4-digit NR produces 7-char base', () => {
     // RST=599 (3) + NR=1000 (4) → base length 7
     const result = Station.NrAsText(599, 1000)
     assert.strictEqual(result.length, 7, `expected 7 chars for 4-digit NR, got "${result}"`)
+})
+
+test('Station: NrAsText with undefined RST returns bare NR without mangling', () => {
+    // IARU VHF and other modes that use <nr> without <rst> must send NR verbatim.
+    // In particular the 0→T/O and 9→N substitutions must NOT apply to NR-only output.
+    assert.strictEqual(Station.NrAsText(undefined, 42), '042')
+    assert.strictEqual(Station.NrAsText(undefined, 100), '100')
+    assert.strictEqual(Station.NrAsText(undefined, 9), '009')
+    assert.strictEqual(Station.NrAsText(undefined, 199), '199')
+    assert.strictEqual(Station.NrAsText(undefined, 1234), '1234')
 })
 
 test('Station: RstAsText replaces 599 with 5NN', () => {
