@@ -238,7 +238,7 @@ The **⏺ Rec** button is always available in the Contest panel. It operates ind
 The output is an uncompressed PCM WAV file (11,025 Hz, 16-bit mono) named `morse_<CALL>_<DATE>_<TIME>Z.wav`. At this sample rate the audio is well suited for CW tones and the file size is approximately 1.3 MB per minute. Recording is capped at 90 minutes per session (≈ 119 MB).
 
 ## Version
-* **0.18-beta** (2026-06-13)
+* **0.18-beta** (2026-06-13) **HAM Radio Friedrichshafen Edition**
   * New **IARU VHF Contest** mode. Exchange is RST, serial number, and your own QTH locator (LOC). Thanks to Kalin (LZ1MZK) for the pull request. Two new example call files are provided in the [Example_Calls](Example_Calls) folder: `IARU-VHF-NOCW.txt` (mixed-mode callers) and `IARU-VHF-ONLYCW.txt` (CW-active callers). Both files associate callsigns with their 6-character Maidenhead locator.
 * **0.17.1-beta** (2026-06-10)
   * Bugfix: minor layout bugs fixed.
