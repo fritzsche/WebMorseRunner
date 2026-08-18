@@ -7,6 +7,7 @@ export class MyStation extends Station {
     constructor() {
         super()
         this.Pieces = new Array()
+        this.PieceMsgs = new Array()
         this.Init()
     }
 
@@ -20,8 +21,9 @@ export class MyStation extends Station {
     }
 
     AbortSend() {
-        const sendHis = this.Pieces.includes(Station.Messages.HisCall) ? true : false
-        const sendNr = this.Pieces.includes(Station.Messages.HisCall) ? true : false
+        const sendHis = this.PieceMsgs.includes(StationMessage.HisCall)
+        const sendNr = this.PieceMsgs.some(
+            (m) => MyStation.NrMessages.includes(m))
 
         Tst.post({
             type: AudioMessage.abort_sending,
@@ -35,10 +37,18 @@ export class MyStation extends Station {
         this._Msg = [StationMessage.Garbage]
         this.MsgText = ''
         this.Pieces = new Array()
+        this.PieceMsgs = new Array()
         this.State = Station.State.Listening //State.Listening
         this.ProcessEvent(Event.MsgSent)
     }
 
+
+    SendMsg(AMsg) {
+        // remember which message the pieces being added belong to,
+        // so an aborted send can tell the UI what was not sent
+        this._PieceMsg = AMsg
+        super.SendMsg(AMsg)
+    }
 
     SendText(AMsg) {
         this._AddToPieces(AMsg)
@@ -63,14 +73,20 @@ export class MyStation extends Station {
         while (p >= 0) {
 
             this.Pieces.push(AMsg.substr(1, p - 1))
+            this.PieceMsgs.push(this._PieceMsg)
             this.Pieces.push('@')  //his callsign indicator
+            this.PieceMsgs.push(StationMessage.HisCall)
             AMsg = AMsg.substr(p + 5, AMsg.length)
             p = AMsg.indexOf('<his>')
         }
         this.Pieces.push(AMsg)
+        this.PieceMsgs.push(this._PieceMsg)
 
         for (let i = this.Pieces.length - 1; i >= 0; i--)
-            if (this.Pieces[i] === '') this.Pieces.splice(i, 1)
+            if (this.Pieces[i] === '') {
+                this.Pieces.splice(i, 1)
+                this.PieceMsgs.splice(i, 1)
+            }
 
     }
 
@@ -128,11 +144,20 @@ export class MyStation extends Station {
         })
     }
 
+    // messages that carry the exchange / serial number
+    static NrMessages = [
+        StationMessage.NR, StationMessage.Exchange1, StationMessage.MyExchange,
+        StationMessage.R_NR, StationMessage.R_NR2,
+        StationMessage.DeMyCallNr1, StationMessage.DeMyCallNr2,
+        StationMessage.MyCallNr2,
+    ]
+
     GetBlock() {
         let result = super.GetBlock()
         if (this._Envelope === null  || this._Envelope === undefined) {
 
             this.Pieces.shift()
+            this.PieceMsgs.shift()
             if (this.Pieces.length > 0) {
                 this._SendNextPiece()
                 //cursor to exchange field
