@@ -160,7 +160,7 @@ export class Station {
 
     Tick() {
         // just finished sending
-        if (this.State === Station.State.Sending && this._Envelope === null) {
+        if (this.State === Station.State.Sending && !this._Envelope) {
             this.MsgText = ''
             this.State = Station.State.Listening
             this.ProcessEvent(Station.Event.MsgSent)

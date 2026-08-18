@@ -91,12 +91,13 @@ export class MyStation extends Station {
 
 
     UpdateCall(call) {
-        let canUpdateCall = true
-        let NewEnvelope
-        // check the call is actually just send        
-        if ((this.Pieces.length > 0) && (this.Pieces[0] === Station.Messages.HisCall)) {
+        let canUpdateCall = false
+        // the callsign is being keyed right now: try to patch the envelope on the fly
+        if ((this.Pieces.length > 0) && (this.Pieces[0] === Station.Messages.HisCall)
+            && this._Envelope) {
             //create new envelope
-            NewEnvelope = super.generateEnvelope(Keyer.Encode(call))
+            const NewEnvelope = super.generateEnvelope(Keyer.Encode(call))
+            canUpdateCall = true
             // verify the send buffer
             for (let i = 0; i < this._SendPos; i++) {
                 if (NewEnvelope[i] !== this._Envelope[i]) {
@@ -104,16 +105,15 @@ export class MyStation extends Station {
                     break
                 }
             }
-
-        }
-        if (canUpdateCall) {
-            this._Envelope = NewEnvelope
-            this.HisCall = call
+            if (canUpdateCall) {
+                this._Envelope = NewEnvelope
+                this.HisCall = call
+            }
         }
         //could not correct the current message
         //but another call is scheduled for sending
         if (!canUpdateCall) {
-            for (let i = 0; i < this.Pieces.length;i++) {
+            for (let i = 0; i < this.Pieces.length; i++) {
                 if (this.Pieces[i] === Station.Messages.HisCall) {
                     canUpdateCall = true
                     this.HisCall = call
