@@ -33,6 +33,7 @@ export class Config {
 
         // expert config
         this._max_dx = document.querySelector("#max_dx")
+        this._min_dx = document.querySelector("#min_dx")
         this._dx_wpm_type = document.querySelector("#dx_wpm_type")
         this._dx_min_wpm = document.querySelector("#dx_min_wpm")
         this._dx_max_wpm = document.querySelector("#dx_max_wpm")
@@ -69,6 +70,7 @@ export class Config {
             lids: false,
             // expert config
             max_dx: 0,
+            min_dx: 0,
             dx_wpm_type: 'standard',
             dx_min_wpm: null,
             dx_max_wpm: null,
@@ -145,6 +147,7 @@ export class Config {
         this._lids.checked = this._config.lids
         // expert config
         this._max_dx.value = String(this._config.max_dx)
+        this._min_dx.value = String(this._config.min_dx)
         this._dx_wpm_type.value = this._config.dx_wpm_type
         this._dx_min_wpm.value = String(this._config.dx_min_wpm)
         this._dx_max_wpm.value = String(this._config.dx_max_wpm)
@@ -189,6 +192,7 @@ export class Config {
 
         // expert config
         this._config.max_dx = parseInt(this._max_dx.value) || 0
+        this._config.min_dx = parseInt(this._min_dx.value) || 0
         this._config.dx_wpm_type = this._dx_wpm_type.value
         const minWpm = parseInt(this._dx_min_wpm.value)
         const maxWpm = parseInt(this._dx_max_wpm.value)

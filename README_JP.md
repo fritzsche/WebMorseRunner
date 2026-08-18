@@ -237,6 +237,8 @@ Web Morse Runner は生成された音声を WAV ファイルに録音し、後�
 出力は非圧縮 PCM WAV ファイル (11,025 Hz、16-bit モノラル) で、ファイル名は `morse_<CALL>_<DATE>_<TIME>Z.wav` です。このサンプルレートでは CW トーンに適しており、ファイルサイズは約 1.3 MB/分です。1 セッションあたりの録音は 90 分 (約 119 MB) で上限に達します。
 
 ## バージョン履歴
+* **0.19-beta** (2026-08-18) **Tokyo HAM Fair Edition**
+  * 東京 HAM フェアに向けて準備中です。Hiro-san (JJ1FXF) が A1Club のブースに参加します。エキスパート設定に「パイルアップおよびコンテストモードで、パイルアップに保つ DX 局の最小数を指定する」新しい `Min DX Station` パラメータを追加しました。Hiro-san (JJ1FXF) のご提案に感謝します。
 * **0.18-beta** (2026-06-13) **HAM Radio Friedrichshafen Edition**
   * 新しい **IARU VHF コンテスト** モード。交換情報は RST、シリアルナンバー、および自分自身の QTH ロケータ (LOC) です。プルリクエストを寄贈してくださった Kalin (LZ1MZK) 氏に感謝します。[Example_Calls](Example_Calls) フォルダに 2 つの新しいサンプルコールファイルが追加されました: `IARU-VHF-NOCW.txt` (混合モードの局) と `IARU-VHF-ONLYCW.txt` (CW 運用局)。どちらのファイルもコールサインを 6 文字の Maidenhead ロケータと関連付けています。
 * **0.17.1-beta** (2026-06-10)

@@ -49,6 +49,11 @@ export class ExpertConfig {
             this._config.update()
         })
 
+        // Update expert config when min_dx changes
+        document.getElementById("min_dx").addEventListener("change", () => {
+            this._config.update()
+        })
+
         // Update expert config when inputs change
         this.minWpmInput.addEventListener("input", () => {
             this._config.update()

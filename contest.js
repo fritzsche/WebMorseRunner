@@ -159,6 +159,7 @@ export class Contest {
 
         // Expert Config
         if (DEFAULT.MAX_DX !== conf.max_dx) DEFAULT.MAX_DX = conf.max_dx
+        if (DEFAULT.MIN_DX !== conf.min_dx) DEFAULT.MIN_DX = conf.min_dx
         if (DEFAULT.DX_WPM_TYPE !== conf.dx_wpm_type) DEFAULT.DX_WPM_TYPE = conf.dx_wpm_type
         if (DEFAULT.DX_MIN_WPM !== conf.dx_min_wpm) DEFAULT.DX_MIN_WPM = conf.dx_min_wpm
         if (DEFAULT.DX_MAX_WPM !== conf.dx_max_wpm) DEFAULT.DX_MAX_WPM = conf.dx_max_wpm
@@ -357,6 +358,36 @@ export class Contest {
                 type: AudioMessage.request_dx,
                 data: 1,
             })
+        }
+
+        // Pile-up and Contest modes: ensure at least MIN_DX stations are present
+        if (DEFAULT.RUNMODE === RunMode.Pileup &&
+            DEFAULT.MIN_DX > 0 &&
+            !this._dx_requested)
+        {
+            const current_dx = this.countDXStations()
+            if (current_dx < DEFAULT.MIN_DX) {
+                let needed = DEFAULT.MIN_DX - current_dx
+                // Respect MAX_DX cap when set
+                if (DEFAULT.MAX_DX > 0) {
+                    const remaining = DEFAULT.MAX_DX - current_dx
+                    if (remaining > 0) {
+                        needed = Math.min(needed, remaining)
+                        this._dx_requested = true
+                        this.post({
+                            type: AudioMessage.request_dx,
+                            data: needed,
+                        })
+                    }
+                    // else: MAX_DX already hit; misconfiguration — let MAX_DX dominate
+                } else {
+                    this._dx_requested = true
+                    this.post({
+                        type: AudioMessage.request_dx,
+                        data: needed,
+                    })
+                }
+            }
         }
 
 

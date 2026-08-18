@@ -237,6 +237,8 @@ Die **⏺ Rec**-Taste ist im Contest-Panel immer verfügbar. Sie arbeitet unabh�
 Die Ausgabe ist eine unkomprimierte PCM-WAV-Datei (11.025 Hz, 16-Bit Mono) mit dem Namen `morse_<CALL>_<DATE>_<TIME>Z.wav`. Bei dieser Abtastrate ist das Audio gut für CW-Töne geeignet und die Dateigröße beträgt ungefähr 1,3 MB pro Minute. Die Aufnahme ist auf 90 Minuten pro Sitzung begrenzt (≈ 119 MB).
 
 ## Versionsverlauf
+* **0.19-beta** (2026-08-18) **Tokyo HAM Fair Edition**
+  * Vorbereitung für die Tokyo HAM Fair, bei der Hiro-san (JJ1FXF) am A1Club-Stand sein wird. Neuer `Min DX Station`-Parameter in der Expertenkonfiguration hinzugefügt, um die Mindestanzahl der DX-Stationen im Pile-up für Pile-up- und Contest-Modi festzulegen. Danke an Hiro-san (JJ1FXF) für den Vorschlag.
 * **0.18-beta** (2026-06-13) **HAM Radio Friedrichshafen Edition**
   * Neuer **IARU VHF Contest**-Modus. Der Austausch besteht aus RST, laufender Nummer und deinem eigenen QTH-Locator (LOC). Danke an Kalin (LZ1MZK) für den Pull Request. Zwei neue Beispiel-Call-Dateien werden im Ordner [Example_Calls](Example_Calls) bereitgestellt: `IARU-VHF-NOCW.txt` (gemischte Betriebsarten) und `IARU-VHF-ONLYCW.txt` (CW-aktive Stationen). Beide Dateien verknüpfen Rufzeichen mit ihrem 6-stelligen Maidenhead-Locator.
 * **0.17.1-beta** (2026-06-10)
