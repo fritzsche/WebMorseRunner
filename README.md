@@ -217,6 +217,7 @@ The transcript shows a chronological log of all messages exchanged during the co
 ## Expert Configuration
 Click the **⚙ (gear icon)** to open the Expert Configuration panel. These settings take effect immediately when changed during a running contest.
 
+* **Min DX Station** Ensures that at least this many DX stations are kept in the pile-up at all times in Pile-up and Contest modes. Useful if you want a minimum level of pile-up activity. Set to 0 for no minimum. Not applied to Single Call or HST modes.
 * **Max Pile-up** Limits the maximum number of DX stations that simultaneously call you in Pile-up relevant modes. Useful if you want to practice with a more manageable number of callers. Set to 0 for unlimited.
 * **DX Stations WPM** Controls the speed of calling DX stations:
     * *Standard* — stations respond at between half and the full speed of your own CW speed setting.

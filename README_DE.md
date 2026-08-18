@@ -216,6 +216,7 @@ Das Transkript zeigt ein chronologisches Protokoll aller während des Contests a
 ## Expertenkonfiguration
 Klicke auf das **⚙ (Zahnrad-Symbol)**, um das Expertenkonfigurations-Panel zu öffnen. Diese Einstellungen werden bei Änderung während eines laufenden Contests sofort wirksam.
 
+* **Min DX Station**: Stellt sicher, dass in Pile-up- und Contest-Modi jederzeit mindestens so viele DX-Stationen im Pile-up gehalten werden. Nützlich, wenn du ein Mindestmaß an Pile-up-Aktivität möchtest. Auf 0 setzen für kein Minimum. Wird nicht auf Single Call oder HST angewendet.
 * **Max Pile-up**: Begrenzt die maximale Anzahl von DX-Stationen, die dich in Pileup-relevanten Modi gleichzeitig rufen. Nützlich, wenn du mit einer überschaubareren Anzahl von Anrufern üben möchtest. Auf 0 setzen für unbegrenzt.
 * **DX Stations WPM**: Steuert die Geschwindigkeit der rufenden DX-Stationen:
     * *Standard* — Stationen antworten mit einer Geschwindigkeit zwischen der Hälfte und der vollen Geschwindigkeit deiner CW-Geschwindigkeitseinstellung.
