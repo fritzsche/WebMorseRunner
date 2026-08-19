@@ -39,7 +39,7 @@ export class MyStation extends Station {
         this.Pieces = new Array()
         this.PieceMsgs = new Array()
         this.State = Station.State.Listening //State.Listening
-        this.ProcessEvent(Event.MsgSent)
+        this.ProcessEvent(Station.Event.MsgSent)
     }
 
 
@@ -154,7 +154,7 @@ export class MyStation extends Station {
 
     GetBlock() {
         let result = super.GetBlock()
-        if (this._Envelope === null  || this._Envelope === undefined) {
+        if (!this._Envelope) {
 
             this.Pieces.shift()
             this.PieceMsgs.shift()
