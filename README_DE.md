@@ -238,6 +238,9 @@ Die **⏺ Rec**-Taste ist im Contest-Panel immer verfügbar. Sie arbeitet unabh�
 Die Ausgabe ist eine unkomprimierte PCM-WAV-Datei (11.025 Hz, 16-Bit Mono) mit dem Namen `morse_<CALL>_<DATE>_<TIME>Z.wav`. Bei dieser Abtastrate ist das Audio gut für CW-Töne geeignet und die Dateigröße beträgt ungefähr 1,3 MB pro Minute. Die Aufnahme ist auf 90 Minuten pro Sitzung begrenzt (≈ 119 MB).
 
 ## Versionsverlauf
+* **0.19.1-beta** (2026-08-19)
+  * Bugfix: Das Drücken von ESC während einer Übertragung setzt das "Exchange gesendet"-Flag jetzt zuverlässig zurück. Die `abort_sending`-Nachricht meldet `sendNr` nun korrekt, wenn der Exchange noch in der Warteschlange war, sodass die Oberfläche nicht mehr fälschlicherweise annimmt, dass der Exchange bereits gesendet wurde. Danke an Jonathan (PiTiLeZarD) für den Pull Request.
+  * Bugfix: Das Ändern des Rufzeichens während der Übertragung führt nicht mehr dazu, dass das neue Rufzeichen "stecken bleibt", wenn die Hüllkurve nicht im laufenden Betrieb angepasst werden kann. Die `update_call`-Antwort meldet jetzt nur dann Erfolg, wenn das Rufzeichen tatsächlich übernommen wurde. Danke an Jonathan (PiTiLeZarD) für den Pull Request.
 * **0.19-beta** (2026-08-18) **Tokyo HAM Fair Edition**
   * Vorbereitung für die Tokyo HAM Fair, bei der Hiro-san (JJ1FXF) am A1Club-Stand sein wird. Neuer `Min DX Station`-Parameter in der Expertenkonfiguration hinzugefügt, um die Mindestanzahl der DX-Stationen im Pile-up für Pile-up- und Contest-Modi festzulegen. Danke an Hiro-san (JJ1FXF) für den Vorschlag.
 * **0.18-beta** (2026-06-13) **HAM Radio Friedrichshafen Edition**

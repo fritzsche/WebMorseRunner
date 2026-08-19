@@ -139,7 +139,7 @@ export class Station {
     }
 
     GetBlock() {
-        if (!this._Envelope || this._Envelope === null) {
+        if (!this._Envelope) {
             return null
         }
         let result = new Array()
