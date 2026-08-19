@@ -272,7 +272,7 @@ export class Contest {
         for (let Stn = 0; Stn < this.Stations.length; Stn++) {
             if (this.Stations[Stn].State === Station.State.Sending) {
                 let Blk = this.Stations[Stn].GetBlock()
-                for (let i = 0; i < Blk.length; i++) {
+                for (let i = 0; Blk && i < Blk.length; i++) {
                     let Bfo = this.Stations[Stn].Bfo - this.RitPhase -
                         i * Math.PI * 2 * DEFAULT.RIT / DEFAULT.RATE
                     this._src_complex_buffer.Re[i] =
