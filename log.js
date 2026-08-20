@@ -67,7 +67,7 @@ export class Log {
             const qso_bin = Math.floor(item.Clock / time_per_bin)
 
 
-            if (qso_bin <= bin_number) bins[qso_bin]++
+            if (qso_bin < bin_number) bins[qso_bin]++
 
         }
         return bins
