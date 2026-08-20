@@ -641,7 +641,7 @@ export class View {
     }
 
     startTX() {
-        this.TX = false
+        this.TX = true
         this.updateCall = this.updateCall.bind(this)
         this.call.addEventListener('input', this.updateCall)
         this.txIndicator.classList.add('tx-active')
