@@ -145,7 +145,7 @@ export class View {
         if (!active) return
         switch (active.id) {
             case 'call':
-            case 'RST':
+            case 'rst':
                 if (rst_value === '' && RST) RST.value = '599'
                 let next_id = this._ContestDefinition.getNextField(active.id)
                 if (next_id === 'rst') next_id = this._ContestDefinition.getNextField(next_id)
