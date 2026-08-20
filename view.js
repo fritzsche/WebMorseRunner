@@ -199,8 +199,9 @@ export class View {
                 data: StationMessage.NR
             })
         }
-        // send ?
-        if (numberSend && !dxNrLogged) {
+        // send ? only when the call did not change: after a correction the DX
+        // has to answer the new call first, so '?' would just waste airtime
+        if (callSend && numberSend && !dxNrLogged) {
             this.sendMessage({
                 type: AudioMessage.send_msg,
                 data: StationMessage.Qm,
