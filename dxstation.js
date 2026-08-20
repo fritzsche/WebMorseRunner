@@ -22,11 +22,7 @@ export class DxStation extends Station {
     if (call[2]) this.exchange2 = call[2]
 
     if (DEFAULT.QSB || DEFAULT.FLUTTER) {
-      this.Qsb = new Qsb()
-      if (DEFAULT.QSB) this.Qsb.Bandwidth = 0.1 + Math.random() / 2
-      if (DEFAULT.FLUTTER && Math.random() < 0.3) {
-        this.Qsb.Bandwidth = 3 + Math.random() * 30
-      }
+      this.initQSB();
     }
 
     this.NrWithError = DEFAULT.LIDS && (Math.random() < 0.1)
