@@ -145,7 +145,6 @@ export class DxOperator {
                 case OperatorState.NeedQso:
                     this._DecPatience()
                     break
-                    0
                 case OperatorState.NeedNr:
                 case OperatorState.NeedCall:
                 case OperatorState.NeedCallNr:
