@@ -479,7 +479,6 @@ export class View {
         const factor = 100/(1.1*max_value)
 //        console.log(factor)
 //        console.log(this.qso_chart_bars.length)
-        for(let i = 0;i< no_bars;i++) 
         for (let i = 0; i < no_bars; i++) {
             let number = 0
             if (data[i] && data[i] > 0) number = data[i]
