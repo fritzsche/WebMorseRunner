@@ -69,19 +69,6 @@ export class DxStation extends Station {
         if (this.State === Station.State.PreparingToSend)
           for (let i = 1; i <= this.Oper.RepeatCnt; i++) this.SendMsg(this.Oper.GetReply())
         break
-      case Station.Event.Timeout:
-        if (this.State === Station.State.Listening) {
-          this.Oper.MsgReceived([StationMessage.None])
-          if (Oper.State === OperatorState.Failed) return
-          this.State = State.PreparingToSend
-          //preparations to send are done, now send
-          if (this.State = Station.State.PreparingToSend)
-            for (let i = 1; i <= this.Oper.RepeatCnt; i++)
-              this.SendMsg(this.Oper.GetReply)
-        }
-        break
-
-
       case Station.Event.MeFinished: // he finished sending
         // we notice the message only if we are not sending ourselves
         if (this.State !== Station.State.Sending) {
