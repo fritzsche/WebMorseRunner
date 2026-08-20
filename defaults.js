@@ -1,8 +1,3 @@
-export const exchangeId = {
-  nr: 'nr',
-  rst: 'rst',
-  exchange1: 'exchange1'
-}
 
 
 export const AudioMessage = {
