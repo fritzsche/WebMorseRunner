@@ -87,8 +87,7 @@ export class Log {
 
     wipe() {
 
-        //       this.runmode = this._contestDefinition._contest.runmode
-        this.runmode = ContestDefinition.getRunMode()
+        this.runmode = ContestDefinition.getRunMode(this._config.contest_id)
 
 
 
