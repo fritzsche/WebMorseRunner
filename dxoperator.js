@@ -314,7 +314,7 @@ export class DxOperator {
                 if (this.Patience < (FULL_PATIENCE - 1)) return StationMessage.NR
                 else if ((DEFAULT.RUNMODE === RunMode.Hst) || (Math.random() < 0.9))
                     return StationMessage.R_NR
-                else StationMessage.R_NR2
+                else return StationMessage.R_NR2
                 break
         }
     }
