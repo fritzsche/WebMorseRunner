@@ -134,7 +134,6 @@ export class Log {
             complete_qso.Pref = prefix
         }
         this.NR++
-        let log = document.getElementById("log")
         this.data.push(complete_qso)
         this.addTable(complete_qso)
 
