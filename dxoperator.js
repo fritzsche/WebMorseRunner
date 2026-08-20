@@ -192,7 +192,7 @@ export class DxOperator {
                     break
                 case OperatorState.NeedNr:
                 case OperatorState.NeedEnd:
-                    this._State = OperatorState.Failed
+                    this.State = OperatorState.Failed
                     break
                 case OperatorState.NeedCall:
                 case OperatorState.NeedCallNr:
@@ -236,7 +236,7 @@ export class DxOperator {
         }
 
         if (!DEFAULT.LIDS && AMsg.includes(StationMessage.Garbage))
-            this._State = OperatorState.NeedPrevEnd
+            this.State = OperatorState.NeedPrevEnd
 
 
         if (this.State !== OperatorState.NeedPrevEnd) this._DecPatience()
