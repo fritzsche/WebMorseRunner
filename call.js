@@ -54,7 +54,7 @@ export class Calls {
                 return l.substring(0, 1) !== "#";
             })
             .map((e) => {
-                e.trim();
+                e = e.trim();
                 // strip tabs and line breaks to ensure
                 // call signs are just call signs
                 e = e.replace(/[\n\r\t]/gm, "");
