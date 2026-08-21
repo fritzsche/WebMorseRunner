@@ -145,7 +145,7 @@ export class View {
         if (!active) return
         switch (active.id) {
             case 'call':
-            case 'RST':
+            case 'rst':
                 if (rst_value === '' && RST) RST.value = '599'
                 let next_id = this._ContestDefinition.getNextField(active.id)
                 if (next_id === 'rst') next_id = this._ContestDefinition.getNextField(next_id)
@@ -199,8 +199,9 @@ export class View {
                 data: StationMessage.NR
             })
         }
-        // send ?
-        if (numberSend && !dxNrLogged) {
+        // send ? only when the call did not change: after a correction the DX
+        // has to answer the new call first, so '?' would just waste airtime
+        if (callSend && numberSend && !dxNrLogged) {
             this.sendMessage({
                 type: AudioMessage.send_msg,
                 data: StationMessage.Qm,
@@ -478,7 +479,6 @@ export class View {
         const factor = 100/(1.1*max_value)
 //        console.log(factor)
 //        console.log(this.qso_chart_bars.length)
-        for(let i = 0;i< no_bars;i++) 
         for (let i = 0; i < no_bars; i++) {
             let number = 0
             if (data[i] && data[i] > 0) number = data[i]
@@ -641,7 +641,7 @@ export class View {
     }
 
     startTX() {
-        this.TX = false
+        this.TX = true
         this.updateCall = this.updateCall.bind(this)
         this.call.addEventListener('input', this.updateCall)
         this.txIndicator.classList.add('tx-active')

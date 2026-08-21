@@ -195,7 +195,7 @@ export class ContestDefinition {
     static getContest(id) {
         if (!id) return this.getContest('single')
         const contest = contest_def.find(e => e.id === id)
-        if (!id) return this.getContest('single')
+        if (!contest) return this.getContest('single')
         return contest
     }
 

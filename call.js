@@ -49,7 +49,7 @@ export class Calls {
             // ignore lines starting with hash as comments
             return l.substring(0, 1) !== '#'
         }).map(e => {
-            e.trim()
+            e = e.trim()
             // strip tabs and line breaks to ensure
             // call signs are just call signs 
             e = e.replace(/[\n\r\t]/gm, "")
@@ -89,7 +89,7 @@ export class Calls {
     }
 
     get_random() {
-        let random = this.get_random_int(0, this.calls.length)
+        let random = this.get_random_int(0, this.calls.length - 1)
         let call = this.calls[random]       
         return call
     }

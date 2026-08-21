@@ -1,8 +1,3 @@
-export const exchangeId = {
-  nr: 'nr',
-  rst: 'rst',
-  exchange1: 'exchange1'
-}
 
 
 export const AudioMessage = {
@@ -11,7 +6,7 @@ export const AudioMessage = {
   send_msg: 'send_msg',
   send_his: 'send_his',
   send_text: 'send_text',
-  abort_sending: 'step_sending',
+  abort_sending: 'stop_sending',
   send_exchange: 'send_exchange',
   qso_to_check_log: 'check_log',
   update_nr: 'update_nr',

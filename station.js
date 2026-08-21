@@ -72,13 +72,12 @@ export class Station {
         this.done = false
         this.custom_messages = {}
         this.Messages = { ...Station.Messages, ...this.custom_messages }
-        this.exchange1 = ''
-        this.exchange_msg = ''
         this.All_DxData = []
-
+        
         this.TX = false
         this.exchange1 = ''
         this.exchange2 = ''
+        this.exchange_msg = ''
 
     }
 

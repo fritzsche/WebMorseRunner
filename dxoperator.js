@@ -145,7 +145,6 @@ export class DxOperator {
                 case OperatorState.NeedQso:
                     this._DecPatience()
                     break
-                    0
                 case OperatorState.NeedNr:
                 case OperatorState.NeedCall:
                 case OperatorState.NeedCallNr:
@@ -192,7 +191,7 @@ export class DxOperator {
                     break
                 case OperatorState.NeedNr:
                 case OperatorState.NeedEnd:
-                    this._State = OperatorState.Failed
+                    this.State = OperatorState.Failed
                     break
                 case OperatorState.NeedCall:
                 case OperatorState.NeedCallNr:
@@ -236,7 +235,7 @@ export class DxOperator {
         }
 
         if (!DEFAULT.LIDS && AMsg.includes(StationMessage.Garbage))
-            this._State = OperatorState.NeedPrevEnd
+            this.State = OperatorState.NeedPrevEnd
 
 
         if (this.State !== OperatorState.NeedPrevEnd) this._DecPatience()
@@ -314,7 +313,7 @@ export class DxOperator {
                 if (this.Patience < (FULL_PATIENCE - 1)) return StationMessage.NR
                 else if ((DEFAULT.RUNMODE === RunMode.Hst) || (Math.random() < 0.9))
                     return StationMessage.R_NR
-                else StationMessage.R_NR2
+                else return StationMessage.R_NR2
                 break
         }
     }

@@ -67,7 +67,7 @@ export class Log {
             const qso_bin = Math.floor(item.Clock / time_per_bin)
 
 
-            if (qso_bin <= bin_number) bins[qso_bin]++
+            if (qso_bin < bin_number) bins[qso_bin]++
 
         }
         return bins
@@ -87,8 +87,7 @@ export class Log {
 
     wipe() {
 
-        //       this.runmode = this._contestDefinition._contest.runmode
-        this.runmode = ContestDefinition.getRunMode()
+        this.runmode = ContestDefinition.getRunMode(this._config.contest_id)
 
 
 
@@ -135,7 +134,6 @@ export class Log {
             complete_qso.Pref = prefix
         }
         this.NR++
-        let log = document.getElementById("log")
         this.data.push(complete_qso)
         this.addTable(complete_qso)
 

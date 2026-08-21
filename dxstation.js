@@ -22,11 +22,7 @@ export class DxStation extends Station {
     if (call[2]) this.exchange2 = call[2]
 
     if (DEFAULT.QSB || DEFAULT.FLUTTER) {
-      this.Qsb = new Qsb()
-      if (DEFAULT.QSB) this.Qsb.Bandwidth = 0.1 + Math.random() / 2
-      if (DEFAULT.FLUTTER && Math.random() < 0.3) {
-        this.Qsb.Bandwidth = 3 + Math.random() * 30
-      }
+      this.initQSB();
     }
 
     this.NrWithError = DEFAULT.LIDS && (Math.random() < 0.1)
@@ -69,19 +65,6 @@ export class DxStation extends Station {
         if (this.State === Station.State.PreparingToSend)
           for (let i = 1; i <= this.Oper.RepeatCnt; i++) this.SendMsg(this.Oper.GetReply())
         break
-      case Station.Event.Timeout:
-        if (this.State === Station.State.Listening) {
-          this.Oper.MsgReceived([StationMessage.None])
-          if (Oper.State === OperatorState.Failed) return
-          this.State = State.PreparingToSend
-          //preparations to send are done, now send
-          if (this.State = Station.State.PreparingToSend)
-            for (let i = 1; i <= this.Oper.RepeatCnt; i++)
-              this.SendMsg(this.Oper.GetReply)
-        }
-        break
-
-
       case Station.Event.MeFinished: // he finished sending
         // we notice the message only if we are not sending ourselves
         if (this.State !== Station.State.Sending) {
